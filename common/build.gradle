@@ -1,0 +1,29 @@
+loom {
+   accessWidenerPath.set(file("src/main/resources/${project.mod_id}.accesswidener"))
+}
+
+architectury {
+    common("fabric", "forge")
+}
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    modImplementation("gg.moonflower:pollen:${rootProject.pollen_version}")
+}
+
+processResources {
+    inputs.property "id", rootProject.mod_id
+
+    filesMatching(["architectury.common.json"]) {
+        expand "id": rootProject.mod_id
+    }
+}
+
+publishing {
+    publications {
+        mavenCommon(MavenPublication) {
+            artifactId = project.archivesBaseName
+            from components.java
+        }
+    }
+}

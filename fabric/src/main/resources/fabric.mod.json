@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}",
+  "version": "${version}",
+  "name": "${name}",
+  "description": "Work in progress",
+  "authors": [ "Moonflower" ],
+  "contributors": [ "Jackson" ],
+  "contact": {
+    "homepage": "https://www.moonflower.gg",
+    "issues": "https://github.com/MoonflowerTeam/${repo}/issues",
+    "sources": "https://github.com/MoonflowerTeam/${repo}/"
+  },
+  "mixins": [
+    "${id}-common.mixins.json",
+    "${id}.mixins.json"
+  ],
+  "license": "GPLv3",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "gg.moonflower.vanity.core.fabric.VanityFabric"
+    ]
+  },
+  "depends": {
+    "fabric": "*",
+    "minecraft": ">=1.18.2 <1.19",
+    "pollen": ">=1.0.0 <2.0"
+  }
+}

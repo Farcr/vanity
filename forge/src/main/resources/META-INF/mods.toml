@@ -1,0 +1,36 @@
+modLoader = "javafml"
+loaderVersion = "[40,)"
+issueTrackerURL = "https://github.com/MoonflowerTeam/${repo}/issues"
+license = "GPLv3"
+
+[[mods]]
+modId = "${id}"
+version = "${version}"
+displayName = "${name}"
+authors = "Moonflower"
+credits = "Jackson"
+description = "Work in progress"
+displayURL = "https://www.moonflower.gg"
+#updateJSONURL = ""
+#logoFile = ""
+
+[[dependencies.${id}]]
+modId = "forge"
+mandatory = true
+versionRange = "[40,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.${id}]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.18.2,1.19)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.${id}]]
+modId = "pollen"
+mandatory = true
+versionRange = "[1.0.0,2.0.0)"
+ordering = "BEFORE"
+side = "BOTH"
