@@ -3,6 +3,7 @@ package gg.moonflower.vanity.api.concept;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import gg.moonflower.vanity.core.util.XorMapCodec;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -63,7 +64,7 @@ public final class ConceptArt {
                         @Nullable ResourceLocation handModel) {
 
         public static final Codec<Entry> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.mapEither(TagKey.codec(Registry.ITEM.key()).fieldOf("tag"), ResourceLocation.CODEC.fieldOf("item")).forGetter(Entry::item),
+            XorMapCodec.create(TagKey.codec(Registry.ITEM.key()).fieldOf("tag"), ResourceLocation.CODEC.fieldOf("item")).forGetter(Entry::item),
             ResourceLocation.CODEC.optionalFieldOf("model").forGetter(entry -> Optional.ofNullable(entry.model)),
             ResourceLocation.CODEC.optionalFieldOf("hand_model").forGetter(entry -> Optional.ofNullable(entry.handModel))
         ).apply(instance, (item, model, handModel) -> new Entry(item, model.orElse(null), handModel.orElse(null))));
