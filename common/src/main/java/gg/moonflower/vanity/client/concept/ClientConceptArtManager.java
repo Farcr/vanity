@@ -29,10 +29,12 @@ public class ClientConceptArtManager extends ConceptArtManager {
         ConceptArt art = this.getAppliedConceptArt(stack);
         if (art == null)
             return null;
-        if (art.model() == null)
+
+        ConceptArt.Entry entry = art.getEntryForItem(stack.getItem());
+        if (entry == null || entry.model() == null)
             return null;
 
-        return ClientConceptArtManager.getModelLocation(art.model());
+        return ClientConceptArtManager.getModelLocation(entry.model());
     }
 
     @Nullable
@@ -40,9 +42,11 @@ public class ClientConceptArtManager extends ConceptArtManager {
         ConceptArt art = this.getAppliedConceptArt(stack);
         if (art == null)
             return null;
-        if (art.handModel() == null)
+
+        ConceptArt.Entry entry = art.getEntryForItem(stack.getItem());
+        if (entry == null || entry.handModel() == null)
             return null;
 
-        return ClientConceptArtManager.getModelLocation(art.handModel());
+        return ClientConceptArtManager.getModelLocation(entry.handModel());
     }
 }
