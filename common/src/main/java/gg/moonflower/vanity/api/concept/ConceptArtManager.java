@@ -26,7 +26,7 @@ public abstract class ConceptArtManager {
      * @param client Whether the client sided concept art manager should be returned
      * @return The sided concept art manager
      */
-    static ConceptArtManager get(boolean client) {
+    public static ConceptArtManager get(boolean client) {
         return client ? ClientConceptArtManager.INSTANCE : ServerConceptArtManager.INSTANCE;
     }
 
@@ -71,11 +71,30 @@ public abstract class ConceptArtManager {
      * @return The applied concept art, null if there is none
      */
     @Nullable
-    public ConceptArt getAppliedConceptArt(ItemStack stack) {
-        ResourceLocation location = ConceptArtItem.getAppliedConceptArt(stack);
+    public ConceptArt getItemConceptArt(ItemStack stack) {
+        ResourceLocation location = ConceptArtItem.getConceptArtId(stack);
         if (location == null)
             return null;
 
         return this.getConceptArt(location).orElse(null);
+    }
+
+    /**
+     * Retrieves the concept art variant applied to an item.
+     *
+     * @param stack The item stack to get the concept art from
+     * @return The concept art variant, null if there is none
+     */
+    @Nullable
+    public ConceptArt.Variant getItemConceptArtVariant(ItemStack stack) {
+        ResourceLocation variant = ConceptArtItem.getConceptArtVariantId(stack);
+        if (variant == null)
+            return null;
+
+        ConceptArt art = this.getItemConceptArt(stack);
+        if (art == null)
+            return null;
+
+        return art.getVariantForItem(variant, stack.getItem());
     }
 }
