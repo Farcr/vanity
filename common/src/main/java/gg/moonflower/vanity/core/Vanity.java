@@ -25,6 +25,7 @@ public class Vanity {
         .build();
 
     public static void onCommonInit() {
+        VanityBlocks.REGISTRY.register(Vanity.PLATFORM);
         VanityItems.REGISTRY.register(Vanity.PLATFORM);
 
         VanityMessages.init();

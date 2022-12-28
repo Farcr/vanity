@@ -1,0 +1,10 @@
+{
+  "ui.styling_table.take_result": {
+    "sounds": [
+      "ui/cartography_table/drawmap1",
+      "ui/cartography_table/drawmap2",
+      "ui/cartography_table/drawmap3"
+    ],
+    "subtitle": "subtitles.ui.vanity.styling_table.take_result"
+  }
+}
