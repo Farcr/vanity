@@ -19,9 +19,9 @@ loom {
         }
     }
 
-    launches {
+    runs {
         data {
-            arg "--existing", file("src/main/resources").absolutePath
+            programArgs "--existing", file("src/main/resources").absolutePath
         }
     }
 }
