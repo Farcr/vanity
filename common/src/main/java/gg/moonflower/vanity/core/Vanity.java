@@ -2,6 +2,7 @@ package gg.moonflower.vanity.core;
 
 import gg.moonflower.pollen.api.event.events.registry.client.RegisterAtlasSpriteEvent;
 import gg.moonflower.pollen.api.platform.Platform;
+import gg.moonflower.pollen.api.registry.client.ItemRendererRegistry;
 import gg.moonflower.pollen.api.registry.client.ModelRegistry;
 import gg.moonflower.pollen.api.registry.client.ScreenRegistry;
 import gg.moonflower.vanity.client.screen.StylingScreen;
@@ -11,6 +12,7 @@ import gg.moonflower.vanity.common.network.VanityMessages;
 import gg.moonflower.vanity.core.registry.VanityBlocks;
 import gg.moonflower.vanity.core.registry.VanityItems;
 import gg.moonflower.vanity.core.registry.VanityMenuTypes;
+import gg.moonflower.vanity.core.registry.VanityProfessions;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
@@ -27,6 +29,10 @@ public class Vanity {
     public static void onCommonInit() {
         VanityBlocks.REGISTRY.register(Vanity.PLATFORM);
         VanityItems.REGISTRY.register(Vanity.PLATFORM);
+
+        VanityProfessions.PROFESSIONS.register(Vanity.PLATFORM);
+        VanityProfessions.POI_TYPES.register(Vanity.PLATFORM);
+        VanityProfessions.registerTrades();
 
         VanityMessages.init();
         ServerConceptArtManager.init();
