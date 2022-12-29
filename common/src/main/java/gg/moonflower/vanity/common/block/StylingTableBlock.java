@@ -1,5 +1,6 @@
 package gg.moonflower.vanity.common.block;
 
+import gg.moonflower.vanity.api.concept.ConceptArtManager;
 import gg.moonflower.vanity.common.menu.StylingMenu;
 import gg.moonflower.vanity.core.Vanity;
 import net.minecraft.core.BlockPos;
@@ -38,8 +39,13 @@ public class StylingTableBlock extends Block {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (level.isClientSide())
             return InteractionResult.SUCCESS;
-//        player.awardStat(LocksmithStats.INTERACT_WITH_LOCKSMITHING_TABLE);
+        player.openMenu(state.getMenuProvider(level, pos));
         return InteractionResult.CONSUME;
+    }
+
+    @Override
+    public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
+        return new SimpleMenuProvider((containerId, inventory, player) -> new StylingMenu(containerId, inventory, ContainerLevelAccess.create(level, pos), ConceptArtManager.get(false)), CONTAINER_TITLE);
     }
 
     @Override

@@ -1,0 +1,76 @@
+{
+  "concept_art_model": "vanity:test",
+  "sold": true,
+  "variants": {
+    "test9": [
+      {
+        "item": "minecraft:paper",
+        "model": "vanity:test",
+        "hand_model": "vanity:test_in_hand"
+      }
+    ],
+    "test8": [
+      {
+        "item": "minecraft:paper",
+        "model": "vanity:test",
+        "hand_model": "vanity:test_in_hand"
+      }
+    ],
+    "test7": [
+      {
+        "item": "minecraft:paper",
+        "model": "vanity:test",
+        "hand_model": "vanity:test_in_hand"
+      }
+    ],
+    "test6": [
+      {
+        "item": "minecraft:paper",
+        "model": "vanity:test",
+        "hand_model": "vanity:test_in_hand"
+      }
+    ],
+    "test5": [
+      {
+        "item": "minecraft:paper",
+        "model": "vanity:test",
+        "hand_model": "vanity:test_in_hand"
+      }
+    ],
+    "test4": [
+      {
+        "item": "minecraft:paper",
+        "model": "vanity:test",
+        "hand_model": "vanity:test_in_hand"
+      }
+    ],
+    "test3": [
+      {
+        "item": "minecraft:paper",
+        "model": "vanity:test",
+        "hand_model": "vanity:test_in_hand"
+      }
+    ],
+    "test2": [
+      {
+        "item": "minecraft:paper",
+        "model": "vanity:test",
+        "hand_model": "vanity:test_in_hand"
+      }
+    ],
+    "test1": [
+      {
+        "item": "minecraft:paper",
+        "model": "vanity:test",
+        "hand_model": "vanity:test_in_hand"
+      }
+    ],
+    "test": [
+      {
+        "item": "minecraft:paper",
+        "model": "vanity:test",
+        "hand_model": "vanity:test_in_hand"
+      }
+    ]
+  }
+}

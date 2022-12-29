@@ -4,6 +4,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -26,12 +27,14 @@ public class ConceptArtItem extends Item {
 
     @Nullable
     private static CompoundTag getConceptArt(ItemStack stack) {
-        if (stack == null)
+        if (stack.isEmpty()) {
             return null;
+        }
 
         CompoundTag tag = stack.getTag();
-        if (tag == null)
+        if (tag == null) {
             return null;
+        }
 
         return tag.getCompound(CONCEPT_ART_TAG);
     }
@@ -39,8 +42,9 @@ public class ConceptArtItem extends Item {
     @Nullable
     public static ResourceLocation getConceptArtId(ItemStack stack) {
         CompoundTag artTag = ConceptArtItem.getConceptArt(stack);
-        if (artTag == null || !artTag.contains(ID_TAG, Tag.TAG_STRING))
+        if (artTag == null || !artTag.contains(ID_TAG, Tag.TAG_STRING)) {
             return null;
+        }
 
         return ResourceLocation.tryParse(artTag.getString(ID_TAG));
     }
@@ -48,25 +52,31 @@ public class ConceptArtItem extends Item {
     @Nullable
     public static String getVariantName(ItemStack stack) {
         CompoundTag artTag = ConceptArtItem.getConceptArt(stack);
-        if (artTag == null || !artTag.contains(VARIANT_TAG, Tag.TAG_STRING))
+        if (artTag == null || !artTag.contains(VARIANT_TAG, Tag.TAG_STRING)) {
             return null;
+        }
 
         return artTag.getString(VARIANT_TAG);
     }
 
     public static void setConceptArt(ItemStack stack, @Nullable ResourceLocation id) {
-        if (stack == null)
+        if (stack.isEmpty()) {
             return;
-        if (id == null)
+        }
+
+        if (id == null) {
+            stack.removeTagKey(CONCEPT_ART_TAG);
             return;
+        }
 
         CompoundTag artTag = stack.getOrCreateTagElement(CONCEPT_ART_TAG);
         artTag.putString(ID_TAG, id.toString());
     }
 
     public static void setItemConceptArtVariant(ItemStack stack, @Nullable ResourceLocation id, @Nullable String variantName) {
-        if (stack == null)
+        if (stack.isEmpty()) {
             return;
+        }
         if (id == null || variantName == null) {
             stack.removeTagKey(CONCEPT_ART_TAG);
             return;
@@ -87,10 +97,15 @@ public class ConceptArtItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+    public Component getName(ItemStack stack) {
+        Component itemName = super.getName(stack);
         ResourceLocation art = ConceptArtItem.getConceptArtId(stack);
         if (art != null) {
-            tooltipComponents.add(ConceptArtItem.getTranslationKey(art, null).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+            return new TextComponent("")
+                    .append(ConceptArtItem.getTranslationKey(art, null))
+                    .append(new TextComponent(" ")
+                    ).append(itemName);
         }
+        return itemName;
     }
 }

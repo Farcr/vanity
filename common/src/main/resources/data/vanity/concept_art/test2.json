@@ -1,0 +1,19 @@
+{
+  "sold": true,
+  "variants": {
+    "test9": [
+      {
+        "item": "minecraft:paper",
+        "model": "vanity:test",
+        "hand_model": "vanity:test_in_hand"
+      }
+    ],
+    "test8": [
+      {
+        "item": "minecraft:diamond",
+        "model": "vanity:test",
+        "hand_model": "vanity:test_in_hand"
+      }
+    ]
+  }
+}

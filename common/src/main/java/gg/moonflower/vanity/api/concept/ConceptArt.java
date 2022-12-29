@@ -4,11 +4,11 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import gg.moonflower.vanity.core.util.XorMapCodec;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -25,14 +25,16 @@ public record ConceptArt(@Nullable ResourceLocation conceptArtModel, boolean sol
     ).apply(instance, (conceptArtModel, sold, variants) -> new ConceptArt(conceptArtModel.orElse(null), sold, variants)));
 
     @Nullable
-    public ConceptArt.Variant getVariantForItem(String name, Item item) {
+    public ConceptArt.Variant getVariantForItem(String name, ItemStack stack) {
         List<Variant> entries = this.variants.get(name);
-        if (entries == null)
+        if (entries == null) {
             return null;
+        }
 
         for (Variant entry : entries) {
-            if (entry.supportsItem(item))
+            if (entry.supportsItem(stack)) {
                 return entry;
+            }
         }
 
         return null;
@@ -47,8 +49,8 @@ public record ConceptArt(@Nullable ResourceLocation conceptArtModel, boolean sol
                 ResourceLocation.CODEC.optionalFieldOf("hand_model").forGetter(variant -> Optional.ofNullable(variant.handModel))
         ).apply(instance, (item, model, handModel) -> new Variant(item, model, handModel.orElse(null))));
 
-        public boolean supportsItem(Item item) {
-            return this.item.right().isPresent() ? Registry.ITEM.get(this.item.right().get()).equals(item) : this.item.left().isPresent() && item.builtInRegistryHolder().is(this.item.left().get());
+        public boolean supportsItem(ItemStack stack) {
+            return this.item.right().isPresent() ? Registry.ITEM.get(this.item.right().get()).equals(stack.getItem()) : this.item.left().isPresent() && stack.is(this.item.left().get());
         }
     }
 }

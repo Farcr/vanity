@@ -92,6 +92,6 @@ public abstract class ConceptArtManager {
         if (art == null)
             return null;
 
-        return art.getVariantForItem(variant, stack.getItem());
+        return art.getVariantForItem(variant, stack);
     }
 }
