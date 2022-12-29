@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 
 public class VanityRecipes {
 
-    public static final PollinatedRegistry<RecipeSerializer<?>> RECIPE_SERIALIZERS = PollinatedRegistry.create(Registry.RECIPE_SERIALIZER, Vanity.MOD_ID);
+    public static final PollinatedRegistry<RecipeSerializer<?>> REGISTRY = PollinatedRegistry.create(Registry.RECIPE_SERIALIZER, Vanity.MOD_ID);
 
-    public static final Supplier<RecipeSerializer<RemoveConceptArtRecipe>> CLEAN_CONCEPT_ART = RECIPE_SERIALIZERS.register("clean_concept_art", () -> new SimpleRecipeSerializer<>(RemoveConceptArtRecipe::new));
+    public static final Supplier<RecipeSerializer<RemoveConceptArtRecipe>> CLEAN_CONCEPT_ART = REGISTRY.register("clean_concept_art", () -> new SimpleRecipeSerializer<>(RemoveConceptArtRecipe::new));
 }
