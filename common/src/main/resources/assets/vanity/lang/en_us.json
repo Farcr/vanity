@@ -1,5 +1,7 @@
 {
   "block.vanity.styling_table": "Styling Table",
+  "container.vanity.styling_table": "Styling Table",
+  "entity.minecraft.villager.stylist": "Stylist",
   "item.vanity.concept_art": "Concept Art",
-  "container.vanity.styling_table": "Styling Table"
+  "subtitles.ui.vanity.styling_table.take_result": "Styling Table used"
 }
