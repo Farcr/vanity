@@ -32,7 +32,6 @@ public class Vanity {
         VanityItems.REGISTRY.register(Vanity.PLATFORM);
         VanityMenuTypes.REGISTRY.register(Vanity.PLATFORM);
         VanitySounds.REGISTRY.register(Vanity.PLATFORM);
-        VanityRecipes.REGISTRY.register(Vanity.PLATFORM);
 
         VanityProfessions.PROFESSIONS.register(Vanity.PLATFORM);
         VanityProfessions.POI_TYPES.register(Vanity.PLATFORM);

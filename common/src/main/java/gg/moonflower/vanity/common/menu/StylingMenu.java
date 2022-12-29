@@ -25,8 +25,11 @@ import java.util.*;
 public class StylingMenu extends AbstractContainerMenu {
 
     public static final ResourceLocation EMPTY_CONCEPT_ART_SLOT = new ResourceLocation(Vanity.MOD_ID, "item/empty_styling_table_slot_concept_art");
+    public static final ResourceLocation REMOVE_CONCEPT_ART = new ResourceLocation(Vanity.MOD_ID, "remove_concept_art");
     private static final QuickMoveHelper MOVE_HELPER = new QuickMoveHelper().
-            add(0, 11, 11, 36, false). // to Inventory
+            add(0, 1, 11, 36, false). // to Inventory
+                    add(1, 1, 11, 36, true). // to Hotbar
+                    add(2, 9, 11, 36, false). // to Inventory
                     add(11, 36, 0, 11, false); // from Inventory
     private static final Comparator<Pair<ResourceLocation, String>> SORTER = Comparator.comparing((Pair<ResourceLocation, String> o) -> o.getFirst()).thenComparing(Pair::getSecond);
 
@@ -179,6 +182,9 @@ public class StylingMenu extends AbstractContainerMenu {
                     this.conceptArt.addAll(temp);
                 }
             }
+            if (inputId != null) {
+                this.conceptArt.add(0, Pair.of(REMOVE_CONCEPT_ART, ""));
+            }
         }
 
         if (old != this.conceptArt.hashCode()) {
@@ -217,12 +223,6 @@ public class StylingMenu extends AbstractContainerMenu {
         }
 
         this.lock = true;
-        ItemStack inputStack = this.getInputItem();
-        if (!this.resultSlot.getItem().isEmpty() && (inputStack.isEmpty() || this.conceptContainer.isEmpty())) {
-            this.resultSlot.set(ItemStack.EMPTY);
-            this.selectedConceptArtIndex.set(-1);
-        }
-
         this.setupResultSlot();
         this.broadcastChanges();
         this.lock = false;
@@ -276,6 +276,14 @@ public class StylingMenu extends AbstractContainerMenu {
 
             ResourceLocation conceptArtId = conceptArt.getFirst();
             String variant = conceptArt.getSecond();
+
+            if (conceptArtId == REMOVE_CONCEPT_ART) {
+                ItemStack outputStack = inputStack.copy();
+                outputStack.setCount(1);
+                ConceptArtItem.setConceptArt(outputStack, null);
+                this.resultSlot.set(outputStack);
+                return;
+            }
 
             int conceptIndex = this.getConceptArtIndex().orElse(-1);
             if (conceptIndex < 0 || conceptIndex >= this.conceptContainer.getContainerSize() || this.conceptContainer.getItem(conceptIndex).isEmpty() || conceptArtId == null || variant == null) {

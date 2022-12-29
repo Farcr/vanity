@@ -11,6 +11,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -24,6 +25,7 @@ import java.util.List;
 public class StylingScreen extends AbstractContainerScreen<StylingMenu> implements ContainerListener {
 
     private static final ResourceLocation BG_LOCATION = new ResourceLocation(Vanity.MOD_ID, "textures/gui/container/styling_table.png");
+    private static final Component ORIGINAL = new TranslatableComponent("screen." + Vanity.MOD_ID + ".styling_table.original");
     private float scrollOffs;
     private boolean scrolling;
     private int startIndex;
@@ -58,7 +60,8 @@ public class StylingScreen extends AbstractContainerScreen<StylingMenu> implemen
             int hoveredIndex = this.startIndex + (int) hoveredX + (int) hoveredY * 3;
             if (hoveredIndex >= 0 && hoveredIndex < this.menu.getConceptArt().size()) {
                 Pair<ResourceLocation, String> conceptArt = this.menu.getConceptArt().get(hoveredIndex);
-                this.renderTooltip(poseStack, ConceptArtItem.getTranslationKey(conceptArt.getFirst(), conceptArt.getSecond()), mouseX, mouseY);
+                Component text = conceptArt.getFirst() == StylingMenu.REMOVE_CONCEPT_ART ? ORIGINAL : ConceptArtItem.getTranslationKey(conceptArt.getFirst(), conceptArt.getSecond());
+                this.renderTooltip(poseStack, text, mouseX, mouseY);
             }
         }
     }
@@ -103,7 +106,7 @@ public class StylingScreen extends AbstractContainerScreen<StylingMenu> implemen
 
             ItemStack copy = this.menu.getInputItem().copy();
             Pair<ResourceLocation, String> conceptArt = conceptArtEntries.get(entry);
-            ConceptArtItem.setItemConceptArtVariant(copy, conceptArt.getFirst(), conceptArt.getSecond());
+            ConceptArtItem.setItemConceptArtVariant(copy, conceptArt.getFirst() != StylingMenu.REMOVE_CONCEPT_ART ? conceptArt.getFirst() : null, conceptArt.getSecond());
             this.minecraft.getItemRenderer().renderAndDecorateFakeItem(copy, x + 1, y + 1);
         }
     }

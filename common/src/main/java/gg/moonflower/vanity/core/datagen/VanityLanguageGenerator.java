@@ -18,6 +18,7 @@ public class VanityLanguageGenerator extends PollinatedLanguageProvider {
         this.addItem(VanityItems.CONCEPT_ART, "Concept Art");
         this.addBlock(VanityBlocks.STYLING_TABLE, "Styling Table");
         this.add("container." + Vanity.MOD_ID + ".styling_table", "Styling Table");
+        this.add("screen." + Vanity.MOD_ID + ".styling_table.original", "Remove Style");
         this.add("subtitles.ui." + Vanity.MOD_ID + ".styling_table.take_result", "Styling Table used");
         this.add("entity.minecraft.villager.stylist", "Stylist");
     }
