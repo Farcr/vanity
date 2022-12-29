@@ -45,7 +45,9 @@ configurations {
 
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.architectury.minecraft}-${rootProject.forge_version}"
-    modImplementation("gg.moonflower:pollen-forge:${rootProject.pollen_version}")
+    modApi("gg.moonflower:pollen-forge:${rootProject.pollen_version}")
+
+    modRuntimeOnly "me.djtheredstoner:DevAuth-forge-latest:${rootProject.devauth_version}"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }

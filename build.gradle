@@ -45,6 +45,13 @@ allprojects {
     group = rootProject.maven_group
 
     repositories {
+        mavenLocal()
+        maven {
+            url "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1"
+            content {
+                includeGroup "me.djtheredstoner"
+            }
+        }
         maven { url "https://repo.moonflower.gg/releases" }
         maven { url "https://jitpack.io" }
         maven { url "https://maven.parchmentmc.org" }
