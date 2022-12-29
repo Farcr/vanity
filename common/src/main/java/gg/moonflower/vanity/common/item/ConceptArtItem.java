@@ -1,11 +1,18 @@
 package gg.moonflower.vanity.common.item;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class ConceptArtItem extends Item {
 
@@ -39,24 +46,51 @@ public class ConceptArtItem extends Item {
     }
 
     @Nullable
-    public static ResourceLocation getConceptArtVariantId(ItemStack stack) {
+    public static String getVariantName(ItemStack stack) {
         CompoundTag artTag = ConceptArtItem.getConceptArt(stack);
         if (artTag == null || !artTag.contains(VARIANT_TAG, Tag.TAG_STRING))
             return null;
 
-        return ResourceLocation.tryParse(artTag.getString(VARIANT_TAG));
+        return artTag.getString(VARIANT_TAG);
     }
 
-    public static void setConceptArt(ItemStack stack, @Nullable ResourceLocation id, @Nullable ResourceLocation variantId) {
+    public static void setConceptArt(ItemStack stack, @Nullable ResourceLocation id) {
         if (stack == null)
             return;
-        if (id == null || variantId == null) {
+        if (id == null)
+            return;
+
+        CompoundTag artTag = stack.getOrCreateTagElement(CONCEPT_ART_TAG);
+        artTag.putString(ID_TAG, id.toString());
+    }
+
+    public static void setItemConceptArtVariant(ItemStack stack, @Nullable ResourceLocation id, @Nullable String variantName) {
+        if (stack == null)
+            return;
+        if (id == null || variantName == null) {
             stack.removeTagKey(CONCEPT_ART_TAG);
             return;
         }
 
         CompoundTag artTag = stack.getOrCreateTagElement(CONCEPT_ART_TAG);
         artTag.putString(ID_TAG, id.toString());
-        artTag.putString(VARIANT_TAG, variantId.toString());
+        artTag.putString(VARIANT_TAG, variantName);
+    }
+
+    public static TranslatableComponent getTranslationKey(ResourceLocation art, @Nullable String variant) {
+        String artKey = "concept_art." + art.getNamespace() + "." + art.getPath();
+        if (variant != null) {
+            artKey += "." + variant;
+        }
+
+        return new TranslatableComponent(artKey);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+        ResourceLocation art = ConceptArtItem.getConceptArtId(stack);
+        if (art != null) {
+            tooltipComponents.add(ConceptArtItem.getTranslationKey(art, null).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+        }
     }
 }

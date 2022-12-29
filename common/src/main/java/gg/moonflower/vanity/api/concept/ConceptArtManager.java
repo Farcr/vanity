@@ -1,13 +1,11 @@
 package gg.moonflower.vanity.api.concept;
 
-import com.mojang.logging.LogUtils;
 import gg.moonflower.vanity.client.concept.ClientConceptArtManager;
 import gg.moonflower.vanity.common.concept.ServerConceptArtManager;
 import gg.moonflower.vanity.common.item.ConceptArtItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +15,6 @@ import java.util.stream.Stream;
 @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
 public abstract class ConceptArtManager {
 
-    protected static final Logger LOGGER = LogUtils.getLogger();
     protected final Map<ResourceLocation, ConceptArt> conceptArt = new HashMap<>();
 
     /**
@@ -87,7 +84,7 @@ public abstract class ConceptArtManager {
      */
     @Nullable
     public ConceptArt.Variant getItemConceptArtVariant(ItemStack stack) {
-        ResourceLocation variant = ConceptArtItem.getConceptArtVariantId(stack);
+        String variant = ConceptArtItem.getVariantName(stack);
         if (variant == null)
             return null;
 
