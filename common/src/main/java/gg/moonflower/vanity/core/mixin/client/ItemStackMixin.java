@@ -23,9 +23,7 @@ public class ItemStackMixin {
         ResourceLocation art = ConceptArtItem.getConceptArtId((ItemStack) (Object) this);
         String variant = ConceptArtItem.getVariantName((ItemStack) (Object) this);
         if (art != null && variant != null) {
-            if (isAdvanced.isAdvanced()) {
-                lines.add(ConceptArtItem.getTranslationKey(art, variant).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
-            }
+            lines.add(ConceptArtItem.getTranslationKey(art, variant).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         }
     }
 }
