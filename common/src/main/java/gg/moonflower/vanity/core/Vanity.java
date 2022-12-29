@@ -44,7 +44,7 @@ public class Vanity {
 
     public static void onClientInit() {
         ModelRegistry.registerFactory((resourceManager, out) -> {
-            for (ResourceLocation location : resourceManager.listResources("models/item/vanity_concept_art/", name -> name.endsWith(".json"))) {
+            for (ResourceLocation location : resourceManager.listResources("models/item/vanity_concept_art", name -> name.endsWith(".json"))) {
                 out.accept(new ModelResourceLocation(new ResourceLocation(location.getNamespace(), location.getPath().substring(12, location.getPath().length() - 5)), "inventory"));
             }
         });
