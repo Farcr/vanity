@@ -48,7 +48,7 @@ public class XorMapCodec<F, S> extends MapCodec<Either<F, S>> {
         if (this == object) {
             return true;
         } else if (object != null && this.getClass() == object.getClass()) {
-            XorMapCodec<?, ?> xorCodec = (XorMapCodec) object;
+            XorMapCodec<?, ?> xorCodec = (XorMapCodec<?, ?>) object;
             return Objects.equals(this.first, xorCodec.first) && Objects.equals(this.second, xorCodec.second);
         } else {
             return false;

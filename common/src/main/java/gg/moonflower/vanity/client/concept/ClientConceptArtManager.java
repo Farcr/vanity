@@ -8,19 +8,22 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ClientConceptArtManager extends ConceptArtManager {
 
     public static final ClientConceptArtManager INSTANCE = new ClientConceptArtManager();
+    private static final Map<ResourceLocation, ModelResourceLocation> MODEL_LOCATION_CACHE = new HashMap<>();
 
     public static ModelResourceLocation getModelLocation(ResourceLocation location) {
-        return new ModelResourceLocation(new ResourceLocation(location.getNamespace(), "vanity_concept_art/" + location.getPath()), "inventory");
+        return MODEL_LOCATION_CACHE.computeIfAbsent(location, loc -> new ModelResourceLocation(new ResourceLocation(location.getNamespace(), "vanity_concept_art/" + location.getPath()), "inventory"));
     }
 
     public void readPacket(ClientboundConceptArtSyncPacket packet) {
+        ClientConceptArtManager.MODEL_LOCATION_CACHE.clear();
         this.conceptArt.clear();
         this.conceptArt.putAll(packet.getConceptArt());
-
-        LOGGER.info("Loaded " + this.conceptArt.size() + " concept art");
     }
 
     @Nullable
