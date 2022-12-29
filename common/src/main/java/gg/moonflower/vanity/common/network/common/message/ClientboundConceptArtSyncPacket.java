@@ -16,23 +16,15 @@ import java.util.stream.Collectors;
 
 public class ClientboundConceptArtSyncPacket extends SimplePollinatedLoginPacket<VanityClientCommonHandler> {
 
-    private final Map<ResourceLocation, ConceptArt> conceptArt;
-
-    public ClientboundConceptArtSyncPacket() {
-        this.conceptArt = new HashMap<>();
-    }
+    private final Map<ResourceLocation, ConceptArt> conceptArt = new HashMap<>();
 
     public ClientboundConceptArtSyncPacket(ConceptArtManager manager) {
-        this();
-
         this.conceptArt.putAll(manager.getAllConceptArtIds()
             .filter(entry -> manager.getConceptArt(entry).isPresent())
             .collect(Collectors.toMap(Function.identity(), entry -> manager.getConceptArt(entry).orElseThrow(() -> new IllegalStateException("The concept art '" + entry + "' is not present")))));
     }
 
     public ClientboundConceptArtSyncPacket(FriendlyByteBuf buf) {
-        this();
-
         try {
             int count = buf.readVarInt();
             for (int i = 0; i < count; i++) {

@@ -2,12 +2,15 @@ package gg.moonflower.vanity.common.concept;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
+import gg.moonflower.pollen.api.platform.Platform;
 import gg.moonflower.pollen.api.registry.resource.PollinatedPreparableReloadListener;
 import gg.moonflower.pollen.api.registry.resource.ResourceRegistry;
 import gg.moonflower.vanity.api.concept.ConceptArt;
 import gg.moonflower.vanity.api.concept.ConceptArtManager;
+import gg.moonflower.vanity.common.network.VanityMessages;
 import gg.moonflower.vanity.common.network.common.message.ClientboundConceptArtSyncPacket;
 import gg.moonflower.vanity.core.Vanity;
 import net.minecraft.resources.ResourceLocation;
@@ -15,31 +18,45 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
-public class ServerConceptArtManager extends ConceptArtManager {
+public class ServerConceptArtManager extends ConceptArtManager implements PollinatedPreparableReloadListener {
 
     public static final ServerConceptArtManager INSTANCE = new ServerConceptArtManager();
+    private static final Logger LOGGER = LogUtils.getLogger();
+    private final ResourceLoader resourceLoader = new ResourceLoader();
 
     public static void init() {
-        ResourceRegistry.registerReloadListener(PackType.SERVER_DATA, ServerConceptArtManager.INSTANCE.new ResourceLoader());
+        ResourceRegistry.registerReloadListener(PackType.SERVER_DATA, ServerConceptArtManager.INSTANCE);
     }
 
     public ClientboundConceptArtSyncPacket createPacket() {
         return new ClientboundConceptArtSyncPacket(this);
     }
 
-    private class ResourceLoader extends SimpleJsonResourceReloadListener implements PollinatedPreparableReloadListener {
+
+    @Override
+    public ResourceLocation getPollenId() {
+        return new ResourceLocation(Vanity.MOD_ID, "concept_art_manager");
+    }
+
+    @Override
+    public CompletableFuture<Void> reload(PreparationBarrier preparationBarrier, ResourceManager resourceManager, ProfilerFiller preparationsProfiler, ProfilerFiller reloadProfiler, Executor backgroundExecutor, Executor gameExecutor) {
+        return this.resourceLoader.reload(preparationBarrier, resourceManager, preparationsProfiler, reloadProfiler, backgroundExecutor, gameExecutor).thenRun(() -> {
+                    LOGGER.info("Loaded " + this.conceptArt.size() + " concept art");
+                    Platform.getRunningServer().ifPresent(server -> VanityMessages.PLAY.sendToAll(server, this.createPacket()));
+                });
+    }
+
+    private class ResourceLoader extends SimpleJsonResourceReloadListener {
 
         private ResourceLoader() {
             super(new Gson(), "concept_art");
-        }
-
-        @Override
-        public ResourceLocation getPollenId() {
-            return new ResourceLocation(Vanity.MOD_ID, "concept_art");
         }
 
         @Override
