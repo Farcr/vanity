@@ -6,6 +6,7 @@
   "description": "Work in progress",
   "authors": [ "Moonflower" ],
   "contributors": [ "Jackson" ],
+  "icon": "icon.png",
   "contact": {
     "homepage": "https://www.moonflower.gg",
     "issues": "https://github.com/MoonflowerTeam/${repo}/issues",

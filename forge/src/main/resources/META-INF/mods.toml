@@ -8,11 +8,13 @@ modId = "${id}"
 version = "${version}"
 displayName = "${name}"
 authors = "Moonflower"
-credits = "Jackson"
+credits = "Jackson, Farcr, Ocelot"
 description = "Work in progress"
 displayURL = "https://www.moonflower.gg"
-#updateJSONURL = ""
-#logoFile = ""
+logoFile = "logo.png"
+
+[modproperties.${id}]
+catalogueImageIcon="icon.png"
 
 [[dependencies.${id}]]
 modId = "forge"

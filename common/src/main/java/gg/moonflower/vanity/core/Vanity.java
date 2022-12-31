@@ -1,5 +1,6 @@
 package gg.moonflower.vanity.core;
 
+import gg.moonflower.pollen.api.datagen.provider.loot_table.PollinatedLootTableProvider;
 import gg.moonflower.pollen.api.event.events.registry.client.RegisterAtlasSpriteEvent;
 import gg.moonflower.pollen.api.platform.Platform;
 import gg.moonflower.pollen.api.registry.client.ModelRegistry;
@@ -9,6 +10,7 @@ import gg.moonflower.vanity.client.screen.StylingScreen;
 import gg.moonflower.vanity.common.concept.ServerConceptArtManager;
 import gg.moonflower.vanity.common.menu.StylingMenu;
 import gg.moonflower.vanity.common.network.VanityMessages;
+import gg.moonflower.vanity.core.datagen.VanityBlockLootGenerator;
 import gg.moonflower.vanity.core.datagen.VanityLanguageGenerator;
 import gg.moonflower.vanity.core.datagen.VanityRecipeGenerator;
 import gg.moonflower.vanity.core.datagen.VanityTagGenerator;
@@ -17,6 +19,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
 public class Vanity {
     public static final String MOD_ID = "vanity";
@@ -63,5 +66,10 @@ public class Vanity {
         generator.addProvider(new VanityLanguageGenerator(generator, container));
         generator.addProvider(new VanityTagGenerator(generator, container));
         generator.addProvider(new VanityRecipeGenerator(generator));
+
+        PollinatedLootTableProvider lootProvider = new PollinatedLootTableProvider(generator);
+        lootProvider.add(LootContextParamSets.BLOCK, new VanityBlockLootGenerator(container));
+
+        generator.addProvider(lootProvider);
     }
 }
