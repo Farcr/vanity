@@ -51,7 +51,7 @@ public class VanityProfessions {
 
             for (int i = context.getMinTier(); i <= Math.min(context.getMaxTier(), conceptArt.size()); i++) {
                 ModifyTradesEvents.TradeRegistry trades = context.getTrades(i);
-                trades.add(new ConceptArtTrade(availableArt.get(i - 1)));
+                trades.add(new ConceptArtTrade(conceptArt.get(i - 1)));
             }
         });
     }
