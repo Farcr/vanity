@@ -124,7 +124,7 @@ public class StylingScreen extends AbstractContainerScreen<StylingMenu> implemen
                 double d = mouseX - (double) (x + pos % 3 * 18);
                 double e = mouseY - (double) (y + pos / 3 * 18);
                 if (d >= 0.0 && e >= 0.0 && d < 18.0 && e < 18.0 && this.menu.clickMenuButton(this.minecraft.player, index)) {
-                    Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_LOOM_SELECT_PATTERN, 1.0F));
+                    Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                     this.minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, index);
                     return true;
                 }

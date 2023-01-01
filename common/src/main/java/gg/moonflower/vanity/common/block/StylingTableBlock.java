@@ -1,23 +1,29 @@
 package gg.moonflower.vanity.common.block;
 
-import gg.moonflower.vanity.api.concept.ConceptArtManager;
-import gg.moonflower.vanity.common.menu.StylingMenu;
-import gg.moonflower.vanity.core.Vanity;
+import gg.moonflower.vanity.common.block.entity.StylingTableBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -29,13 +35,13 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 
-public class StylingTableBlock extends Block implements SimpleWaterloggedBlock {
+public class StylingTableBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    private static final Component CONTAINER_TITLE = new TranslatableComponent("container." + Vanity.MOD_ID + ".styling_table");
     private static final VoxelShape SHAPE = Shapes.or(
             box(0, 0, 0, 3, 9, 3),
             box(13, 0, 0, 16, 9, 3),
@@ -55,16 +61,44 @@ public class StylingTableBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        if (stack.hasCustomHoverName()) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof StylingTableBlockEntity) {
+                ((StylingTableBlockEntity) blockEntity).setCustomName(stack.getHoverName());
+            }
+        }
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (!state.is(newState.getBlock())) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof StylingTableBlockEntity) {
+                if (level instanceof ServerLevel) {
+                    Containers.dropContents(level, pos, (StylingTableBlockEntity) blockEntity);
+                }
+            }
+
+            super.onRemove(state, level, pos, newState, isMoving);
+        }
+    }
+
+    @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (level.isClientSide())
             return InteractionResult.SUCCESS;
-        player.openMenu(state.getMenuProvider(level, pos));
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity instanceof StylingTableBlockEntity) {
+            player.openMenu((MenuProvider) blockEntity);
+            player.awardStat(Stats.INTERACT_WITH_FURNACE);
+        }
         return InteractionResult.CONSUME;
     }
 
     @Override
-    public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
-        return new SimpleMenuProvider((containerId, inventory, player) -> new StylingMenu(containerId, inventory, ContainerLevelAccess.create(level, pos), ConceptArtManager.get(false)), CONTAINER_TITLE);
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
@@ -100,5 +134,11 @@ public class StylingTableBlock extends Block implements SimpleWaterloggedBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, WATERLOGGED);
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new StylingTableBlockEntity(pos, state);
     }
 }

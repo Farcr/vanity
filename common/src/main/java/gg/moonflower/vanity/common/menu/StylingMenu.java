@@ -6,7 +6,6 @@ import gg.moonflower.vanity.api.concept.ConceptArt;
 import gg.moonflower.vanity.api.concept.ConceptArtManager;
 import gg.moonflower.vanity.common.item.ConceptArtItem;
 import gg.moonflower.vanity.core.Vanity;
-import gg.moonflower.vanity.core.registry.VanityBlocks;
 import gg.moonflower.vanity.core.registry.VanityItems;
 import gg.moonflower.vanity.core.registry.VanityMenuTypes;
 import gg.moonflower.vanity.core.registry.VanitySounds;
@@ -36,15 +35,8 @@ public class StylingMenu extends AbstractContainerMenu {
 
     private final DataSlot selectedConceptArtIndex = DataSlot.standalone();
     private final ContainerLevelAccess access;
+    private final Container container;
 
-    private final Container conceptContainer = new SimpleContainer(9) {
-        @Override
-        public void setChanged() {
-            super.setChanged();
-            StylingMenu.this.updateConceptArt();
-            StylingMenu.this.slotsChanged(this);
-        }
-    };
     private final Container inputContainer = new SimpleContainer(1) {
         @Override
         public void setChanged() {
@@ -71,11 +63,13 @@ public class StylingMenu extends AbstractContainerMenu {
     private boolean lock;
 
     public StylingMenu(int window, Inventory inventory) {
-        this(window, inventory, ContainerLevelAccess.NULL, ConceptArtManager.get(true));
+        this(window, inventory, new SimpleContainer(9), ContainerLevelAccess.NULL, ConceptArtManager.get(true));
     }
 
-    public StylingMenu(int window, Inventory inventory, ContainerLevelAccess containerLevelAccess, ConceptArtManager conceptArtManager) {
+    public StylingMenu(int window, Inventory inventory, Container container, ContainerLevelAccess containerLevelAccess, ConceptArtManager conceptArtManager) {
         super(VanityMenuTypes.STYLING_MENU.get(), window);
+        this.container = container;
+
         this.access = containerLevelAccess;
         this.conceptArtManager = conceptArtManager;
 
@@ -115,7 +109,14 @@ public class StylingMenu extends AbstractContainerMenu {
 
         for (int j = 0; j < 3; ++j) {
             for (int k = 0; k < 3; ++k) {
-                this.addSlot(new Slot(this.conceptContainer, k + j * 3, 116 + k * 18, 30 + j * 18) {
+                this.addSlot(new Slot(this.container, k + j * 3, 116 + k * 18, 30 + j * 18) {
+
+                    @Override
+                    public void setChanged() {
+                        super.setChanged();
+                        StylingMenu.this.updateConceptArt();
+                        StylingMenu.this.slotsChanged(this.container);
+                    }
 
                     @Override
                     public boolean mayPlace(ItemStack stack) {
@@ -157,8 +158,8 @@ public class StylingMenu extends AbstractContainerMenu {
             ResourceLocation inputId = ConceptArtItem.getConceptArtId(input);
             String inputVariant = ConceptArtItem.getVariantName(input);
             List<Pair<ResourceLocation, String>> temp = new LinkedList<>();
-            for (int i = 0; i < this.conceptContainer.getContainerSize(); i++) {
-                ConceptArt conceptArt = this.conceptArtManager.getItemConceptArt(this.conceptContainer.getItem(i));
+            for (int i = 0; i < this.container.getContainerSize(); i++) {
+                ConceptArt conceptArt = this.conceptArtManager.getItemConceptArt(this.container.getItem(i));
                 if (conceptArt != null) {
                     Optional<ResourceLocation> idOptional = this.conceptArtManager.getConceptArtId(conceptArt);
                     if (idOptional.isEmpty()) {
@@ -202,7 +203,7 @@ public class StylingMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(this.access, player, VanityBlocks.STYLING_TABLE.get());
+        return this.container.stillValid(player);
     }
 
     @Override
@@ -238,7 +239,6 @@ public class StylingMenu extends AbstractContainerMenu {
         super.removed(player);
         this.access.execute((arg2, arg3) -> {
             this.clearContainer(player, this.inputContainer);
-            this.clearContainer(player, this.conceptContainer);
         });
     }
 
@@ -254,7 +254,7 @@ public class StylingMenu extends AbstractContainerMenu {
         }
 
         int conceptArtIndex = this.conceptArtSlots.getOrDefault(conceptArt.getFirst(), -1);
-        if (conceptArtIndex < 0 || conceptArtIndex >= this.conceptContainer.getContainerSize()) {
+        if (conceptArtIndex < 0 || conceptArtIndex >= this.container.getContainerSize()) {
             return OptionalInt.empty();
         }
 
@@ -286,7 +286,7 @@ public class StylingMenu extends AbstractContainerMenu {
             }
 
             int conceptIndex = this.getConceptArtIndex().orElse(-1);
-            if (conceptIndex < 0 || conceptIndex >= this.conceptContainer.getContainerSize() || this.conceptContainer.getItem(conceptIndex).isEmpty() || conceptArtId == null || variant == null) {
+            if (conceptIndex < 0 || conceptIndex >= this.container.getContainerSize() || this.container.getItem(conceptIndex).isEmpty() || conceptArtId == null || variant == null) {
                 return;
             }
 

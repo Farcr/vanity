@@ -44,7 +44,9 @@ public class Vanity {
             })).build();
 
     public static void onCommonInit() {
-        VanityBlocks.REGISTRY.register(Vanity.PLATFORM);
+        VanityBlocks.BLOCKS.register(Vanity.PLATFORM);
+        VanityBlocks.BLOCK_ENTITIES.register(Vanity.PLATFORM);
+
         VanityItems.REGISTRY.register(Vanity.PLATFORM);
         VanityMenuTypes.REGISTRY.register(Vanity.PLATFORM);
         VanitySounds.REGISTRY.register(Vanity.PLATFORM);
