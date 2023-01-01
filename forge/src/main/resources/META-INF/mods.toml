@@ -9,7 +9,7 @@ version = "${version}"
 displayName = "${name}"
 authors = "Moonflower"
 credits = "Jackson, Farcr, Ocelot"
-description = "Work in progress"
+description = "It's time to style."
 displayURL = "https://www.moonflower.gg"
 logoFile = "logo.png"
 

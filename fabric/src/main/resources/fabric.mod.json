@@ -3,9 +3,9 @@
   "id": "${id}",
   "version": "${version}",
   "name": "${name}",
-  "description": "Work in progress",
+  "description": "It's time to style.",
   "authors": [ "Moonflower" ],
-  "contributors": [ "Jackson" ],
+  "contributors": [ "Jackson", "Farcr", "Ocelot" ],
   "icon": "icon.png",
   "contact": {
     "homepage": "https://www.moonflower.gg",
