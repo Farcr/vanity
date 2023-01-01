@@ -1,13 +1,16 @@
 package gg.moonflower.vanity.core;
 
+import gg.moonflower.pollen.api.client.util.CreativeModeTabBuilder;
 import gg.moonflower.pollen.api.datagen.provider.loot_table.PollinatedLootTableProvider;
 import gg.moonflower.pollen.api.event.events.registry.client.RegisterAtlasSpriteEvent;
 import gg.moonflower.pollen.api.platform.Platform;
 import gg.moonflower.pollen.api.registry.client.ModelRegistry;
 import gg.moonflower.pollen.api.registry.client.ScreenRegistry;
 import gg.moonflower.pollen.api.util.PollinatedModContainer;
+import gg.moonflower.vanity.client.concept.ClientConceptArtManager;
 import gg.moonflower.vanity.client.screen.StylingScreen;
 import gg.moonflower.vanity.common.concept.ServerConceptArtManager;
+import gg.moonflower.vanity.common.item.ConceptArtItem;
 import gg.moonflower.vanity.common.menu.StylingMenu;
 import gg.moonflower.vanity.common.network.VanityMessages;
 import gg.moonflower.vanity.core.datagen.VanityBlockLootGenerator;
@@ -19,6 +22,8 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
 public class Vanity {
@@ -29,6 +34,14 @@ public class Vanity {
             .commonInit(Vanity::onCommonInit)
             .dataInit(Vanity::onDataInit)
             .build();
+
+    public static final CreativeModeTab TAB = CreativeModeTabBuilder.builder(new ResourceLocation(Vanity.MOD_ID, "concept_art_tab"))
+            .setIcon(() -> new ItemStack(VanityBlocks.STYLING_TABLE.get()))
+            .setItems(list -> ClientConceptArtManager.INSTANCE.getAllConceptArtIds().forEach(location -> {
+                ItemStack stack = new ItemStack(VanityItems.CONCEPT_ART.get());
+                ConceptArtItem.setConceptArt(stack, location);
+                list.add(stack);
+            })).build();
 
     public static void onCommonInit() {
         VanityBlocks.REGISTRY.register(Vanity.PLATFORM);
