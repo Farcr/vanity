@@ -17,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -71,7 +70,7 @@ public class VanityProfessions {
 
         @Override
         public MerchantOffer getOffer(Entity entity, Random random) {
-            ItemStack emeralds = new ItemStack(Items.EMERALD, EMERALD_COST);
+            ItemStack emeralds = new ItemStack(Items.EMERALD, EMERALD_COST + (random.nextInt(16)));
 
             ItemStack item = new ItemStack(VanityItems.CONCEPT_ART.get());
             ConceptArtItem.setConceptArt(item, this.art);
