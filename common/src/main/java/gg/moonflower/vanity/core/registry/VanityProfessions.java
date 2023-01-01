@@ -48,9 +48,16 @@ public class VanityProfessions {
             List<ResourceLocation> conceptArt = new ArrayList<>(availableArt);
             Collections.shuffle(conceptArt);
 
-            for (int i = context.getMinTier(); i <= Math.min(context.getMaxTier(), conceptArt.size()); i++) {
-                ModifyTradesEvents.TradeRegistry trades = context.getTrades(i);
-                trades.add(new ConceptArtTrade(conceptArt.get(i - 1)));
+            int basicTrades = Math.min(context.getMaxTier() - context.getMinTier() - 1, conceptArt.size());
+            for (int i = 0; i < basicTrades; i++) {
+                ModifyTradesEvents.TradeRegistry trades = context.getTrades(context.getMinTier() + i);
+                trades.add(new ConceptArtTrade(conceptArt.get(i)));
+            }
+
+            for (int i = 0; i < Math.min(2, (conceptArt.size() - basicTrades) / 2); i++) {
+                ModifyTradesEvents.TradeRegistry trades = context.getTrades(context.getMaxTier() - 1 + i);
+                trades.add(new ConceptArtTrade(conceptArt.get(basicTrades + i * 2)));
+                trades.add(new ConceptArtTrade(conceptArt.get(basicTrades + i * 2 + 1)));
             }
         });
     }

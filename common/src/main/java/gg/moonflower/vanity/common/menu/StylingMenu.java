@@ -68,6 +68,7 @@ public class StylingMenu extends AbstractContainerMenu {
 
     public StylingMenu(int window, Inventory inventory, Container container, ContainerLevelAccess containerLevelAccess, ConceptArtManager conceptArtManager) {
         super(VanityMenuTypes.STYLING_MENU.get(), window);
+        checkContainerSize(container, 9);
         this.container = container;
 
         this.access = containerLevelAccess;
