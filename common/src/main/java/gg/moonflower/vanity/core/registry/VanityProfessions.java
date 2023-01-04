@@ -15,6 +15,7 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.trading.Merchant;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -45,19 +46,16 @@ public class VanityProfessions {
             if (availableArt.isEmpty())
                 return;
 
-            List<ResourceLocation> conceptArt = new ArrayList<>(availableArt);
-            Collections.shuffle(conceptArt);
-
-            int basicTrades = Math.min(context.getMaxTier() - context.getMinTier() - 1, conceptArt.size());
+            int basicTrades = Math.min(context.getMaxTier() - context.getMinTier() - 1, availableArt.size());
             for (int i = 0; i < basicTrades; i++) {
                 ModifyTradesEvents.TradeRegistry trades = context.getTrades(context.getMinTier() + i);
-                trades.add(new ConceptArtTrade(conceptArt.get(i)));
+                trades.add(new ConceptArtTrade(availableArt, i));
             }
 
-            for (int i = 0; i < Math.min(2, (conceptArt.size() - basicTrades) / 2); i++) {
+            for (int i = 0; i < Math.min(2, (availableArt.size() - basicTrades) / 2); i++) {
                 ModifyTradesEvents.TradeRegistry trades = context.getTrades(context.getMaxTier() - 1 + i);
-                trades.add(new ConceptArtTrade(conceptArt.get(basicTrades + i * 2)));
-                trades.add(new ConceptArtTrade(conceptArt.get(basicTrades + i * 2 + 1)));
+                trades.add(new ConceptArtTrade(availableArt, basicTrades + i * 2));
+                trades.add(new ConceptArtTrade(availableArt, basicTrades + i * 2 + 1));
             }
         });
     }
@@ -68,19 +66,27 @@ public class VanityProfessions {
         private static final int EMERALD_COST = 15;
         private static final int XP_GAIN = 24;
         private static final float PRICE_MULTIPLIER = 0.05F;
+        private static final Random RANDOM = new Random(42L);
 
-        private final ResourceLocation art;
+        private final List<ResourceLocation> availableArt;
+        private final int index;
 
-        private ConceptArtTrade(ResourceLocation art) {
-            this.art = art;
+        private ConceptArtTrade(List<ResourceLocation> availableArt, int index) {
+            this.availableArt = availableArt;
+            this.index = index;
         }
 
         @Override
         public MerchantOffer getOffer(Entity entity, Random random) {
             ItemStack emeralds = new ItemStack(Items.EMERALD, EMERALD_COST + (random.nextInt(16)));
 
+            RANDOM.setSeed(entity.getUUID().getMostSignificantBits());
+
+            List<ResourceLocation> conceptArt = new ArrayList<>(this.availableArt);
+            Collections.shuffle(conceptArt, random);
+
             ItemStack item = new ItemStack(VanityItems.CONCEPT_ART.get());
-            ConceptArtItem.setConceptArt(item, this.art);
+            ConceptArtItem.setConceptArt(item, conceptArt.get(this.index));
 
             return new MerchantOffer(emeralds, item, USES, XP_GAIN, PRICE_MULTIPLIER);
         }
