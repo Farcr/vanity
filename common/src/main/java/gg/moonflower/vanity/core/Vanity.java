@@ -8,6 +8,7 @@ import gg.moonflower.vanity.common.network.VanityMessages;
 import gg.moonflower.vanity.core.registry.VanityBlocks;
 import gg.moonflower.vanity.core.registry.VanityItems;
 import gg.moonflower.vanity.core.registry.VanityMenuTypes;
+import gg.moonflower.vanity.core.registry.VanityProfessions;
 import gg.moonflower.vanity.core.registry.VanitySounds;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -32,9 +33,8 @@ public class Vanity {
         VanityMenuTypes.REGISTRY.register();
         VanitySounds.REGISTRY.register();
 
-//        VanityProfessions.PROFESSIONS.register();
-//        VanityProfessions.POI_TYPES.register();
-//        VanityProfessions.registerTrades();
+        VanityProfessions.REGISTRY.register();
+        VanityProfessions.registerTrades();
 
         VanityMessages.init();
         ServerConceptArtManager.init();
