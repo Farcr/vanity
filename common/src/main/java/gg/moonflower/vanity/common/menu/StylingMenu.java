@@ -1,9 +1,10 @@
 package gg.moonflower.vanity.common.menu;
 
 import com.mojang.datafixers.util.Pair;
-import gg.moonflower.pollen.api.util.QuickMoveHelper;
+import gg.moonflower.pollen.api.container.util.v1.QuickMoveHelper;
 import gg.moonflower.vanity.api.concept.ConceptArt;
 import gg.moonflower.vanity.api.concept.ConceptArtManager;
+import gg.moonflower.vanity.impl.concept.ConceptArtManagerImpl;
 import gg.moonflower.vanity.common.item.ConceptArtItem;
 import gg.moonflower.vanity.core.Vanity;
 import gg.moonflower.vanity.core.registry.VanityItems;

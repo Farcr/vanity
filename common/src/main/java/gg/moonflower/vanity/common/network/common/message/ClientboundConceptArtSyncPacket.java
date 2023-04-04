@@ -1,8 +1,8 @@
 package gg.moonflower.vanity.common.network.common.message;
 
-import gg.moonflower.pollen.api.network.packet.PollinatedPacketContext;
-import gg.moonflower.pollen.api.network.packet.login.SimplePollinatedLoginPacket;
-import gg.moonflower.vanity.api.concept.ConceptArtManager;
+import gg.moonflower.pollen.api.network.v1.packet.PollinatedPacketContext;
+import gg.moonflower.pollen.api.network.v1.packet.login.SimplePollinatedLoginPacket;
+import gg.moonflower.vanity.impl.concept.ConceptArtManagerImpl;
 import gg.moonflower.vanity.api.concept.ConceptArt;
 import gg.moonflower.vanity.common.network.common.handler.VanityClientCommonHandler;
 import net.minecraft.network.FriendlyByteBuf;
@@ -18,7 +18,7 @@ public class ClientboundConceptArtSyncPacket extends SimplePollinatedLoginPacket
 
     private final Map<ResourceLocation, ConceptArt> conceptArt = new HashMap<>();
 
-    public ClientboundConceptArtSyncPacket(ConceptArtManager manager) {
+    public ClientboundConceptArtSyncPacket(ConceptArtManagerImpl manager) {
         this.conceptArt.putAll(manager.getAllConceptArtIds()
             .filter(entry -> manager.getConceptArt(entry).isPresent())
             .collect(Collectors.toMap(Function.identity(), entry -> manager.getConceptArt(entry).orElseThrow(() -> new IllegalStateException("The concept art '" + entry + "' is not present")))));

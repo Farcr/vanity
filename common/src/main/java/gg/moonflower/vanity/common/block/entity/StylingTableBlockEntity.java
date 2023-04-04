@@ -1,6 +1,6 @@
 package gg.moonflower.vanity.common.block.entity;
 
-import gg.moonflower.vanity.api.concept.ConceptArtManager;
+import gg.moonflower.vanity.common.concept.ServerConceptArtManager;
 import gg.moonflower.vanity.common.menu.StylingMenu;
 import gg.moonflower.vanity.core.Vanity;
 import gg.moonflower.vanity.core.registry.VanityBlocks;
@@ -8,7 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
@@ -21,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class StylingTableBlockEntity extends BaseContainerBlockEntity {
 
-    private static final Component CONTAINER_TITLE = new TranslatableComponent("container." + Vanity.MOD_ID + ".styling_table");
+    private static final Component CONTAINER_TITLE = Component.translatable("container." + Vanity.MOD_ID + ".styling_table");
     protected NonNullList<ItemStack> items;
 
     public StylingTableBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -58,7 +57,7 @@ public class StylingTableBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new StylingMenu(containerId, inventory, this, ContainerLevelAccess.create(this.level, this.getBlockPos()), ConceptArtManager.get(false));
+        return new StylingMenu(containerId, inventory, this, ContainerLevelAccess.create(this.level, this.getBlockPos()), ServerConceptArtManager.INSTANCE);
     }
 
     @Override

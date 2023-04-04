@@ -1,19 +1,15 @@
 package gg.moonflower.vanity.common.item;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+import java.awt.*;
 
 public class ConceptArtItem extends Item {
 
@@ -87,13 +83,13 @@ public class ConceptArtItem extends Item {
         artTag.putString(VARIANT_TAG, variantName);
     }
 
-    public static TranslatableComponent getTranslationKey(ResourceLocation art, @Nullable String variant) {
+    public static MutableComponent getTranslationKey(ResourceLocation art, @Nullable String variant) {
         String artKey = "concept_art." + art.getNamespace() + "." + art.getPath();
         if (variant != null) {
             artKey += "." + variant;
         }
 
-        return new TranslatableComponent(artKey);
+        return Component.translatable(artKey);
     }
 
     @Override
@@ -101,9 +97,9 @@ public class ConceptArtItem extends Item {
         Component itemName = super.getName(stack);
         ResourceLocation art = ConceptArtItem.getConceptArtId(stack);
         if (art != null) {
-            return new TextComponent("")
+            return Component.literal("")
                     .append(ConceptArtItem.getTranslationKey(art, null))
-                    .append(new TextComponent(" ")
+                    .append(Component.literal(" ")
                     ).append(itemName);
         }
         return itemName;

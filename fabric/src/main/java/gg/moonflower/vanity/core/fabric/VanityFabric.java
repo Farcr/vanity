@@ -6,6 +6,6 @@ import net.fabricmc.api.ModInitializer;
 public class VanityFabric implements ModInitializer {
     @Override
     public void onInitialize() {
-        Vanity.PLATFORM.setup();
+        Vanity.init();
     }
 }

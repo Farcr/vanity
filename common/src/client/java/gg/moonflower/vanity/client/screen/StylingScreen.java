@@ -11,7 +11,6 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -25,7 +24,7 @@ import java.util.List;
 public class StylingScreen extends AbstractContainerScreen<StylingMenu> implements ContainerListener {
 
     private static final ResourceLocation BG_LOCATION = new ResourceLocation(Vanity.MOD_ID, "textures/gui/container/styling_table.png");
-    private static final Component ORIGINAL = new TranslatableComponent("screen." + Vanity.MOD_ID + ".styling_table.original");
+    private static final Component ORIGINAL = Component.translatable("screen." + Vanity.MOD_ID + ".styling_table.original");
     private float scrollOffs;
     private boolean scrolling;
     private int startIndex;

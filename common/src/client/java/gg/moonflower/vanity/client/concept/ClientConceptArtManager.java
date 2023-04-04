@@ -1,7 +1,7 @@
 package gg.moonflower.vanity.client.concept;
 
 import gg.moonflower.vanity.api.concept.ConceptArt;
-import gg.moonflower.vanity.api.concept.ConceptArtManager;
+import gg.moonflower.vanity.impl.concept.ConceptArtManagerImpl;
 import gg.moonflower.vanity.common.network.common.message.ClientboundConceptArtSyncPacket;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ClientConceptArtManager extends ConceptArtManager {
+public class ClientConceptArtManager extends ConceptArtManagerImpl {
 
     public static final ClientConceptArtManager INSTANCE = new ClientConceptArtManager();
     private static final Map<ResourceLocation, ModelResourceLocation> MODEL_LOCATION_CACHE = new HashMap<>();

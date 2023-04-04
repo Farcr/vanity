@@ -1,31 +1,40 @@
 {
   "schemaVersion": 1,
-  "id": "${id}",
-  "version": "${version}",
-  "name": "${name}",
-  "description": "It's time to style.",
-  "authors": [ "Moonflower" ],
-  "contributors": [ "Jackson", "Farcr", "Ocelot" ],
-  "icon": "icon.png",
-  "contact": {
-    "homepage": "https://www.moonflower.gg",
-    "issues": "https://github.com/MoonflowerTeam/${repo}/issues",
-    "sources": "https://github.com/MoonflowerTeam/${repo}/"
-  },
-  "mixins": [
-    "${id}-common.mixins.json",
-    "${id}.mixins.json"
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
+  "icon": "${mod_id}.icon.png",
+  "authors": [
+    "Moonflower"
   ],
+  "contributors": [
+    "Jackson",
+    "RyanHCode"
+  ],
+  "contact": {
+    "homepage": "https://www.moonflower.gg/",
+    "issues": "https://github.com/MoonflowerTeam/${archives_base_name}/issues",
+    "sources": "https://github.com/MoonflowerTeam/${archives_base_name}/"
+  },
   "license": "GPLv3",
   "environment": "*",
   "entrypoints": {
     "main": [
       "gg.moonflower.vanity.core.fabric.VanityFabric"
+    ],
+    "client": [
+      "gg.moonflower.vanity.core.fabric.VanityFabricClient"
     ]
   },
+  "mixins": [
+    {
+      "config": "${mod_id}-common.client.mixins.json",
+      "environment": "client"
+    }
+  ],
   "depends": {
     "fabric": "*",
-    "minecraft": ">=1.18.2 <1.19",
-    "pollen": ">=1.0.0 <2.0"
+    "minecraft": "~${minecraft_version}"
   }
 }

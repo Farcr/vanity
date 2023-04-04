@@ -1,6 +1,6 @@
 package gg.moonflower.vanity.common.network.play.handler;
 
-import gg.moonflower.pollen.api.network.packet.PollinatedPacketContext;
+import gg.moonflower.pollen.api.network.v1.packet.PollinatedPacketContext;
 import gg.moonflower.vanity.client.concept.ClientConceptArtManager;
 import gg.moonflower.vanity.common.network.common.message.ClientboundConceptArtSyncPacket;
 

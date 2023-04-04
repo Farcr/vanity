@@ -1,29 +1,22 @@
-loom {
-   accessWidenerPath.set(file("src/main/resources/${project.mod_id}.accesswidener"))
+architectury {
+    common(rootProject.enabled_platforms.split(","))
 }
 
-architectury {
-    common("fabric", "forge")
+loom {
+    splitEnvironmentSourceSets()
+    accessWidenerPath = file("src/main/resources/${project.mod_id}.accesswidener")
 }
 
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    modImplementation("gg.moonflower:pollen:${rootProject.pollen_version}")
+    modApi "dev.architectury:architectury:${rootProject.architectury_version}"
+    modApi "gg.moonflower:pollen-common:${rootProject.pollen_version}"
 }
 
 processResources {
-    inputs.property "id", rootProject.mod_id
+    inputs.property "mod_id", project.mod_id
 
     filesMatching(["architectury.common.json"]) {
-        expand "id": rootProject.mod_id
-    }
-}
-
-publishing {
-    publications {
-        mavenCommon(MavenPublication) {
-            artifactId = project.archivesBaseName
-            from components.java
-        }
+        expand "mod_id": project.mod_id
     }
 }

@@ -1,21 +1,16 @@
 package gg.moonflower.vanity.api.concept;
 
-import gg.moonflower.vanity.client.concept.ClientConceptArtManager;
+import dev.architectury.injectables.annotations.ExpectPlatform;
+import gg.moonflower.pollen.core.Pollen;
 import gg.moonflower.vanity.common.concept.ServerConceptArtManager;
-import gg.moonflower.vanity.common.item.ConceptArtItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-@SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
-public abstract class ConceptArtManager {
-
-    protected final Map<ResourceLocation, ConceptArt> conceptArt = new HashMap<>();
+public interface ConceptArtManager {
 
     /**
      * Retrieves a sided concept art manager for the specified side.
@@ -23,8 +18,17 @@ public abstract class ConceptArtManager {
      * @param client Whether the client sided concept art manager should be returned
      * @return The sided concept art manager
      */
-    public static ConceptArtManager get(boolean client) {
-        return client ? ClientConceptArtManager.INSTANCE : ServerConceptArtManager.INSTANCE;
+    static ConceptArtManager get(boolean client) {
+        return client ? ConceptArtManager.client() : ConceptArtManager.server();
+    }
+
+    @ExpectPlatform
+    static ConceptArtManager client() {
+        return Pollen.expect();
+    }
+
+    static ConceptArtManager server() {
+        return ServerConceptArtManager.INSTANCE;
     }
 
     /**
@@ -33,9 +37,7 @@ public abstract class ConceptArtManager {
      * @param location The id of the concept art to retrieve
      * @return An optional of the concept art
      */
-    public Optional<ConceptArt> getConceptArt(ResourceLocation location) {
-        return Optional.ofNullable(this.conceptArt.get(location));
-    }
+    Optional<ConceptArt> getConceptArt(ResourceLocation location);
 
     /**
      * Retrieves the id of the concept art.
@@ -43,23 +45,17 @@ public abstract class ConceptArtManager {
      * @param art The concept art to get the id for
      * @return An optional of the concept art id
      */
-    public Optional<ResourceLocation> getConceptArtId(ConceptArt art) {
-        return this.conceptArt.entrySet().stream().filter(entry -> entry.getValue().equals(art)).map(Map.Entry::getKey).findFirst();
-    }
+    Optional<ResourceLocation> getConceptArtId(ConceptArt art);
 
     /**
      * @return All ids of concept art that can be created
      */
-    public Stream<ResourceLocation> getAllConceptArtIds() {
-        return this.conceptArt.keySet().stream();
-    }
+    Stream<ResourceLocation> getAllConceptArtIds();
 
     /**
      * @return All concept art that can be created
      */
-    public Stream<ConceptArt> getAllConceptArt() {
-        return this.conceptArt.values().stream();
-    }
+    Stream<ConceptArt> getAllConceptArt();
 
     /**
      * Retrieves the concept art applied to an item.
@@ -68,13 +64,7 @@ public abstract class ConceptArtManager {
      * @return The applied concept art, null if there is none
      */
     @Nullable
-    public ConceptArt getItemConceptArt(ItemStack stack) {
-        ResourceLocation location = ConceptArtItem.getConceptArtId(stack);
-        if (location == null)
-            return null;
-
-        return this.getConceptArt(location).orElse(null);
-    }
+    ConceptArt getItemConceptArt(ItemStack stack);
 
     /**
      * Retrieves the concept art variant applied to an item.
@@ -83,15 +73,5 @@ public abstract class ConceptArtManager {
      * @return The concept art variant, null if there is none
      */
     @Nullable
-    public ConceptArt.Variant getItemConceptArtVariant(ItemStack stack) {
-        String variant = ConceptArtItem.getVariantName(stack);
-        if (variant == null)
-            return null;
-
-        ConceptArt art = this.getItemConceptArt(stack);
-        if (art == null)
-            return null;
-
-        return art.getVariantForItem(variant, stack);
-    }
+    ConceptArt.Variant getItemConceptArtVariant(ItemStack stack);
 }

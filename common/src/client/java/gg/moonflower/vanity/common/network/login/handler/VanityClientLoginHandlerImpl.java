@@ -1,7 +1,7 @@
 package gg.moonflower.vanity.common.network.login.handler;
 
-import gg.moonflower.pollen.api.network.packet.PollinatedPacketContext;
-import gg.moonflower.pollen.api.network.packet.login.ServerboundAckPacket;
+import gg.moonflower.pollen.api.network.v1.packet.PollinatedPacketContext;
+import gg.moonflower.pollen.api.network.v1.packet.login.ServerboundAckPacket;
 import gg.moonflower.vanity.client.concept.ClientConceptArtManager;
 import gg.moonflower.vanity.common.network.common.message.ClientboundConceptArtSyncPacket;
 
