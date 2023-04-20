@@ -36,8 +36,11 @@ public class Vanity {
         VanityProfessions.REGISTRY.register();
         VanityProfessions.registerTrades();
 
-        VanityMessages.init();
         ServerConceptArtManager.init();
+    }
+
+    public static void postInit() {
+        VanityMessages.init();
     }
 
     // TODO: pollen data gen

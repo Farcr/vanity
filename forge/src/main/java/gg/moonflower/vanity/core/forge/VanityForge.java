@@ -16,10 +16,15 @@ public class VanityForge {
     public VanityForge() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         EventBuses.registerModEventBus(Vanity.MOD_ID, eventBus);
+        eventBus.addListener(this::commonInit);
         eventBus.addListener(this::clientInit);
 
         Vanity.init();
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> VanityClient::init);
+    }
+
+    private void commonInit(FMLCommonSetupEvent event) {
+        Vanity.postInit();
     }
 
     private void clientInit(FMLClientSetupEvent event) {
