@@ -15,7 +15,6 @@ loom {
             sourceSet sourceSets.client
         }
     }
-    accessWidenerPath = project(":common").loom.accessWidenerPath
 }
 
 configurations {
