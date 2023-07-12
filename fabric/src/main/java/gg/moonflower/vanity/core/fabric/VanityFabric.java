@@ -7,5 +7,6 @@ public class VanityFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         Vanity.init();
+        Vanity.postInit();
     }
 }

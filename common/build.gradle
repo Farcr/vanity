@@ -3,13 +3,14 @@ architectury {
 }
 
 loom {
-    splitEnvironmentSourceSets()
 }
 
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
     modApi "gg.moonflower:pollen-common:${rootProject.pollen_version}"
+
+    implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-common:${rootProject.mixinextras_version}"))
 }
 
 processResources {

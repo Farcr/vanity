@@ -19,8 +19,6 @@ import java.util.Map;
 public class VanityClient {
 
     public static void init() {
-        VanityMessages.PLAY.setClientHandler(new VanityClientPlayHandlerImpl());
-        VanityMessages.LOGIN.setClientHandler(new VanityClientLoginHandlerImpl());
         ModelRegistry.registerFactory((resourceManager, out) -> {
             for (Map.Entry<ResourceLocation, Resource> resource : resourceManager.listResources("models/item/vanity_concept_art", name -> name.getPath().endsWith(".json")).entrySet()) {
                 ResourceLocation location = resource.getKey();
@@ -30,6 +28,9 @@ public class VanityClient {
     }
 
     public static void postInit() {
+        VanityMessages.PLAY.setClientHandler(new VanityClientPlayHandlerImpl());
+        VanityMessages.LOGIN.setClientHandler(new VanityClientLoginHandlerImpl());
+
         RegisterAtlasSpriteEvent.event(InventoryMenu.BLOCK_ATLAS).register((atlas, registry) -> registry.accept(StylingMenu.EMPTY_CONCEPT_ART_SLOT));
         MenuRegistry.registerScreenFactory(VanityMenuTypes.STYLING_MENU.get(), StylingScreen::new);
     }

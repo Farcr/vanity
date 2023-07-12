@@ -9,7 +9,7 @@ architectury {
 
 loom {
     forge {
-        mixinConfig "${project.mod_id}-common.client.mixins.json"
+        mixinConfig "${project.mod_id}-common-client.mixins.json"
     }
 }
 
@@ -26,7 +26,9 @@ dependencies {
     modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
     modApi "gg.moonflower:pollen-forge:${rootProject.pollen_version}"
 
-    implementation(project(":common").sourceSets.client.output)
+    implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-common:${rootProject.mixinextras_version}"))
+    implementation(include("com.github.llamalad7.mixinextras:mixinextras-forge:${rootProject.mixinextras_version}"))
+
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 }
