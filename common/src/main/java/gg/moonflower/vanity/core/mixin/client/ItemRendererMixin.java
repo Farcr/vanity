@@ -1,4 +1,4 @@
-package gg.moonflower.vanity.client.mixin;
+package gg.moonflower.vanity.core.mixin.client;
 
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;

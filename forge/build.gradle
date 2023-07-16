@@ -2,6 +2,8 @@ plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
+archivesBaseName = "${rootProject.archivesBaseName}-${project.name}"
+
 architectury {
     platformSetupLoomIde()
     forge()
@@ -9,7 +11,7 @@ architectury {
 
 loom {
     forge {
-        mixinConfig "${project.mod_id}-common-client.mixins.json"
+        mixinConfig "${project.mod_id}-common.mixins.json"
     }
 }
 

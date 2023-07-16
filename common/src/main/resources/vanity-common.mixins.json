@@ -1,13 +1,13 @@
 {
   "required": true,
-  "package": "gg.moonflower.vanity.client.mixin",
+  "package": "gg.moonflower.vanity.core.mixin",
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
   "mixins": [
   ],
   "client": [
-    "ItemRendererMixin",
-    "ItemStackMixin"
+    "client.ItemRendererMixin",
+    "client.ItemStackMixin"
   ],
   "injectors": {
     "defaultRequire": 1

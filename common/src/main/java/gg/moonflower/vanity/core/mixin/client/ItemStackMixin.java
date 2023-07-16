@@ -1,4 +1,4 @@
-package gg.moonflower.vanity.client.mixin;
+package gg.moonflower.vanity.core.mixin.client;
 
 import gg.moonflower.vanity.common.item.ConceptArtItem;
 import net.minecraft.ChatFormatting;
