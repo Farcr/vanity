@@ -1,5 +1,6 @@
 {
 	"credit": "Made by Farcr",
+	"render_type": "minecraft:cutout",
 	"parent": "block/cube",
 	"textures": {
 		"top": "vanity:block/styling_table_top",
@@ -49,8 +50,9 @@
 			}
 		},
 		{
-			"from": [11, 16, 7],
-			"to": [15, 22, 11],
+			"from": [11, 16, 9],
+			"to": [15, 22, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 2]},
 			"faces": {
 				"north": {"uv": [12, 10, 16, 16], "texture": "#extra"},
 				"east": {"uv": [12, 10, 16, 16], "texture": "#extra"},
@@ -61,8 +63,9 @@
 			}
 		},
 		{
-			"from": [12, 22, 8],
-			"to": [14, 23, 10],
+			"from": [12, 22, 10],
+			"to": [14, 23, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 2]},
 			"faces": {
 				"north": {"uv": [10, 3, 12, 4], "texture": "#extra"},
 				"east": {"uv": [10, 3, 12, 4], "texture": "#extra"},

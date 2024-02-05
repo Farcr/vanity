@@ -23,9 +23,7 @@ import org.jetbrains.annotations.Nullable;
 public class StylingTableBlock extends BaseEntityBlock {
 
     private static final VoxelShape SHAPE = Shapes.or(
-            box(0, 0, 0, 16, 16, 16),
-            Shapes.box(0.6875, 1, 0.4375, 0.9375, 1.375, 0.6875),
-            Shapes.box(0.75, 1.375, 0.5, 0.875, 1.4375, 0.625)
+            box(0, 0, 0, 16, 16, 16)
 
     );
 
