@@ -6,8 +6,8 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import tech.thatgravyboat.vanity.api.concept.ConceptArt;
-import tech.thatgravyboat.vanity.common.network.VanityMessages;
-import tech.thatgravyboat.vanity.common.network.ClientboundConceptArtSyncPacket;
+import tech.thatgravyboat.vanity.common.network.NetworkHandler;
+import tech.thatgravyboat.vanity.common.network.packets.client.ClientboundConceptArtSyncPacket;
 import tech.thatgravyboat.vanity.common.Vanity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
@@ -36,7 +36,7 @@ public class ServerConceptArtManager extends ConceptArtManagerImpl implements Pr
     public @NotNull CompletableFuture<Void> reload(PreparationBarrier preparationBarrier, ResourceManager resourceManager, ProfilerFiller preparationsProfiler, ProfilerFiller reloadProfiler, Executor backgroundExecutor, Executor gameExecutor) {
         return this.resourceLoader.reload(preparationBarrier, resourceManager, preparationsProfiler, reloadProfiler, backgroundExecutor, gameExecutor).thenRun(() -> {
             if (Vanity.server != null) {
-                VanityMessages.CHANNEL.sendToAllPlayers(createPacket(), Vanity.server);
+                NetworkHandler.CHANNEL.sendToAllPlayers(createPacket(), Vanity.server);
             }
         });
     }

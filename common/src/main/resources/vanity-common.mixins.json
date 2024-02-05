@@ -13,7 +13,10 @@
         "client.ItemRendererMixin",
         "client.ItemStackMixin",
         "client.fixes.ArrowRendererMixin",
-        "client.fixes.ThrownTridentRendererMixin"
+        "client.fixes.ThrownTridentRendererMixin",
+        "client.rendering.GuiGraphicsMixin",
+        "client.rendering.ItemEntityRendererMixin",
+        "client.rendering.ItemRendererMixin"
     ],
     "injectors": {
         "defaultRequire": 1

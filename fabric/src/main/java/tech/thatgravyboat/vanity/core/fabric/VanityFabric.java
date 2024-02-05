@@ -21,7 +21,7 @@ public class VanityFabric implements ModInitializer {
         Vanity.init();
         ResourceManagerHelper serverResourceHelper = ResourceManagerHelper.get(PackType.SERVER_DATA);
         Vanity.onRegisterReloadListeners((id, listener) ->
-                serverResourceHelper.registerReloadListener(new FabricReloadListener(id, listener))
+            serverResourceHelper.registerReloadListener(new FabricReloadListener(id, listener))
         );
         ServerLifecycleEvents.SERVER_STARTING.register(server -> {
             Vanity.server = server;

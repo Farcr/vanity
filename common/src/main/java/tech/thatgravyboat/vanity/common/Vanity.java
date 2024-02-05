@@ -8,8 +8,9 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import tech.thatgravyboat.vanity.api.concept.ConceptArtManager;
 import tech.thatgravyboat.vanity.common.handler.concept.ServerConceptArtManager;
+import tech.thatgravyboat.vanity.common.handler.trades.VillagerTradeManager;
 import tech.thatgravyboat.vanity.common.item.ConceptArtHelper;
-import tech.thatgravyboat.vanity.common.network.VanityMessages;
+import tech.thatgravyboat.vanity.common.network.NetworkHandler;
 import tech.thatgravyboat.vanity.common.registries.*;
 
 import java.util.ArrayList;
@@ -53,10 +54,11 @@ public class Vanity {
         VanityProfessions.POIS.init();
         VanityProfessions.PROFESSIONS.init();
 
-        VanityMessages.init();
+        NetworkHandler.init();
     }
 
     public static void onRegisterReloadListeners(BiConsumer<ResourceLocation, PreparableReloadListener> registry) {
         registry.accept(new ResourceLocation(Vanity.MOD_ID, "concept_art_manager"), ServerConceptArtManager.INSTANCE);
+        registry.accept(new ResourceLocation(Vanity.MOD_ID, "villager_trades"), VillagerTradeManager.INSTANCE);
     }
 }

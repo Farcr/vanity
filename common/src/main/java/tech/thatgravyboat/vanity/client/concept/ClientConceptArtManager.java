@@ -2,7 +2,7 @@ package tech.thatgravyboat.vanity.client.concept;
 
 import tech.thatgravyboat.vanity.api.style.ModelType;
 import tech.thatgravyboat.vanity.api.style.Style;
-import tech.thatgravyboat.vanity.common.network.ClientboundConceptArtSyncPacket;
+import tech.thatgravyboat.vanity.common.network.packets.client.ClientboundConceptArtSyncPacket;
 import tech.thatgravyboat.vanity.common.handler.concept.ConceptArtManagerImpl;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;

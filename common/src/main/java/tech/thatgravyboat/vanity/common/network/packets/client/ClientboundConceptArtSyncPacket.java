@@ -1,4 +1,4 @@
-package tech.thatgravyboat.vanity.common.network;
+package tech.thatgravyboat.vanity.common.network.packets.client;
 
 import com.teamresourceful.resourcefullib.common.networking.base.Packet;
 import com.teamresourceful.resourcefullib.common.networking.base.PacketContext;

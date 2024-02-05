@@ -1,8 +1,8 @@
 package tech.thatgravyboat.vanity.mixins.common;
 
 import tech.thatgravyboat.vanity.common.entities.EntityItemHolder;
-import tech.thatgravyboat.vanity.common.network.ClientboundSyncEntityItemPacket;
-import tech.thatgravyboat.vanity.common.network.VanityMessages;
+import tech.thatgravyboat.vanity.common.network.packets.client.ClientboundSyncEntityItemPacket;
+import tech.thatgravyboat.vanity.common.network.NetworkHandler;
 import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -29,7 +29,7 @@ public class ServerEntityMixin {
     private void vantity$addPairing(ServerPlayer serverPlayer, CallbackInfo ci) {
         if (this.entity instanceof EntityItemHolder holder) {
             ClientboundSyncEntityItemPacket packet = new ClientboundSyncEntityItemPacket(this.entity.getId(), holder.vanity$getItem());
-            VanityMessages.CHANNEL.sendToPlayer(packet, serverPlayer);
+            NetworkHandler.CHANNEL.sendToPlayer(packet, serverPlayer);
         }
     }
 }

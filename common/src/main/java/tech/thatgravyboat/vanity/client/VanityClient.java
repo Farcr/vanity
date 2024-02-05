@@ -1,5 +1,6 @@
 package tech.thatgravyboat.vanity.client;
 
+import tech.thatgravyboat.vanity.client.screen.StorageScreen;
 import tech.thatgravyboat.vanity.client.screen.StylingScreen;
 import tech.thatgravyboat.vanity.common.registries.VanityMenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -21,6 +22,7 @@ public class VanityClient {
     }
 
     public static void setup() {
-        MenuScreens.register(VanityMenuTypes.STYLING_MENU.get(), StylingScreen::new);
+        MenuScreens.register(VanityMenuTypes.STYLING.get(), StylingScreen::new);
+        MenuScreens.register(VanityMenuTypes.STORAGE.get(), StorageScreen::new);
     }
 }
