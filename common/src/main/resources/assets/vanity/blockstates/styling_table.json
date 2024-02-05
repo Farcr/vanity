@@ -1,19 +1,20 @@
 {
   "variants": {
-    "facing=east": {
-      "model": "vanity:block/styling_table",
-      "y": 90
-    },
-    "facing=north": {
-      "model": "vanity:block/styling_table"
-    },
-    "facing=south": {
-      "model": "vanity:block/styling_table",
-      "y": 180
-    },
-    "facing=west": {
-      "model": "vanity:block/styling_table",
-      "y": 270
-    }
+    "": [
+      {
+        "model": "vanity:block/styling_table"
+      },
+      {
+        "model": "vanity:block/styling_table",
+        "y": 90
+      },
+      {
+        "model": "vanity:block/styling_table",
+        "y": 180
+      },{
+        "model": "vanity:block/styling_table",
+        "y": 270
+      }
+    ]
   }
 }
