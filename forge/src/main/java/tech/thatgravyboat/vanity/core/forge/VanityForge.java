@@ -3,6 +3,7 @@ package tech.thatgravyboat.vanity.core.forge;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -11,7 +12,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.commons.lang3.Validate;
 import tech.thatgravyboat.vanity.client.VanityClient;
 import tech.thatgravyboat.vanity.common.Vanity;
-import tech.thatgravyboat.vanity.common.registries.VanityProfessions;
+import tech.thatgravyboat.vanity.common.registries.ModTrades;
 
 import java.util.stream.Collectors;
 
@@ -24,6 +25,7 @@ public class VanityForge {
         Vanity.init();
 
         MinecraftForge.EVENT_BUS.addListener(this::villagerTrades);
+        MinecraftForge.EVENT_BUS.addListener(this::onAddReloadListener);
     }
 
     private void clientInit(FMLClientSetupEvent event) {
@@ -33,7 +35,7 @@ public class VanityForge {
     private void villagerTrades(VillagerTradesEvent event) {
         int minTier = event.getTrades().keySet().intStream().min().orElse(1);
         int maxTier = event.getTrades().keySet().intStream().max().orElse(5);
-        VanityProfessions.registerTrades(event.getType(), maxTier, minTier, (tier, listing) -> {
+        ModTrades.registerTrades(event.getType(), maxTier, minTier, (tier, listing) -> {
             Validate.inclusiveBetween(minTier, maxTier, tier, "Tier must be between " + minTier + " and " + maxTier);
             int intTIer = tier;
             var registry = event.getTrades().get(intTIer);
@@ -43,5 +45,9 @@ public class VanityForge {
             }
             registry.add(listing);
         });
+    }
+
+    private void onAddReloadListener(AddReloadListenerEvent event) {
+        Vanity.onRegisterReloadListeners((id, listener) -> event.addListener(listener));
     }
 }

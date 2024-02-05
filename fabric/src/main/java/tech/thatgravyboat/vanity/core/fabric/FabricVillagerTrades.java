@@ -1,6 +1,6 @@
 package tech.thatgravyboat.vanity.core.fabric;
 
-import tech.thatgravyboat.vanity.common.registries.VanityProfessions;
+import tech.thatgravyboat.vanity.common.registries.ModTrades;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -51,7 +51,7 @@ public class FabricVillagerTrades {
                 }
             }
 
-            VanityProfessions.registerTrades(prof, maxTier, minTier, (tier, listing) -> {
+            ModTrades.registerTrades(prof, maxTier, minTier, (tier, listing) -> {
                 Validate.inclusiveBetween(minTier, maxTier, tier, "Tier must be between " + minTier + " and " + maxTier);
                 var registry = newTrades.get(tier);
                 if (registry == null)
