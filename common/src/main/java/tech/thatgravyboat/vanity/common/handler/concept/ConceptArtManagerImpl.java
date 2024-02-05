@@ -58,7 +58,7 @@ public abstract class ConceptArtManagerImpl implements ConceptArtManager {
     @Override
     @Nullable
     public Style getItemConceptArtVariant(ItemStack stack) {
-        String variant = ConceptArtHelper.getVariantName(stack);
+        String variant = ConceptArtHelper.getStyle(stack);
         if (variant == null)
             return null;
 

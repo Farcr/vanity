@@ -36,7 +36,7 @@ public class ConceptArtHelper {
     }
 
     @Nullable
-    public static String getVariantName(ItemStack stack) {
+    public static String getStyle(ItemStack stack) {
         CompoundTag tag = ConceptArtHelper.getTag(stack);
         if (tag == null || !tag.contains(VARIANT_TAG, Tag.TAG_STRING)) {
             return null;

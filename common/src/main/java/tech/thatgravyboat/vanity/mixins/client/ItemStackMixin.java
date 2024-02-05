@@ -21,7 +21,7 @@ public class ItemStackMixin {
     @Inject(method = "getTooltipLines", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundTag;contains(Ljava/lang/String;I)Z", ordinal = 0), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
     private void vanity$styleName(Player player, TooltipFlag isAdvanced, CallbackInfoReturnable<List<Component>> cir, List<Component> lines) {
         ResourceLocation art = ConceptArtHelper.getArtId((ItemStack) (Object) this);
-        String variant = ConceptArtHelper.getVariantName((ItemStack) (Object) this);
+        String variant = ConceptArtHelper.getStyle((ItemStack) (Object) this);
         if (art != null && variant != null) {
             lines.add(ConceptArtHelper.getTranslationKey(art, variant).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         }
