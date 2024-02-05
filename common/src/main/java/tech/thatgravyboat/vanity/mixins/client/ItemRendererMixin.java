@@ -5,12 +5,6 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import com.mojang.blaze3d.vertex.PoseStack;
-import tech.thatgravyboat.vanity.api.concept.ConceptArt;
-import tech.thatgravyboat.vanity.api.concept.ConceptArtManager;
-import tech.thatgravyboat.vanity.api.style.ModelType;
-import tech.thatgravyboat.vanity.client.concept.ClientConceptArtManager;
-import tech.thatgravyboat.vanity.client.rendering.RenderingManager;
-import tech.thatgravyboat.vanity.common.registries.VanityItems;
 import net.minecraft.Optionull;
 import net.minecraft.client.renderer.ItemModelShaper;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -32,6 +26,12 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import tech.thatgravyboat.vanity.api.concept.ConceptArt;
+import tech.thatgravyboat.vanity.api.concept.ConceptArtManager;
+import tech.thatgravyboat.vanity.api.style.ModelType;
+import tech.thatgravyboat.vanity.client.concept.ClientConceptArtManager;
+import tech.thatgravyboat.vanity.client.rendering.RenderingManager;
+import tech.thatgravyboat.vanity.common.registries.VanityItems;
 
 
 @Mixin(ItemRenderer.class)
@@ -71,7 +71,7 @@ public class ItemRendererMixin implements RenderingManager {
         }
 
         return Optionull.mapOrDefault(
-            ClientConceptArtManager.INSTANCE.getModel(stack, this.vanity$modelType, ModelType.HAND),
+            ClientConceptArtManager.INSTANCE.getModel(stack, this.vanity$modelType, RenderingManager.IS_IN_GUI.get() ? null : ModelType.HAND),
             this.itemModelShaper.getModelManager()::getModel,
             original
         );
@@ -89,21 +89,22 @@ public class ItemRendererMixin implements RenderingManager {
         ),
         argsOnly = true
     )
-    public BakedModel render(
+    public BakedModel vanity$render(
         BakedModel original,
         @Share("renderStack") LocalRef<ItemStack> renderStack,
         @Share("guiPerspective") LocalBooleanRef guiPerspective
     ) {
-        if (renderStack.get().is(VanityItems.CONCEPT_ART.get()))
+        ItemStack stack = renderStack.get();
+        if (stack.is(VanityItems.CONCEPT_ART.get()) || RenderingManager.RENDERING.get())
             return original;
 
         ModelResourceLocation model = null;
         if (guiPerspective.get() && this.vanity$modelType == null) {
-            model = ClientConceptArtManager.INSTANCE.getModel(renderStack.get(), null);
+            model = ClientConceptArtManager.INSTANCE.getModel(stack, null);
         }
 
         if (model == null) {
-            model = ClientConceptArtManager.INSTANCE.getModel(renderStack.get(), this.vanity$modelType, ModelType.HAND);
+            model = ClientConceptArtManager.INSTANCE.getModel(stack, this.vanity$modelType, ModelType.HAND);
         }
 
         return Optionull.mapOrDefault(
@@ -115,7 +116,7 @@ public class ItemRendererMixin implements RenderingManager {
 
     // TODO: find a way to not use a redirect. Forge doesn't seem to like ModifyExpressionVariable.
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/model/BakedModel;isCustomRenderer()Z"))
-    public boolean shouldRender(BakedModel instance, @Local(name = "stack", ordinal = 0, argsOnly = true) ItemStack stack) {
+    public boolean vanity$shouldRender(BakedModel instance, @Local(name = "stack", ordinal = 0, argsOnly = true) ItemStack stack) {
         boolean original = instance.isCustomRenderer();
         if (stack.is(VanityItems.CONCEPT_ART.get()))
             return original;
@@ -128,7 +129,7 @@ public class ItemRendererMixin implements RenderingManager {
             target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z",
             ordinal = 2
     ))
-    public boolean shouldRender2(ItemStack instance, Item item) {
+    public boolean vanity$shouldRender2(ItemStack instance, Item item) {
         return !ClientConceptArtManager.INSTANCE.hasVariant(instance) && instance.is(item);
     }
 
