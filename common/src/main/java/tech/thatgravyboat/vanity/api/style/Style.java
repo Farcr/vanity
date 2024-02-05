@@ -36,7 +36,7 @@ public record Style(
         handModel.ifPresent(id -> models.put("hand", id));
 
         if (!models.containsKey("default")) {
-            throw new IllegalArgumentException("Variant models must contain a default model");
+            throw new IllegalArgumentException("Variant models must contain a 'default' model");
         }
         return new Style(item, models);
     }

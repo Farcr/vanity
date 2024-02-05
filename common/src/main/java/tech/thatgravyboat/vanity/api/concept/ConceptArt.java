@@ -1,8 +1,6 @@
 package tech.thatgravyboat.vanity.api.concept;
 
-import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamresourceful.resourcefullib.common.codecs.CodecExtras;
 import net.minecraft.resources.ResourceLocation;
@@ -10,8 +8,10 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import tech.thatgravyboat.vanity.api.style.Style;
 
-import java.util.*;
-import java.util.function.Function;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public record ConceptArt(
     @Nullable ResourceLocation conceptArtModel,
@@ -19,13 +19,9 @@ public record ConceptArt(
     Map<String, List<Style>> styles
 ) {
 
-    public static final MapCodec<ConceptType> TYPE_CODEC = Codec.mapEither(
-            ConceptType.CODEC.fieldOf("type"), Codec.BOOL.fieldOf("sold")
-    ).xmap(either -> either.map(Function.identity(), ConceptType::fromBoolean), Either::left);
-
     public static final Codec<ConceptArt> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             ResourceLocation.CODEC.optionalFieldOf("concept_art_model").forGetter(CodecExtras.optionalFor(ConceptArt::conceptArtModel)),
-            TYPE_CODEC.forGetter(ConceptArt::type),
+            ConceptType.CODEC.optionalFieldOf("type", ConceptType.ITEM).forGetter(ConceptArt::type),
             Codec.unboundedMap(Codec.STRING, Style.CODEC.listOf()).fieldOf("styles").forGetter(ConceptArt::styles)
     ).apply(instance, ConceptArt::new));
 
@@ -48,6 +44,19 @@ public record ConceptArt(
         }
 
         return null;
+    }
+
+    public List<String> getStylesForItem(ItemStack stack) {
+        List<String> styles = new ArrayList<>();
+        for (Map.Entry<String, List<Style>> entry : this.styles.entrySet()) {
+            for (Style style : entry.getValue()) {
+                if (style.supportsItem(stack)) {
+                    styles.add(entry.getKey());
+                    break;
+                }
+            }
+        }
+        return styles;
     }
 
     public boolean canBeSold() {
