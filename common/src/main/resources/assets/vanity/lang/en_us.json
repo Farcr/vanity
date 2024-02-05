@@ -1,11 +1,16 @@
 {
   "block.vanity.styling_table": "Styling Table",
-  "container.vanity.styling_table": "Styling Table",
+  "container.vanity.styling_table.styling": "Styling Table",
+  "container.vanity.styling_table.concept_art": "Concept Art Storage",
+  "screen.vanity.styling_table.original": "Remove Style",
+
   "entity.minecraft.villager.stylist": "Stylist",
   "entity.minecraft.villager.vanity.stylist": "Stylist",
+
   "item.vanity.concept_art": "Concept Art",
-  "itemGroup.vanity.concept_art_tab": "Vanity: Concept Art",
-  "screen.vanity.styling_table.original": "Remove Style",
+  "itemGroup.vanity.concept_art_tab": "Vanity: Concept Arts",
+
   "subtitles.ui.vanity.styling_table.take_result": "Styling Table used",
+
   "text.vanity.concept_art.fail": "You already have this concept art"
 }
