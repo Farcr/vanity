@@ -1,7 +1,8 @@
 {
   "block.vanity.styling_table": "Styling Table",
-  "container.vanity.styling_table.styling": "Styling Table",
-  "container.vanity.styling_table.concept_art": "Concept Art Storage",
+  "container.vanity.styling_table": "Styling Table",
+  "gui.vanity.styling_table.styling": "Style Items",
+  "gui.vanity.styling_table.concept_art": "Concept Art Storage",
   "screen.vanity.styling_table.original": "Remove Style",
 
   "entity.minecraft.villager.stylist": "Stylist",
