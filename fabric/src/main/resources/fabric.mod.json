@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "id": "${mod_id}",
+  "id": "vanity",
   "version": "${mod_version}",
-  "name": "${mod_name}",
-  "description": "${mod_description}",
-  "icon": "${mod_id}.icon.png",
+  "name": "Vanity",
+  "description": "",
+  "icon": "vanity.icon.png",
   "authors": [
     "Moonflower"
   ],
@@ -21,14 +21,15 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "gg.moonflower.vanity.core.fabric.VanityFabric"
+      "tech.thatgravyboat.vanity.core.fabric.VanityFabric"
     ],
     "client": [
-      "gg.moonflower.vanity.core.fabric.VanityFabricClient"
+      "tech.thatgravyboat.vanity.core.fabric.VanityFabricClient"
     ]
   },
   "mixins": [
-    "${mod_id}-common.mixins.json"
+    "vanity-common.mixins.json",
+    "vanity-fabric.mixins.json"
   ],
   "depends": {
     "fabric": "*",

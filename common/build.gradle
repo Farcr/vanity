@@ -9,8 +9,9 @@ loom {
 
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    modApi "dev.architectury:architectury:${rootProject.architectury_version}"
-    modApi "gg.moonflower:pollen-common:${rootProject.pollen_version}"
+    modApi "com.teamresourceful.resourcefullib:resourcefullib-common-1.20.1:${rootProject.rlib_version}"
+
+    modApi "tech.thatgravyboat:commonats:1.0"
 
     implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-common:${rootProject.mixinextras_version}"))
 }

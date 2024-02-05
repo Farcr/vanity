@@ -6,5 +6,6 @@
   "item.vanity.concept_art": "Concept Art",
   "itemGroup.vanity.concept_art_tab": "Vanity: Concept Art",
   "screen.vanity.styling_table.original": "Remove Style",
-  "subtitles.ui.vanity.styling_table.take_result": "Styling Table used"
+  "subtitles.ui.vanity.styling_table.take_result": "Styling Table used",
+  "text.vanity.concept_art.fail": "You already have this concept art"
 }
