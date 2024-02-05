@@ -1,12 +1,16 @@
 package tech.thatgravyboat.vanity.core.fabric;
 
-import tech.thatgravyboat.vanity.common.registries.ModTrades;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.item.trading.MerchantOffer;
 import org.apache.commons.lang3.Validate;
+import org.jetbrains.annotations.Nullable;
+import tech.thatgravyboat.vanity.common.registries.ModTrades;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -41,6 +45,9 @@ public class FabricVillagerTrades {
                 }
             }
 
+            // Remove old trades
+            newTrades.values().forEach(list -> list.removeIf(listing -> listing instanceof Wrapped));
+
             int minTier = vanillaTrades.keySet().stream().mapToInt(Integer::intValue).min().orElse(1);
             int maxTier = vanillaTrades.keySet().stream().mapToInt(Integer::intValue).max().orElse(5);
 
@@ -56,12 +63,21 @@ public class FabricVillagerTrades {
                 var registry = newTrades.get(tier);
                 if (registry == null)
                     throw new IllegalStateException("No registered " + BuiltInRegistries.VILLAGER_PROFESSION.getKey(prof) + " Villager Trades for tier: " + tier + ". Valid tiers: " + newTrades.keySet().stream().sorted().map(i -> Integer.toString(i)).collect(Collectors.joining(", ")));
-                registry.add(listing);
+                registry.add(new Wrapped(listing));
             });
 
             Int2ObjectMap<VillagerTrades.ItemListing[]> modifiedTrades = new Int2ObjectOpenHashMap<>();
             newTrades.forEach((key, value) -> modifiedTrades.put(key.intValue(), value.toArray(new VillagerTrades.ItemListing[0])));
             VillagerTrades.TRADES.put(prof, modifiedTrades);
+        }
+    }
+
+    private record Wrapped(VillagerTrades.ItemListing listing) implements VillagerTrades.ItemListing {
+
+        @Nullable
+        @Override
+        public MerchantOffer getOffer(Entity entity, RandomSource randomSource) {
+            return listing.getOffer(entity, randomSource);
         }
     }
 }
