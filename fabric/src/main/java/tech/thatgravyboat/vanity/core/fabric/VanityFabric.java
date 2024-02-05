@@ -1,7 +1,11 @@
 package tech.thatgravyboat.vanity.core.fabric;
 
 import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
 import tech.thatgravyboat.vanity.common.Vanity;
+import tech.thatgravyboat.vanity.common.registries.ModCreativeModeTabs;
 import tech.thatgravyboat.vanity.core.fabric.mixin.PoiTypesAccessor;
 import tech.thatgravyboat.vanity.common.registries.VanityProfessions;
 import net.fabricmc.api.ModInitializer;
@@ -36,5 +40,12 @@ public class VanityFabric implements ModInitializer {
                 PoiTypesAccessor.getByType().put(matchingState, holder);
             }
         }
+
+        ItemGroupEvents.MODIFY_ENTRIES_ALL.register((tab, stacks) -> {
+            ResourceLocation id = BuiltInRegistries.CREATIVE_MODE_TAB.getKey(tab);
+            if (id == null) return;
+            ResourceKey<CreativeModeTab> key = ResourceKey.create(Registries.CREATIVE_MODE_TAB, id);
+            ModCreativeModeTabs.setupCreativeTab(key, stacks::addAfter);
+        });
     }
 }
