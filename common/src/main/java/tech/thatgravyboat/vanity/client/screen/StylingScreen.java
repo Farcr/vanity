@@ -36,8 +36,8 @@ public class StylingScreen extends AbstractContainerScreen<StylingMenu> implemen
     public StylingScreen(StylingMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
         this.imageHeight = 220;
-        this.titleLabelY = 34;
-        this.inventoryLabelY = this.imageHeight - 98;
+        this.titleLabelY = UIConstants.TITLE_Y;
+        this.inventoryLabelY = UIConstants.INVENTORY_Y;
 
         this.menu.addSlotListener(this);
     }
@@ -95,6 +95,12 @@ public class StylingScreen extends AbstractContainerScreen<StylingMenu> implemen
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         super.render(graphics, mouseX, mouseY, partialTick);
         this.renderTooltip(graphics, mouseX, mouseY);
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
+        graphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, UIConstants.TITLE_COLOR, false);
+        graphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, UIConstants.INVENTORY_COLOR, false);
     }
 
     @Override
