@@ -37,7 +37,7 @@ public class ArrowRendererMixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    private void vanity$renderTrident(AbstractArrow arrow, float f, float g, PoseStack stack, MultiBufferSource source, int i, CallbackInfo ci) {
+    private void vanity$renderArrow(AbstractArrow arrow, float f, float g, PoseStack stack, MultiBufferSource source, int i, CallbackInfo ci) {
         ItemStack item = ((EntityItemHolder) arrow).vanity$getItem();
         boolean hasVanity = ClientConceptArtManager.INSTANCE.hasVariant(item);
         if (hasVanity && this.vanity$itemRenderer != null) {
