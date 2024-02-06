@@ -55,7 +55,7 @@ public class StylingMenu extends BaseContainerMenu {
         this.conceptArt = conceptArt;
         this.manager = manager;
 
-        this.addSlot(new Slot(this.input, 0, 99, 50) {
+        this.addSlot(new Slot(this.input, 0, 80, 50) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return !stack.is(VanityItems.CONCEPT_ART.get());
@@ -67,7 +67,7 @@ public class StylingMenu extends BaseContainerMenu {
                 StylingMenu.this.updateConceptArt();
             }
         });
-        this.addSlot(new Slot(this.result, 0, 99, 98) {
+        this.addSlot(new Slot(this.result, 0, 80, 98) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return false;
@@ -132,6 +132,14 @@ public class StylingMenu extends BaseContainerMenu {
 
     public Map<ResourceLocation, List<String>> styles() {
         return this.styles;
+    }
+
+    public ItemStack getInput() {
+        return this.input.getItem(0);
+    }
+
+    public ItemStack getResult() {
+        return this.result.getItem(0);
     }
 
     public boolean canShowStorage() {

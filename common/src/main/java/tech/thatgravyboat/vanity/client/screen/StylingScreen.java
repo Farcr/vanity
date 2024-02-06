@@ -1,12 +1,8 @@
 package tech.thatgravyboat.vanity.client.screen;
 
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -14,24 +10,22 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import tech.thatgravyboat.vanity.client.components.StyledItemWidget;
 import tech.thatgravyboat.vanity.client.components.StylingTabButton;
+import tech.thatgravyboat.vanity.client.components.list.StylesListWidget;
 import tech.thatgravyboat.vanity.common.Vanity;
 import tech.thatgravyboat.vanity.common.menu.StylingMenu;
 import tech.thatgravyboat.vanity.common.network.NetworkHandler;
 import tech.thatgravyboat.vanity.common.network.packets.server.ServerboundOpenTabPacket;
-import tech.thatgravyboat.vanity.common.network.packets.server.ServerboundSelectStylePacket;
 import tech.thatgravyboat.vanity.common.registries.VanityItems;
 import tech.thatgravyboat.vanity.common.util.ConstantComponents;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class StylingScreen extends AbstractContainerScreen<StylingMenu> implements ContainerListener {
 
     private static final ResourceLocation BACKGROUND = new ResourceLocation(Vanity.MOD_ID, "textures/gui/container/styling_table.png");
-    private static final Component ORIGINAL = Component.translatable("screen.vanity.styling_table.original");
 
-    private final List<AbstractWidget> buttons = new ArrayList<>();
+    private StylesListWidget list;
+    private StyledItemWidget display;
 
     public StylingScreen(StylingMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -66,29 +60,14 @@ public class StylingScreen extends AbstractContainerScreen<StylingMenu> implemen
         buttons.setPosition(this.leftPos + 16, this.topPos);
         buttons.visitWidgets(this::addRenderableWidget);
 
-        updateSlots();
-    }
+        this.list = this.addRenderableWidget(new StylesListWidget());
+        this.list.setPosition(this.leftPos + 8, this.topPos + 47);
+        this.list.addAll(this.menu.styles(), this.menu.getInput());
+        this.list.select(this.menu.getResult());
 
-    public void updateSlots() {
-        GridLayout layout = new GridLayout();
-        var helper = layout.spacing(1).createRowHelper(6);
-        this.buttons.forEach(this::removeWidget);
-        this.buttons.clear();
-
-        this.menu.styles().forEach((concept, styles) -> {
-            for (String style : styles) {
-                Button button = Button.builder(CommonComponents.EMPTY, b -> {
-                    ServerboundSelectStylePacket packet = new ServerboundSelectStylePacket(concept, style);
-                    NetworkHandler.CHANNEL.sendToServer(packet);
-                }).size(10, 10).tooltip(Tooltip.create(Component.literal(concept + " - " + style))).build();
-                helper.addChild(button);
-            }
-        });
-
-        layout.arrangeElements();
-        layout.setPosition(this.leftPos + 24, this.topPos + 24);
-        layout.visitWidgets(this.buttons::add);
-        this.buttons.forEach(this::addRenderableWidget);
+        this.display = this.addRenderableWidget(new StyledItemWidget());
+        this.display.setPosition(this.leftPos + 112, this.topPos + 49);
+        this.display.select(this.menu.getResult());
     }
 
     @Override
@@ -112,10 +91,24 @@ public class StylingScreen extends AbstractContainerScreen<StylingMenu> implemen
 
     @Override
     public void slotChanged(AbstractContainerMenu abstractContainerMenu, int i, ItemStack itemStack) {
-        this.updateSlots();
+        if (this.list != null) {
+            this.list.addAll(this.menu.styles(), this.menu.getInput());
+            this.list.select(this.menu.getResult());
+        }
+        if (this.display != null) {
+            this.display.select(this.menu.getResult());
+        }
     }
 
     @Override
     public void dataChanged(AbstractContainerMenu abstractContainerMenu, int i, int j) {}
+
+    @Override
+    public boolean mouseDragged(double d, double e, int i, double f, double g) {
+        if (this.menu.getCarried().isEmpty()) {
+            return this.getFocused() != null && this.isDragging() && i == 0 && this.getFocused().mouseDragged(d, e, i, f, g);
+        }
+        return super.mouseDragged(d, e, i, f, g);
+    }
 }
 
