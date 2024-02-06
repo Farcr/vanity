@@ -16,15 +16,15 @@ public class Vanity {
     public static MinecraftServer server;
 
     public static void init() {
-        VanityBlocks.BLOCKS.init();
-        VanityBlocks.BLOCK_ENTITIES.init();
+        ModBlocks.BLOCKS.init();
+        ModBlocks.BLOCK_ENTITIES.init();
 
-        VanityItems.ITEMS.init();
-        VanityMenuTypes.MENUS.init();
-        VanitySounds.SOUNDS.init();
+        ModItems.ITEMS.init();
+        ModMenuTypes.MENUS.init();
+        ModSounds.SOUNDS.init();
 
-        VanityProfessions.POIS.init();
-        VanityProfessions.PROFESSIONS.init();
+        ModProfessions.POIS.init();
+        ModProfessions.PROFESSIONS.init();
 
         ModCreativeModeTabs.init();
 

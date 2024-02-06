@@ -3,7 +3,7 @@ package tech.thatgravyboat.vanity.common.menu.container;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import tech.thatgravyboat.vanity.common.registries.VanityItems;
+import tech.thatgravyboat.vanity.common.registries.ModItems;
 
 public class DesignSlot extends Slot {
 
@@ -13,6 +13,6 @@ public class DesignSlot extends Slot {
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-        return stack.is(VanityItems.DESIGN.get());
+        return stack.is(ModItems.DESIGN.get());
     }
 }

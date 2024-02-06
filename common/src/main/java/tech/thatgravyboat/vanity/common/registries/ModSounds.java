@@ -9,7 +9,7 @@ import net.minecraft.sounds.SoundEvent;
 
 import java.util.function.Supplier;
 
-public class VanitySounds {
+public class ModSounds {
 
     public static final ResourcefulRegistry<SoundEvent> SOUNDS = ResourcefulRegistries.create(BuiltInRegistries.SOUND_EVENT, Vanity.MOD_ID);
 

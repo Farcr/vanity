@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import tech.thatgravyboat.vanity.common.menu.container.StylingContainer;
 import tech.thatgravyboat.vanity.common.menu.provider.StorageProvider;
 import tech.thatgravyboat.vanity.common.menu.provider.StylingProvider;
-import tech.thatgravyboat.vanity.common.registries.VanityBlocks;
+import tech.thatgravyboat.vanity.common.registries.ModBlocks;
 
 public class StylingTableBlockEntity extends BlockEntity implements StylingContainer {
 
@@ -23,7 +23,7 @@ public class StylingTableBlockEntity extends BlockEntity implements StylingConta
     protected NonNullList<ItemStack> items;
 
     public StylingTableBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(VanityBlocks.STYLING_TABLE_BE.get(), blockPos, blockState);
+        super(ModBlocks.STYLING_TABLE_BE.get(), blockPos, blockState);
 
         this.styling = new StylingProvider(this);
         this.storage = new StorageProvider(this);

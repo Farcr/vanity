@@ -31,7 +31,7 @@ import tech.thatgravyboat.vanity.api.design.DesignManager;
 import tech.thatgravyboat.vanity.api.style.AssetType;
 import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
 import tech.thatgravyboat.vanity.client.rendering.RenderingManager;
-import tech.thatgravyboat.vanity.common.registries.VanityItems;
+import tech.thatgravyboat.vanity.common.registries.ModItems;
 
 
 @Mixin(ItemRenderer.class)
@@ -62,7 +62,7 @@ public class ItemRendererMixin implements RenderingManager {
     )
     private BakedModel vanity$replaceModel(BakedModel original, @Share("renderStack") LocalRef<ItemStack> renderStack) {
         ItemStack stack = renderStack.get();
-        if (stack.is(VanityItems.DESIGN.get())) {
+        if (stack.is(ModItems.DESIGN.get())) {
             Design design = DesignManager.get(true).getDesignFromItem(stack);
             if (design != null && design.model() != null) {
                 return this.itemModelShaper.getModelManager().getModel(ClientDesignManager.getModelLocation(design.model()));
@@ -95,7 +95,7 @@ public class ItemRendererMixin implements RenderingManager {
         @Share("guiPerspective") LocalBooleanRef guiPerspective
     ) {
         ItemStack stack = renderStack.get();
-        if (stack.is(VanityItems.DESIGN.get()) || RenderingManager.RENDERING.get())
+        if (stack.is(ModItems.DESIGN.get()) || RenderingManager.RENDERING.get())
             return original;
 
         ModelResourceLocation model = null;
@@ -118,7 +118,7 @@ public class ItemRendererMixin implements RenderingManager {
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/model/BakedModel;isCustomRenderer()Z"))
     public boolean vanity$shouldRender(BakedModel instance, @Local(name = "stack", ordinal = 0, argsOnly = true) ItemStack stack) {
         boolean original = instance.isCustomRenderer();
-        if (stack.is(VanityItems.DESIGN.get()))
+        if (stack.is(ModItems.DESIGN.get()))
             return original;
 
         return !ClientDesignManager.INSTANCE.hasStyle(stack) && original;

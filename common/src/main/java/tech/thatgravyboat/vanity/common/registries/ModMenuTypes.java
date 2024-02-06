@@ -13,7 +13,7 @@ import tech.thatgravyboat.vanity.common.menu.content.StylingMenuContent;
 
 import java.util.function.Supplier;
 
-public class VanityMenuTypes {
+public class ModMenuTypes {
 
     public static final ResourcefulRegistry<MenuType<?>> MENUS = ResourcefulRegistries.create(BuiltInRegistries.MENU, Vanity.MOD_ID);
 

@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.RenderType;
 import tech.thatgravyboat.vanity.client.VanityClient;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
-import tech.thatgravyboat.vanity.common.registries.VanityBlocks;
+import tech.thatgravyboat.vanity.common.registries.ModBlocks;
 
 public class VanityFabricClient implements ClientModInitializer {
 
@@ -14,6 +14,6 @@ public class VanityFabricClient implements ClientModInitializer {
         ModelLoadingRegistry.INSTANCE.registerModelProvider(VanityClient::registerModels);
         VanityClient.setup();
 
-        BlockRenderLayerMap.INSTANCE.putBlock(VanityBlocks.STYLING_TABLE.get(), RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.STYLING_TABLE.get(), RenderType.cutout());
     }
 }

@@ -22,7 +22,7 @@ public class ModCreativeModeTabs {
 
     public static void init() {
         new ResourcefulCreativeTab(new ResourceLocation(Vanity.MOD_ID, "designs"))
-            .setItemIcon(VanityBlocks.STYLING_TABLE)
+            .setItemIcon(ModBlocks.STYLING_TABLE)
             .addContent(() -> {
                 DesignManager manager = DesignManager.get(true);
                 List<ResourceLocation> designs = new ArrayList<>();
@@ -34,7 +34,7 @@ public class ModCreativeModeTabs {
                 return designs
                         .stream()
                         .map(location -> {
-                            ItemStack stack = new ItemStack(VanityItems.DESIGN.get());
+                            ItemStack stack = new ItemStack(ModItems.DESIGN.get());
                             DesignHelper.setDesign(stack, location);
                             return stack;
                         });
@@ -46,7 +46,7 @@ public class ModCreativeModeTabs {
      */
     public static void setupCreativeTab(ResourceKey<CreativeModeTab> tab, BiConsumer<ItemLike, ItemLike> adder) {
         if (tab.equals(FUNCTIONAL_BLOCKS)) {
-            adder.accept(Items.LOOM, VanityBlocks.STYLING_TABLE.get());
+            adder.accept(Items.LOOM, ModBlocks.STYLING_TABLE.get());
         }
     }
 }

@@ -7,7 +7,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import tech.thatgravyboat.vanity.common.Vanity;
 import tech.thatgravyboat.vanity.common.registries.ModCreativeModeTabs;
 import tech.thatgravyboat.vanity.core.fabric.mixin.PoiTypesAccessor;
-import tech.thatgravyboat.vanity.common.registries.VanityProfessions;
+import tech.thatgravyboat.vanity.common.registries.ModProfessions;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -33,7 +33,7 @@ public class VanityFabric implements ModInitializer {
         });
         ServerLifecycleEvents.SERVER_STOPPING.register(server -> Vanity.server = null);
 
-        for (RegistryEntry<PoiType> entry : VanityProfessions.POIS.getEntries()) {
+        for (RegistryEntry<PoiType> entry : ModProfessions.POIS.getEntries()) {
             Holder<PoiType> holder = BuiltInRegistries.POINT_OF_INTEREST_TYPE
                     .getHolderOrThrow(ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE, entry.getId()));
             for (BlockState matchingState : entry.get().matchingStates()) {

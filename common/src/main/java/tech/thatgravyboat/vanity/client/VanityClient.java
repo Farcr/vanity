@@ -7,7 +7,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
 import tech.thatgravyboat.vanity.client.screen.StorageScreen;
 import tech.thatgravyboat.vanity.client.screen.StylingScreen;
-import tech.thatgravyboat.vanity.common.registries.VanityMenuTypes;
+import tech.thatgravyboat.vanity.common.registries.ModMenuTypes;
 
 import java.util.function.Consumer;
 
@@ -20,7 +20,7 @@ public class VanityClient {
     }
 
     public static void setup() {
-        MenuScreens.register(VanityMenuTypes.STYLING.get(), StylingScreen::new);
-        MenuScreens.register(VanityMenuTypes.STORAGE.get(), StorageScreen::new);
+        MenuScreens.register(ModMenuTypes.STYLING.get(), StylingScreen::new);
+        MenuScreens.register(ModMenuTypes.STORAGE.get(), StorageScreen::new);
     }
 }

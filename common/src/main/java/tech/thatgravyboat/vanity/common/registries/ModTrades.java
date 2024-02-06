@@ -20,7 +20,7 @@ import java.util.function.BiConsumer;
 public class ModTrades {
 
     public static void registerTrades(VillagerProfession profession, int maxTier, int minTier, BiConsumer<Integer, VillagerTrades.ItemListing> adder) {
-        if (profession != VanityProfessions.STYLIST.get()) return;
+        if (profession != ModProfessions.STYLIST.get()) return;
 
         List<ResourceLocation> designs = new ArrayList<>();
         for (var entry : ServerDesignManager.INSTANCE.getAllDesigns().entrySet()) {
@@ -53,7 +53,7 @@ public class ModTrades {
 
             ResourceLocation design = this.designs.get(random.nextInt(this.designs.size()));
 
-            ItemStack item = new ItemStack(VanityItems.DESIGN.get());
+            ItemStack item = new ItemStack(ModItems.DESIGN.get());
             DesignHelper.setDesign(item, design);
 
             return new MerchantOffer(emeralds, item, USES, XP_GAIN, PRICE_MULTIPLIER);

@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import tech.thatgravyboat.vanity.common.handler.unlockables.UnlockableSaveHandler;
-import tech.thatgravyboat.vanity.common.registries.VanitySounds;
+import tech.thatgravyboat.vanity.common.registries.ModSounds;
 import tech.thatgravyboat.vanity.common.util.ComponentConstants;
 
 public class DesignItem extends Item {
@@ -29,7 +29,7 @@ public class DesignItem extends Item {
             if (!level.isClientSide()) {
                 if (UnlockableSaveHandler.addUnlockable(level, player.getUUID(), design)) {
                     player.playNotifySound(
-                        VanitySounds.OPEN_DESIGN.get(), SoundSource.PLAYERS,
+                        ModSounds.OPEN_DESIGN.get(), SoundSource.PLAYERS,
                         1.0F, 1.0F
                     );
                     stack.shrink(1);

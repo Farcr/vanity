@@ -12,7 +12,7 @@ import tech.thatgravyboat.vanity.common.Vanity;
 import tech.thatgravyboat.vanity.common.menu.StorageMenu;
 import tech.thatgravyboat.vanity.common.network.NetworkHandler;
 import tech.thatgravyboat.vanity.common.network.packets.server.ServerboundOpenTabPacket;
-import tech.thatgravyboat.vanity.common.registries.VanityItems;
+import tech.thatgravyboat.vanity.common.registries.ModItems;
 import tech.thatgravyboat.vanity.common.util.ComponentConstants;
 
 public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
@@ -33,7 +33,7 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
         GridLayout buttons = new GridLayout();
 
         buttons.addChild(
-            StylingTabButton.create(VanityItems.STYLING_TABLE.get(), ComponentConstants.STYLING_TAB, () ->
+            StylingTabButton.create(ModItems.STYLING_TABLE.get(), ComponentConstants.STYLING_TAB, () ->
                 NetworkHandler.CHANNEL.sendToServer(new ServerboundOpenTabPacket(false))
             ),
             0, 0
@@ -66,6 +66,6 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
         this.renderBackground(graphics);
         graphics.blit(BACKGROUND, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
 
-        graphics.renderFakeItem(VanityItems.DESIGN.get().getDefaultInstance(), this.leftPos + 80, this.topPos + 45);
+        graphics.renderFakeItem(ModItems.DESIGN.get().getDefaultInstance(), this.leftPos + 80, this.topPos + 45);
     }
 }

@@ -17,7 +17,7 @@ import tech.thatgravyboat.vanity.common.Vanity;
 import tech.thatgravyboat.vanity.common.menu.StylingMenu;
 import tech.thatgravyboat.vanity.common.network.NetworkHandler;
 import tech.thatgravyboat.vanity.common.network.packets.server.ServerboundOpenTabPacket;
-import tech.thatgravyboat.vanity.common.registries.VanityItems;
+import tech.thatgravyboat.vanity.common.registries.ModItems;
 import tech.thatgravyboat.vanity.common.util.ComponentConstants;
 
 public class StylingScreen extends AbstractContainerScreen<StylingMenu> implements ContainerListener {
@@ -43,7 +43,7 @@ public class StylingScreen extends AbstractContainerScreen<StylingMenu> implemen
         GridLayout buttons = new GridLayout();
 
         buttons.addChild(
-            StylingTabButton.create(VanityItems.STYLING_TABLE.get(), ComponentConstants.STYLING_TAB),
+            StylingTabButton.create(ModItems.STYLING_TABLE.get(), ComponentConstants.STYLING_TAB),
             0, 0
         );
 

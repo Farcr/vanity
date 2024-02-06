@@ -16,9 +16,9 @@ import tech.thatgravyboat.vanity.common.block.StylingTableBlock;
 import tech.thatgravyboat.vanity.common.item.DesignHelper;
 import tech.thatgravyboat.vanity.common.menu.container.AwareContainer;
 import tech.thatgravyboat.vanity.common.menu.content.StylingMenuContent;
-import tech.thatgravyboat.vanity.common.registries.VanityItems;
-import tech.thatgravyboat.vanity.common.registries.VanityMenuTypes;
-import tech.thatgravyboat.vanity.common.registries.VanitySounds;
+import tech.thatgravyboat.vanity.common.registries.ModItems;
+import tech.thatgravyboat.vanity.common.registries.ModMenuTypes;
+import tech.thatgravyboat.vanity.common.registries.ModSounds;
 
 import java.util.*;
 
@@ -50,7 +50,7 @@ public class StylingMenu extends BaseContainerMenu {
     }
 
     public StylingMenu(int i, Inventory inventory, ContainerLevelAccess access, DesignManager manager, List<ResourceLocation> designs) {
-        super(i, VanityMenuTypes.STYLING.get(), inventory, access);
+        super(i, ModMenuTypes.STYLING.get(), inventory, access);
 
         this.designs = designs;
         this.manager = manager;
@@ -58,7 +58,7 @@ public class StylingMenu extends BaseContainerMenu {
         this.addSlot(new Slot(this.input, 0, 80, 50) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return !stack.is(VanityItems.DESIGN.get());
+                return !stack.is(ModItems.DESIGN.get());
             }
 
             @Override
@@ -75,7 +75,7 @@ public class StylingMenu extends BaseContainerMenu {
 
             @Override
             public void onTake(Player player, ItemStack stack) {
-                StylingMenu.this.access.execute((level, blockPos) -> level.playSound(null, blockPos, VanitySounds.TAKE_RESULT_STYLING_TABLE.get(), SoundSource.BLOCKS, 1.0F, 1.0F));
+                StylingMenu.this.access.execute((level, blockPos) -> level.playSound(null, blockPos, ModSounds.TAKE_RESULT_STYLING_TABLE.get(), SoundSource.BLOCKS, 1.0F, 1.0F));
 
                 StylingMenu.this.input.removeItem(0, 1);
                 StylingMenu.this.result.removeItem(0, 1);
