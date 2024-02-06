@@ -1,6 +1,6 @@
 package tech.thatgravyboat.vanity.client.rendering;
 
-import tech.thatgravyboat.vanity.api.style.ModelType;
+import tech.thatgravyboat.vanity.api.style.AssetType;
 
 public interface RenderingManager {
 
@@ -17,5 +17,5 @@ public interface RenderingManager {
      */
     ThreadLocal<Boolean> IS_IN_GUI = ThreadLocal.withInitial(() -> false);
 
-    void vanity$setModelType(ModelType type);
+    void vanity$setModelType(AssetType type);
 }

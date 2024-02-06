@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import tech.thatgravyboat.vanity.api.concept.ConceptArt;
 import tech.thatgravyboat.vanity.api.concept.ConceptArtManager;
-import tech.thatgravyboat.vanity.api.style.ModelType;
+import tech.thatgravyboat.vanity.api.style.AssetType;
 import tech.thatgravyboat.vanity.client.concept.ClientConceptArtManager;
 import tech.thatgravyboat.vanity.client.rendering.RenderingManager;
 import tech.thatgravyboat.vanity.common.registries.VanityItems;
@@ -38,7 +38,7 @@ import tech.thatgravyboat.vanity.common.registries.VanityItems;
 public class ItemRendererMixin implements RenderingManager {
 
     @Unique
-    private ModelType vanity$modelType;
+    private AssetType vanity$assetType;
 
     @Shadow
     @Final
@@ -71,7 +71,7 @@ public class ItemRendererMixin implements RenderingManager {
         }
 
         return Optionull.mapOrDefault(
-            ClientConceptArtManager.INSTANCE.getModel(stack, this.vanity$modelType, RenderingManager.IS_IN_GUI.get() ? null : ModelType.HAND),
+            ClientConceptArtManager.INSTANCE.getModel(stack, this.vanity$assetType, RenderingManager.IS_IN_GUI.get() ? null : AssetType.HAND),
             this.itemModelShaper.getModelManager()::getModel,
             original
         );
@@ -99,12 +99,12 @@ public class ItemRendererMixin implements RenderingManager {
             return original;
 
         ModelResourceLocation model = null;
-        if (guiPerspective.get() && this.vanity$modelType == null) {
+        if (guiPerspective.get() && this.vanity$assetType == null) {
             model = ClientConceptArtManager.INSTANCE.getModel(stack, null);
         }
 
         if (model == null) {
-            model = ClientConceptArtManager.INSTANCE.getModel(stack, this.vanity$modelType, ModelType.HAND);
+            model = ClientConceptArtManager.INSTANCE.getModel(stack, this.vanity$assetType, AssetType.HAND);
         }
 
         return Optionull.mapOrDefault(
@@ -134,7 +134,7 @@ public class ItemRendererMixin implements RenderingManager {
     }
 
     @Override
-    public void vanity$setModelType(ModelType type) {
-        this.vanity$modelType = type;
+    public void vanity$setModelType(AssetType type) {
+        this.vanity$assetType = type;
     }
 }

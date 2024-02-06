@@ -12,10 +12,6 @@ public enum ConceptType {
 
     public static final Codec<ConceptType> CODEC = EnumCodec.of(ConceptType.class);
 
-    public static ConceptType fromBoolean(boolean sellable) {
-        return sellable ? SELLABLE : ITEM;
-    }
-
     public boolean hasItem() {
         return this == ITEM || this == SELLABLE;
     }

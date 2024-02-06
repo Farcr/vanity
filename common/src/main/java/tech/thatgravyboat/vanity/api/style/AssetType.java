@@ -1,13 +1,15 @@
 package tech.thatgravyboat.vanity.api.style;
 
-public enum ModelType {
+public enum AssetType {
     DEFAULT,
     HAND,
-    PROJECTILE;
+    PROJECTILE,
+    ARMOR
+    ;
 
     private final String id;
 
-    ModelType() {
+    AssetType() {
         this.id = this.name().toLowerCase();
     }
 

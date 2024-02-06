@@ -1,6 +1,7 @@
 package tech.thatgravyboat.vanity.client.concept;
 
-import tech.thatgravyboat.vanity.api.style.ModelType;
+import org.jetbrains.annotations.Nullable;
+import tech.thatgravyboat.vanity.api.style.AssetType;
 import tech.thatgravyboat.vanity.api.style.Style;
 import tech.thatgravyboat.vanity.common.network.packets.client.ClientboundConceptArtSyncPacket;
 import tech.thatgravyboat.vanity.common.handler.concept.ConceptArtManagerImpl;
@@ -27,13 +28,21 @@ public class ClientConceptArtManager extends ConceptArtManagerImpl {
         this.setupDefaults();
     }
 
-    public ModelResourceLocation getModel(ItemStack stack, ModelType type, ModelType... additionalTypes) {
+    @Nullable
+    public ResourceLocation getTexture(ItemStack stack, AssetType type) {
         Style style = this.getItemConceptArtVariant(stack);
         if (style == null) return null;
-        ResourceLocation model = style.model(type);
+        return style.asset(type);
+    }
+
+    @Nullable
+    public ModelResourceLocation getModel(ItemStack stack, AssetType type, AssetType... additionalTypes) {
+        Style style = this.getItemConceptArtVariant(stack);
+        if (style == null) return null;
+        ResourceLocation model = style.asset(type);
         if (model == null) {
-            for (ModelType additionalType : additionalTypes) {
-                model = style.model(additionalType);
+            for (AssetType additionalType : additionalTypes) {
+                model = style.asset(additionalType);
                 if (model != null) break;
             }
         }

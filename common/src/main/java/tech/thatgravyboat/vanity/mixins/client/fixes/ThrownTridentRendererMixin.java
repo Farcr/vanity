@@ -1,7 +1,7 @@
 package tech.thatgravyboat.vanity.mixins.client.fixes;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import tech.thatgravyboat.vanity.api.style.ModelType;
+import tech.thatgravyboat.vanity.api.style.AssetType;
 import tech.thatgravyboat.vanity.client.concept.ClientConceptArtManager;
 import tech.thatgravyboat.vanity.client.rendering.RenderingManager;
 import tech.thatgravyboat.vanity.common.entities.EntityItemHolder;
@@ -46,7 +46,7 @@ public class ThrownTridentRendererMixin {
             RenderingManager manager = (RenderingManager) this.vanity$itemRenderer;
 
             //This injects after it has done the transformations of the stack
-            manager.vanity$setModelType(ModelType.PROJECTILE);
+            manager.vanity$setModelType(AssetType.PROJECTILE);
             this.vanity$itemRenderer.renderStatic(item, ItemDisplayContext.NONE, i, OverlayTexture.NO_OVERLAY, stack, source, trident.level(), trident.getId());
             manager.vanity$setModelType(null);
 

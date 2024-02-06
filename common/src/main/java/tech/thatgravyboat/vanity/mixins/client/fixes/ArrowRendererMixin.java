@@ -2,7 +2,7 @@ package tech.thatgravyboat.vanity.mixins.client.fixes;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import tech.thatgravyboat.vanity.api.style.ModelType;
+import tech.thatgravyboat.vanity.api.style.AssetType;
 import tech.thatgravyboat.vanity.client.concept.ClientConceptArtManager;
 import tech.thatgravyboat.vanity.client.rendering.RenderingManager;
 import tech.thatgravyboat.vanity.common.entities.EntityItemHolder;
@@ -51,7 +51,7 @@ public class ArrowRendererMixin {
                 stack.mulPose(Axis.ZP.rotationDegrees(-Mth.sin(s * 3.0F) * s));
             }
 
-            manager.vanity$setModelType(ModelType.PROJECTILE);
+            manager.vanity$setModelType(AssetType.PROJECTILE);
             this.vanity$itemRenderer.renderStatic(item, ItemDisplayContext.NONE, i, OverlayTexture.NO_OVERLAY, stack, source, arrow.level(), arrow.getId());
             manager.vanity$setModelType(null);
             stack.popPose();
