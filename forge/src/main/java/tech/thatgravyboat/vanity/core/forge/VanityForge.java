@@ -7,6 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -31,6 +32,7 @@ public class VanityForge {
 
         MinecraftForge.EVENT_BUS.addListener(this::onAddVillagerTrades);
         MinecraftForge.EVENT_BUS.addListener(this::onAddReloadListener);
+        MinecraftForge.EVENT_BUS.addListener(this::onServerAboutToStart);
     }
 
     private void onClientInit(FMLClientSetupEvent event) {
@@ -50,6 +52,10 @@ public class VanityForge {
             }
             registry.add(listing);
         });
+    }
+
+    private void onServerAboutToStart(ServerAboutToStartEvent event) {
+        Vanity.server = event.getServer();
     }
 
     private void onAddReloadListener(AddReloadListenerEvent event) {
