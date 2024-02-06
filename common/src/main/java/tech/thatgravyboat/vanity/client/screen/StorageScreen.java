@@ -13,7 +13,7 @@ import tech.thatgravyboat.vanity.common.menu.StorageMenu;
 import tech.thatgravyboat.vanity.common.network.NetworkHandler;
 import tech.thatgravyboat.vanity.common.network.packets.server.ServerboundOpenTabPacket;
 import tech.thatgravyboat.vanity.common.registries.VanityItems;
-import tech.thatgravyboat.vanity.common.util.ConstantComponents;
+import tech.thatgravyboat.vanity.common.util.ComponentConstants;
 
 public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
 
@@ -33,14 +33,14 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
         GridLayout buttons = new GridLayout();
 
         buttons.addChild(
-            StylingTabButton.create(VanityItems.STYLING_TABLE.get(), ConstantComponents.STYLING_TAB, () ->
+            StylingTabButton.create(VanityItems.STYLING_TABLE.get(), ComponentConstants.STYLING_TAB, () ->
                 NetworkHandler.CHANNEL.sendToServer(new ServerboundOpenTabPacket(false))
             ),
             0, 0
         );
 
         buttons.addChild(
-            StylingTabButton.create(Items.CHEST, ConstantComponents.CONCEPT_ART_TAB),
+            StylingTabButton.create(Items.CHEST, ComponentConstants.CONCEPT_ART_TAB),
             0, 1
         );
 

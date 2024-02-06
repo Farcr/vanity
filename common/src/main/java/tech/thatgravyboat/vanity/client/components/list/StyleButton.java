@@ -10,12 +10,12 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import tech.thatgravyboat.vanity.client.components.base.BaseAbstractWidget;
-import tech.thatgravyboat.vanity.client.screen.UIConstants;
 import tech.thatgravyboat.vanity.common.Vanity;
 import tech.thatgravyboat.vanity.common.item.ConceptArtHelper;
 import tech.thatgravyboat.vanity.common.menu.StylingMenu;
 import tech.thatgravyboat.vanity.common.network.NetworkHandler;
 import tech.thatgravyboat.vanity.common.network.packets.server.ServerboundSelectStylePacket;
+import tech.thatgravyboat.vanity.common.util.ComponentConstants;
 
 public class StyleButton extends BaseAbstractWidget {
 
@@ -41,7 +41,7 @@ public class StyleButton extends BaseAbstractWidget {
         ConceptArtHelper.setItemConceptArtVariant(this.stack, shouldRemove ? null : art, style);
 
         if (shouldRemove) {
-            this.setTooltip(Tooltip.create(UIConstants.ORIGINAL));
+            this.setTooltip(Tooltip.create(ComponentConstants.ORIGINAL));
         } else {
             this.setTooltip(Tooltip.create(ConceptArtHelper.getTranslationKey(art, style)));
         }

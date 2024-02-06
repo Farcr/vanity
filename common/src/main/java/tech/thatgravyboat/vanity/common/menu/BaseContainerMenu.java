@@ -21,12 +21,12 @@ public abstract class BaseContainerMenu extends AbstractContainerMenu {
 
         for (int y = 0; y < 3; ++y) {
             for (int x = 0; x < 9; ++x) {
-                this.addSlot(new Slot(inventory, x + y * 9 + 9, 8 + x * 18, getInventoryY() + y * 18));
+                this.addSlot(new Slot(inventory, x + y * 9 + 9, 8 + x * 18, 138 + y * 18));
             }
         }
 
         for (int x = 0; x < 9; ++x) {
-            this.addSlot(new Slot(inventory, x, 8 + x * 18, getInventoryY() + 58));
+            this.addSlot(new Slot(inventory, x, 8 + x * 18, 196));
         }
     }
 
@@ -71,10 +71,6 @@ public abstract class BaseContainerMenu extends AbstractContainerMenu {
                 },
                 true
         );
-    }
-
-    public int getInventoryY() {
-        return 138;
     }
 
     @Nullable

@@ -1,10 +1,8 @@
 package tech.thatgravyboat.vanity.common.item;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -14,11 +12,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import tech.thatgravyboat.vanity.common.handler.unlockables.UnlockableSaveHandler;
+import tech.thatgravyboat.vanity.common.registries.VanitySounds;
+import tech.thatgravyboat.vanity.common.util.ComponentConstants;
 
 public class ConceptArtItem extends Item {
-
-    private static final Component FAILED = Component.translatable("text.vanity.concept_art.fail")
-            .withStyle(ChatFormatting.RED);
 
     public ConceptArtItem(Properties properties) {
         super(properties);
@@ -32,12 +29,12 @@ public class ConceptArtItem extends Item {
             if (!level.isClientSide()) {
                 if (UnlockableSaveHandler.addUnlockable(level, player.getUUID(), art)) {
                     player.playNotifySound(
-                        SoundEvents.VILLAGER_WORK_CARTOGRAPHER, SoundSource.PLAYERS,
+                        VanitySounds.OPEN_CONCEPT_ART.get(), SoundSource.PLAYERS,
                         1.0F, 1.0F
                     );
                     stack.shrink(1);
                 } else {
-                    player.displayClientMessage(FAILED, true);
+                    player.displayClientMessage(ComponentConstants.CONCEPT_ART_OPEN_FAILURE, true);
                     return InteractionResultHolder.fail(stack);
                 }
             }

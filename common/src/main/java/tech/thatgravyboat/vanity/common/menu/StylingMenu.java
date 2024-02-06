@@ -75,7 +75,7 @@ public class StylingMenu extends BaseContainerMenu {
 
             @Override
             public void onTake(Player player, ItemStack stack) {
-                StylingMenu.this.access.execute((level, blockPos) -> level.playSound(null, blockPos, VanitySounds.UI_STYLING_TABLE_TAKE_RESULT.get(), SoundSource.BLOCKS, 1.0F, 1.0F));
+                StylingMenu.this.access.execute((level, blockPos) -> level.playSound(null, blockPos, VanitySounds.TAKE_RESULT_STYLING_TABLE.get(), SoundSource.BLOCKS, 1.0F, 1.0F));
 
                 StylingMenu.this.input.removeItem(0, 1);
                 StylingMenu.this.result.removeItem(0, 1);

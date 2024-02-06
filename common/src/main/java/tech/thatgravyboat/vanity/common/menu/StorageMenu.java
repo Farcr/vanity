@@ -34,11 +34,6 @@ public class StorageMenu extends BaseContainerMenu {
     }
 
     @Override
-    public int getInventoryY() {
-        return 138;
-    }
-
-    @Override
     public boolean stillValid(Player player) {
         if (super.stillValid(player)) {
             return this.access.evaluate((level, pos) -> {

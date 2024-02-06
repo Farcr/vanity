@@ -17,5 +17,5 @@ public class VanityProfessions {
     public static final ResourcefulRegistry<VillagerProfession> PROFESSIONS = ResourcefulRegistries.create(BuiltInRegistries.VILLAGER_PROFESSION, Vanity.MOD_ID);
 
     public static final RegistryEntry<PoiType> STYLIST_POI = POIS.register("stylist", () -> new PoiType(new HashSet<>(VanityBlocks.STYLING_TABLE.get().getStateDefinition().getPossibleStates()), 1, 1));
-    public static final RegistryEntry<VillagerProfession> STYLIST = PROFESSIONS.register("stylist", () -> new VillagerProfession(Vanity.MOD_ID + ":stylist", poi -> poi.is(STYLIST_POI.getId()), poi -> poi.is(STYLIST_POI.getId()), ImmutableSet.of(), ImmutableSet.of(), VanitySounds.UI_STYLING_TABLE_TAKE_RESULT.get()));
+    public static final RegistryEntry<VillagerProfession> STYLIST = PROFESSIONS.register("stylist", () -> new VillagerProfession(Vanity.MOD_ID + ":stylist", poi -> poi.is(STYLIST_POI.getId()), poi -> poi.is(STYLIST_POI.getId()), ImmutableSet.of(), ImmutableSet.of(), VanitySounds.TAKE_RESULT_STYLING_TABLE.get()));
 }
