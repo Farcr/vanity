@@ -1,4 +1,4 @@
-package tech.thatgravyboat.vanity.api.concept;
+package tech.thatgravyboat.vanity.api.design;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -13,25 +13,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public record ConceptArt(
-    @Nullable ResourceLocation conceptArtModel,
-    ConceptType type,
+public record Design(
+    @Nullable ResourceLocation model,
+    DesignType type,
     Map<String, List<Style>> styles
 ) {
 
-    public static final Codec<ConceptArt> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            ResourceLocation.CODEC.optionalFieldOf("concept_art_model").forGetter(CodecExtras.optionalFor(ConceptArt::conceptArtModel)),
-            ConceptType.CODEC.optionalFieldOf("type", ConceptType.ITEM).forGetter(ConceptArt::type),
-            Codec.unboundedMap(Codec.STRING, Style.CODEC.listOf()).fieldOf("styles").forGetter(ConceptArt::styles)
-    ).apply(instance, ConceptArt::new));
+    public static final Codec<Design> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            ResourceLocation.CODEC.optionalFieldOf("model").forGetter(CodecExtras.optionalFor(Design::model)),
+            DesignType.CODEC.optionalFieldOf("type", DesignType.ITEM).forGetter(Design::type),
+            Codec.unboundedMap(Codec.STRING, Style.CODEC.listOf()).fieldOf("styles").forGetter(Design::styles)
+    ).apply(instance, Design::new));
 
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-    private ConceptArt(Optional<ResourceLocation> model, ConceptType type, Map<String, List<Style>> variants) {
-        this(model.orElse(null), type, variants);
+    private Design(Optional<ResourceLocation> model, DesignType type, Map<String, List<Style>> styles) {
+        this(model.orElse(null), type, styles);
     }
 
     @Nullable
-    public Style getVariantForItem(String name, ItemStack stack) {
+    public Style getStyleForItem(String name, ItemStack stack) {
         List<Style> entries = this.styles.get(name);
         if (entries == null) {
             return null;
@@ -60,7 +60,7 @@ public record ConceptArt(
     }
 
     public boolean canBeSold() {
-        return this.type == ConceptType.SELLABLE;
+        return this.type == DesignType.SELLABLE;
     }
 
 }

@@ -8,7 +8,7 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.block.state.BlockState;
 import tech.thatgravyboat.vanity.common.block.StylingTableBlock;
 import tech.thatgravyboat.vanity.common.block.StylingTableBlockEntity;
-import tech.thatgravyboat.vanity.common.menu.container.ConceptArtSlot;
+import tech.thatgravyboat.vanity.common.menu.container.DesignSlot;
 import tech.thatgravyboat.vanity.common.menu.content.StorageMenuContent;
 import tech.thatgravyboat.vanity.common.registries.VanityMenuTypes;
 
@@ -28,7 +28,7 @@ public class StorageMenu extends BaseContainerMenu {
 
         for (int y = 0; y < 3; ++y) {
             for (int x = 0; x < 9; ++x) {
-                this.addSlot(new ConceptArtSlot(container, x + y * 9, 17 + x * 18, 67 + y * 18));
+                this.addSlot(new DesignSlot(container, x + y * 9, 17 + x * 18, 67 + y * 18));
             }
         }
     }

@@ -2,7 +2,7 @@ package tech.thatgravyboat.vanity.mixins.client.fixes;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import tech.thatgravyboat.vanity.api.style.AssetType;
-import tech.thatgravyboat.vanity.client.concept.ClientConceptArtManager;
+import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
 import tech.thatgravyboat.vanity.client.rendering.RenderingManager;
 import tech.thatgravyboat.vanity.common.entities.EntityItemHolder;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -41,7 +41,7 @@ public class ThrownTridentRendererMixin {
     )
     private void vanity$renderTrident(ThrownTrident trident, float f, float g, PoseStack stack, MultiBufferSource source, int i, CallbackInfo ci) {
         ItemStack item = ((EntityItemHolder) trident).vanity$getItem();
-        boolean hasVanity = ClientConceptArtManager.INSTANCE.hasVariant(item);
+        boolean hasVanity = ClientDesignManager.INSTANCE.hasStyle(item);
         if (hasVanity && this.vanity$itemRenderer != null) {
             RenderingManager manager = (RenderingManager) this.vanity$itemRenderer;
 

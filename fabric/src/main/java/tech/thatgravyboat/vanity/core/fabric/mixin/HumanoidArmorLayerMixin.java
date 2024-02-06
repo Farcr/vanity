@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import tech.thatgravyboat.vanity.api.style.AssetType;
-import tech.thatgravyboat.vanity.client.concept.ClientConceptArtManager;
+import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
 
 @Mixin(HumanoidArmorLayer.class)
 public class HumanoidArmorLayerMixin<T extends LivingEntity, M extends HumanoidModel<T>, A extends HumanoidModel<T>> {
@@ -40,7 +40,7 @@ public class HumanoidArmorLayerMixin<T extends LivingEntity, M extends HumanoidM
             PoseStack poseStack, MultiBufferSource multiBufferSource, T livingEntity, EquipmentSlot equipmentSlot, int i, A humanoidModel, CallbackInfo ci,
             @Local ItemStack stack, @Share("vanity$texture") LocalRef<ResourceLocation> texture
     ) {
-        texture.set(ClientConceptArtManager.INSTANCE.getTexture(stack, AssetType.ARMOR));
+        texture.set(ClientDesignManager.INSTANCE.getTexture(stack, AssetType.ARMOR));
     }
 
     @WrapOperation(

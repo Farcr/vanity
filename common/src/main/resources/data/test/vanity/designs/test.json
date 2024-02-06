@@ -1,0 +1,14 @@
+{
+    "type": "default",
+    "styles": {
+        "test": [
+            {
+                "item": "minecraft:golden_chestplate",
+                "assets": {
+                    "default": "vanity_dungeons_pack:highland_axe",
+                    "armor": "minecraft:textures/models/armor/chainmail_layer_1.png"
+                }
+            }
+        ]
+    }
+}

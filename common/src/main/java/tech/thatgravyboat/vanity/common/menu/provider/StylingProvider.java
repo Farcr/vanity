@@ -9,9 +9,9 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import tech.thatgravyboat.vanity.common.block.StylingTableBlockEntity;
-import tech.thatgravyboat.vanity.common.handler.concept.ServerConceptArtManager;
+import tech.thatgravyboat.vanity.common.handler.design.ServerDesignManager;
 import tech.thatgravyboat.vanity.common.handler.unlockables.UnlockableSaveHandler;
-import tech.thatgravyboat.vanity.common.item.ConceptArtHelper;
+import tech.thatgravyboat.vanity.common.item.DesignHelper;
 import tech.thatgravyboat.vanity.common.menu.StylingMenu;
 import tech.thatgravyboat.vanity.common.menu.content.StylingMenuContent;
 
@@ -31,23 +31,23 @@ public class StylingProvider extends BaseProvider<StylingMenuContent> {
         return new StylingMenu(
                 i, inventory,
                 ContainerLevelAccess.create(this.entity.getLevel(), this.entity.getBlockPos()),
-                ServerConceptArtManager.INSTANCE, getConceptsForPlayer(player)
+                ServerDesignManager.INSTANCE, getDesignsForPlayer(player)
         );
     }
 
     @Override
     public StylingMenuContent createContent(ServerPlayer player) {
-        return new StylingMenuContent(this.entity.getBlockPos(), getConceptsForPlayer(player));
+        return new StylingMenuContent(this.entity.getBlockPos(), getDesignsForPlayer(player));
     }
 
-    private List<ResourceLocation> getConceptsForPlayer(Player player) {
-        List<ResourceLocation> concepts = new ArrayList<>(UnlockableSaveHandler.getUnlockables(player.level(), player.getUUID()));
+    private List<ResourceLocation> getDesignsForPlayer(Player player) {
+        List<ResourceLocation> designs = new ArrayList<>(UnlockableSaveHandler.getUnlockables(player.level(), player.getUUID()));
         for (ItemStack item : this.entity.items()) {
-            ResourceLocation id = ConceptArtHelper.getArtId(item);
+            ResourceLocation id = DesignHelper.getDesign(item);
             if (id == null) continue;
-            concepts.add(id);
+            designs.add(id);
         }
-        concepts.addAll(ServerConceptArtManager.INSTANCE.getDefaultConceptArt().keySet());
-        return concepts;
+        designs.addAll(ServerDesignManager.INSTANCE.getDefaultDesigns().keySet());
+        return designs;
     }
 }

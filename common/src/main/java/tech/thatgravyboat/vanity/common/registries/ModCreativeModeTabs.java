@@ -8,9 +8,9 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
-import tech.thatgravyboat.vanity.api.concept.ConceptArtManager;
+import tech.thatgravyboat.vanity.api.design.DesignManager;
 import tech.thatgravyboat.vanity.common.Vanity;
-import tech.thatgravyboat.vanity.common.item.ConceptArtHelper;
+import tech.thatgravyboat.vanity.common.item.DesignHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,21 +21,21 @@ public class ModCreativeModeTabs {
     private static final ResourceKey<CreativeModeTab> FUNCTIONAL_BLOCKS = ResourceKey.create(Registries.CREATIVE_MODE_TAB, new ResourceLocation("functional_blocks"));
 
     public static void init() {
-        new ResourcefulCreativeTab(new ResourceLocation(Vanity.MOD_ID, "concept_art_tab"))
+        new ResourcefulCreativeTab(new ResourceLocation(Vanity.MOD_ID, "designs"))
             .setItemIcon(VanityBlocks.STYLING_TABLE)
             .addContent(() -> {
-                ConceptArtManager manager = ConceptArtManager.get(true);
-                List<ResourceLocation> availableArt = new ArrayList<>();
-                for (var entry : manager.getAllConceptArt().entrySet()) {
+                DesignManager manager = DesignManager.get(true);
+                List<ResourceLocation> designs = new ArrayList<>();
+                for (var entry : manager.getAllDesigns().entrySet()) {
                     if (!entry.getValue().type().hasItem()) continue;
-                    availableArt.add(entry.getKey());
+                    designs.add(entry.getKey());
                 }
 
-                return availableArt
+                return designs
                         .stream()
                         .map(location -> {
-                            ItemStack stack = new ItemStack(VanityItems.CONCEPT_ART.get());
-                            ConceptArtHelper.setConceptArt(stack, location);
+                            ItemStack stack = new ItemStack(VanityItems.DESIGN.get());
+                            DesignHelper.setDesign(stack, location);
                             return stack;
                         });
             }).build();

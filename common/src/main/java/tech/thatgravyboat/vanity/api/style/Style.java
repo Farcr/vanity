@@ -32,7 +32,7 @@ public record Style(
 
     public static final Codec<Style> CODEC = UNVALIDATED_CODEC.comapFlatMap(style -> {
         if (!style.assets.containsKey("default")) {
-            return DataResult.error(() -> "Variant models must contain a default model");
+            return DataResult.error(() -> "Styles must contain a 'default' asset");
         }
         return DataResult.success(style);
     }, Function.identity());

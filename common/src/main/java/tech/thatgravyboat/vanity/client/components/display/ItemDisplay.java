@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import org.joml.Matrix4f;
 import tech.thatgravyboat.vanity.api.style.AssetType;
 import tech.thatgravyboat.vanity.api.style.Style;
-import tech.thatgravyboat.vanity.client.concept.ClientConceptArtManager;
+import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
 import tech.thatgravyboat.vanity.client.rendering.RenderingManager;
 
 public class ItemDisplay implements Display {
@@ -57,10 +57,10 @@ public class ItemDisplay implements Display {
         this.stack = stack;
         ResourceLocation model = style.asset(AssetType.HAND);
         if (model == null) {
-            this.model = ClientConceptArtManager.getModelLocation(style.model());
+            this.model = ClientDesignManager.getModelLocation(style.model());
             this.type = Type.GUI;
         } else {
-            this.model = ClientConceptArtManager.getModelLocation(model);
+            this.model = ClientDesignManager.getModelLocation(model);
             this.type = Type.HAND;
         }
     }

@@ -8,10 +8,10 @@ import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
-import tech.thatgravyboat.vanity.common.handler.concept.ServerConceptArtManager;
+import tech.thatgravyboat.vanity.common.handler.design.ServerDesignManager;
 import tech.thatgravyboat.vanity.common.handler.trades.VillagerTrade;
 import tech.thatgravyboat.vanity.common.handler.trades.VillagerTradeManager;
-import tech.thatgravyboat.vanity.common.item.ConceptArtHelper;
+import tech.thatgravyboat.vanity.common.item.DesignHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +22,15 @@ public class ModTrades {
     public static void registerTrades(VillagerProfession profession, int maxTier, int minTier, BiConsumer<Integer, VillagerTrades.ItemListing> adder) {
         if (profession != VanityProfessions.STYLIST.get()) return;
 
-        List<ResourceLocation> art = new ArrayList<>();
-        for (var entry : ServerConceptArtManager.INSTANCE.getAllConceptArt().entrySet()) {
+        List<ResourceLocation> designs = new ArrayList<>();
+        for (var entry : ServerDesignManager.INSTANCE.getAllDesigns().entrySet()) {
             if (!entry.getValue().canBeSold()) continue;
-            art.add(entry.getKey());
+            designs.add(entry.getKey());
         }
 
-        int basicTrades = Math.min(maxTier, art.size() + 1);
-        for (int i = 1; i < basicTrades && !art.isEmpty(); i++) {
-            adder.accept(minTier + i, new ConceptArtListing(art));
+        int basicTrades = Math.min(maxTier, designs.size() + 1);
+        for (int i = 1; i < basicTrades && !designs.isEmpty(); i++) {
+            adder.accept(minTier + i, new DesignListing(designs));
         }
 
         for (int i = minTier; i <= maxTier; i++) {
@@ -40,7 +40,7 @@ public class ModTrades {
         }
     }
 
-    private record ConceptArtListing(List<ResourceLocation> art) implements VillagerTrades.ItemListing {
+    private record DesignListing(List<ResourceLocation> designs) implements VillagerTrades.ItemListing {
 
         private static final int USES = 4;
         private static final int EMERALD_COST = 15;
@@ -51,10 +51,10 @@ public class ModTrades {
         public MerchantOffer getOffer(Entity entity, RandomSource random) {
             ItemStack emeralds = new ItemStack(Items.EMERALD, EMERALD_COST + (random.nextInt(16)));
 
-            ResourceLocation art = this.art.get(random.nextInt(this.art.size()));
+            ResourceLocation design = this.designs.get(random.nextInt(this.designs.size()));
 
-            ItemStack item = new ItemStack(VanityItems.CONCEPT_ART.get());
-            ConceptArtHelper.setConceptArt(item, art);
+            ItemStack item = new ItemStack(VanityItems.DESIGN.get());
+            DesignHelper.setDesign(item, design);
 
             return new MerchantOffer(emeralds, item, USES, XP_GAIN, PRICE_MULTIPLIER);
         }

@@ -17,7 +17,7 @@ import tech.thatgravyboat.vanity.common.util.ComponentConstants;
 
 public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
 
-    private static final ResourceLocation BACKGROUND = new ResourceLocation(Vanity.MOD_ID, "textures/gui/container/concept_art_storage.png");
+    private static final ResourceLocation BACKGROUND = new ResourceLocation(Vanity.MOD_ID, "textures/gui/container/storage.png");
 
     public StorageScreen(StorageMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
@@ -40,7 +40,7 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
         );
 
         buttons.addChild(
-            StylingTabButton.create(Items.CHEST, ComponentConstants.CONCEPT_ART_TAB),
+            StylingTabButton.create(Items.CHEST, ComponentConstants.DESIGN_TAB),
             0, 1
         );
 
@@ -66,6 +66,6 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
         this.renderBackground(graphics);
         graphics.blit(BACKGROUND, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
 
-        graphics.renderFakeItem(VanityItems.CONCEPT_ART.get().getDefaultInstance(), this.leftPos + 80, this.topPos + 45);
+        graphics.renderFakeItem(VanityItems.DESIGN.get().getDefaultInstance(), this.leftPos + 80, this.topPos + 45);
     }
 }

@@ -3,7 +3,7 @@ package tech.thatgravyboat.vanity.mixins.client.fixes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import tech.thatgravyboat.vanity.api.style.AssetType;
-import tech.thatgravyboat.vanity.client.concept.ClientConceptArtManager;
+import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
 import tech.thatgravyboat.vanity.client.rendering.RenderingManager;
 import tech.thatgravyboat.vanity.common.entities.EntityItemHolder;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -39,7 +39,7 @@ public class ArrowRendererMixin {
     )
     private void vanity$renderArrow(AbstractArrow arrow, float f, float g, PoseStack stack, MultiBufferSource source, int i, CallbackInfo ci) {
         ItemStack item = ((EntityItemHolder) arrow).vanity$getItem();
-        boolean hasVanity = ClientConceptArtManager.INSTANCE.hasVariant(item);
+        boolean hasVanity = ClientDesignManager.INSTANCE.hasStyle(item);
         if (hasVanity && this.vanity$itemRenderer != null) {
             RenderingManager manager = (RenderingManager) this.vanity$itemRenderer;
 

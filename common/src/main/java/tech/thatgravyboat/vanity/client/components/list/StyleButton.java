@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import tech.thatgravyboat.vanity.client.components.base.BaseAbstractWidget;
 import tech.thatgravyboat.vanity.common.Vanity;
-import tech.thatgravyboat.vanity.common.item.ConceptArtHelper;
+import tech.thatgravyboat.vanity.common.item.DesignHelper;
 import tech.thatgravyboat.vanity.common.menu.StylingMenu;
 import tech.thatgravyboat.vanity.common.network.NetworkHandler;
 import tech.thatgravyboat.vanity.common.network.packets.server.ServerboundSelectStylePacket;
@@ -23,27 +23,27 @@ public class StyleButton extends BaseAbstractWidget {
     private static final ResourceLocation HOVERED = new ResourceLocation(Vanity.MOD_ID, "textures/gui/sprites/button/hovered.png");
     private static final ResourceLocation SELECTED = new ResourceLocation(Vanity.MOD_ID, "textures/gui/sprites/button/selected.png");
 
-    private final ResourceLocation art;
+    private final ResourceLocation design;
     private final String style;
 
     private final ItemStack stack;
 
     private boolean selected;
 
-    public StyleButton(ResourceLocation art, String style, ItemStack inputStack) {
+    public StyleButton(ResourceLocation design, String style, ItemStack inputStack) {
         super(18, 18);
 
-        boolean shouldRemove = art.equals(StylingMenu.REMOVE_CONCEPT_ART);
+        boolean shouldRemove = design.equals(StylingMenu.REMOVE_DESIGN);
 
-        this.art = art;
+        this.design = design;
         this.style = style;
         this.stack = inputStack.copyWithCount(1);
-        ConceptArtHelper.setItemConceptArtVariant(this.stack, shouldRemove ? null : art, style);
+        DesignHelper.setDesignAndStyle(this.stack, shouldRemove ? null : design, style);
 
         if (shouldRemove) {
             this.setTooltip(Tooltip.create(ComponentConstants.ORIGINAL));
         } else {
-            this.setTooltip(Tooltip.create(ConceptArtHelper.getTranslationKey(art, style)));
+            this.setTooltip(Tooltip.create(DesignHelper.getTranslationKey(design, style)));
         }
     }
 
@@ -65,12 +65,12 @@ public class StyleButton extends BaseAbstractWidget {
     public void onClick(double d, double e) {
         SoundManager sounds = Minecraft.getInstance().getSoundManager();
         sounds.play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-        ServerboundSelectStylePacket packet = new ServerboundSelectStylePacket(this.art, this.style);
+        ServerboundSelectStylePacket packet = new ServerboundSelectStylePacket(this.design, this.style);
         NetworkHandler.CHANNEL.sendToServer(packet);
     }
 
-    public void select(@Nullable ResourceLocation art, @Nullable String style) {
-        this.selected = this.art.equals(art) && this.style.equals(style);
+    public void select(@Nullable ResourceLocation design, @Nullable String style) {
+        this.selected = this.design.equals(design) && this.style.equals(style);
     }
 
     public static ResourceLocation texture(boolean hovered, boolean selected) {

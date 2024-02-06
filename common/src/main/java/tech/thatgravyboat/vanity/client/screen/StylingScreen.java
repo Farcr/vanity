@@ -43,13 +43,13 @@ public class StylingScreen extends AbstractContainerScreen<StylingMenu> implemen
         GridLayout buttons = new GridLayout();
 
         buttons.addChild(
-                StylingTabButton.create(VanityItems.STYLING_TABLE.get(), ComponentConstants.STYLING_TAB),
-                0, 0
+            StylingTabButton.create(VanityItems.STYLING_TABLE.get(), ComponentConstants.STYLING_TAB),
+            0, 0
         );
 
         if (getMenu().canShowStorage()) {
             buttons.addChild(
-                StylingTabButton.create(Items.CHEST, ComponentConstants.CONCEPT_ART_TAB, () ->
+                StylingTabButton.create(Items.CHEST, ComponentConstants.DESIGN_TAB, () ->
                     NetworkHandler.CHANNEL.sendToServer(new ServerboundOpenTabPacket(true))
                 ),
                 0, 1
@@ -90,7 +90,7 @@ public class StylingScreen extends AbstractContainerScreen<StylingMenu> implemen
     }
 
     @Override
-    public void slotChanged(AbstractContainerMenu abstractContainerMenu, int i, ItemStack itemStack) {
+    public void slotChanged(AbstractContainerMenu menu, int i, ItemStack itemStack) {
         if (this.list != null) {
             this.list.addAll(this.menu.styles(), this.menu.getInput());
             this.list.select(this.menu.getResult());
@@ -101,7 +101,7 @@ public class StylingScreen extends AbstractContainerScreen<StylingMenu> implemen
     }
 
     @Override
-    public void dataChanged(AbstractContainerMenu abstractContainerMenu, int i, int j) {}
+    public void dataChanged(AbstractContainerMenu menu, int i, int j) {}
 
     @Override
     public boolean mouseDragged(double d, double e, int i, double f, double g) {

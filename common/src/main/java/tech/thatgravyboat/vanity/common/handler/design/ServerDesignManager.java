@@ -1,13 +1,13 @@
-package tech.thatgravyboat.vanity.common.handler.concept;
+package tech.thatgravyboat.vanity.common.handler.design;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
-import tech.thatgravyboat.vanity.api.concept.ConceptArt;
+import tech.thatgravyboat.vanity.api.design.Design;
 import tech.thatgravyboat.vanity.common.network.NetworkHandler;
-import tech.thatgravyboat.vanity.common.network.packets.client.ClientboundConceptArtSyncPacket;
+import tech.thatgravyboat.vanity.common.network.packets.client.ClientboundSyncDesignsPacket;
 import tech.thatgravyboat.vanity.common.Vanity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
@@ -22,14 +22,14 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
-public class ServerConceptArtManager extends ConceptArtManagerImpl implements PreparableReloadListener {
+public class ServerDesignManager extends DesignManagerImpl implements PreparableReloadListener {
 
-    public static final ServerConceptArtManager INSTANCE = new ServerConceptArtManager();
+    public static final ServerDesignManager INSTANCE = new ServerDesignManager();
     private static final Logger LOGGER = LogUtils.getLogger();
     private final ResourceLoader resourceLoader = new ResourceLoader();
 
-    public ClientboundConceptArtSyncPacket createPacket() {
-        return new ClientboundConceptArtSyncPacket(this);
+    public ClientboundSyncDesignsPacket createPacket() {
+        return new ClientboundSyncDesignsPacket(this);
     }
 
     @Override
@@ -44,27 +44,27 @@ public class ServerConceptArtManager extends ConceptArtManagerImpl implements Pr
     private class ResourceLoader extends SimpleJsonResourceReloadListener {
 
         private ResourceLoader() {
-            super(new Gson(), "concept_art");
+            super(new Gson(), "vanity/designs");
         }
 
         @Override
         protected void apply(Map<ResourceLocation, JsonElement> elements, ResourceManager resourceManager, ProfilerFiller profiler) {
-            ServerConceptArtManager.this.clear();
+            ServerDesignManager.this.clear();
             for (Map.Entry<ResourceLocation, JsonElement> entry : elements.entrySet()) {
                 try {
-                    if (ServerConceptArtManager.this.conceptArt.containsKey(entry.getKey()))
-                        throw new IllegalStateException("Duplicate concept art: " + entry.getKey());
+                    if (ServerDesignManager.this.designs.containsKey(entry.getKey()))
+                        throw new IllegalStateException("Duplicate design: " + entry.getKey());
 
-                    DataResult<ConceptArt> result = ConceptArt.CODEC.parse(JsonOps.INSTANCE, entry.getValue());
+                    DataResult<Design> result = Design.CODEC.parse(JsonOps.INSTANCE, entry.getValue());
                     if (result.error().isPresent() || result.result().isEmpty())
                         throw new IOException(result.error().get().message() + " " + entry.getValue());
 
-                    ServerConceptArtManager.this.conceptArt.put(entry.getKey(), result.result().get());
+                    ServerDesignManager.this.designs.put(entry.getKey(), result.result().get());
                 } catch (IOException e) {
-                    LOGGER.error("Failed to load concept art: " + entry.getKey(), e);
+                    LOGGER.error("Failed to load design: " + entry.getKey(), e);
                 }
             }
-            ServerConceptArtManager.this.setupDefaults();
+            ServerDesignManager.this.setupDefaults();
         }
     }
 }

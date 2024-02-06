@@ -26,10 +26,10 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import tech.thatgravyboat.vanity.api.concept.ConceptArt;
-import tech.thatgravyboat.vanity.api.concept.ConceptArtManager;
+import tech.thatgravyboat.vanity.api.design.Design;
+import tech.thatgravyboat.vanity.api.design.DesignManager;
 import tech.thatgravyboat.vanity.api.style.AssetType;
-import tech.thatgravyboat.vanity.client.concept.ClientConceptArtManager;
+import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
 import tech.thatgravyboat.vanity.client.rendering.RenderingManager;
 import tech.thatgravyboat.vanity.common.registries.VanityItems;
 
@@ -62,16 +62,16 @@ public class ItemRendererMixin implements RenderingManager {
     )
     private BakedModel vanity$replaceModel(BakedModel original, @Share("renderStack") LocalRef<ItemStack> renderStack) {
         ItemStack stack = renderStack.get();
-        if (stack.is(VanityItems.CONCEPT_ART.get())) {
-            ConceptArt art = ConceptArtManager.get(true).getItemConceptArt(stack);
-            if (art != null && art.conceptArtModel() != null) {
-                return this.itemModelShaper.getModelManager().getModel(ClientConceptArtManager.getModelLocation(art.conceptArtModel()));
+        if (stack.is(VanityItems.DESIGN.get())) {
+            Design design = DesignManager.get(true).getDesignFromItem(stack);
+            if (design != null && design.model() != null) {
+                return this.itemModelShaper.getModelManager().getModel(ClientDesignManager.getModelLocation(design.model()));
             }
             return original;
         }
 
         return Optionull.mapOrDefault(
-            ClientConceptArtManager.INSTANCE.getModel(stack, this.vanity$assetType, RenderingManager.IS_IN_GUI.get() ? null : AssetType.HAND),
+            ClientDesignManager.INSTANCE.getModel(stack, this.vanity$assetType, RenderingManager.IS_IN_GUI.get() ? null : AssetType.HAND),
             this.itemModelShaper.getModelManager()::getModel,
             original
         );
@@ -95,16 +95,16 @@ public class ItemRendererMixin implements RenderingManager {
         @Share("guiPerspective") LocalBooleanRef guiPerspective
     ) {
         ItemStack stack = renderStack.get();
-        if (stack.is(VanityItems.CONCEPT_ART.get()) || RenderingManager.RENDERING.get())
+        if (stack.is(VanityItems.DESIGN.get()) || RenderingManager.RENDERING.get())
             return original;
 
         ModelResourceLocation model = null;
         if (guiPerspective.get() && this.vanity$assetType == null) {
-            model = ClientConceptArtManager.INSTANCE.getModel(stack, null);
+            model = ClientDesignManager.INSTANCE.getModel(stack, null);
         }
 
         if (model == null) {
-            model = ClientConceptArtManager.INSTANCE.getModel(stack, this.vanity$assetType, AssetType.HAND);
+            model = ClientDesignManager.INSTANCE.getModel(stack, this.vanity$assetType, AssetType.HAND);
         }
 
         return Optionull.mapOrDefault(
@@ -118,10 +118,10 @@ public class ItemRendererMixin implements RenderingManager {
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/model/BakedModel;isCustomRenderer()Z"))
     public boolean vanity$shouldRender(BakedModel instance, @Local(name = "stack", ordinal = 0, argsOnly = true) ItemStack stack) {
         boolean original = instance.isCustomRenderer();
-        if (stack.is(VanityItems.CONCEPT_ART.get()))
+        if (stack.is(VanityItems.DESIGN.get()))
             return original;
 
-        return !ClientConceptArtManager.INSTANCE.hasVariant(stack) && original;
+        return !ClientDesignManager.INSTANCE.hasStyle(stack) && original;
     }
 
     @Redirect(method = "render", at = @At(
@@ -130,7 +130,7 @@ public class ItemRendererMixin implements RenderingManager {
             ordinal = 2
     ))
     public boolean vanity$shouldRender2(ItemStack instance, Item item) {
-        return !ClientConceptArtManager.INSTANCE.hasVariant(instance) && instance.is(item);
+        return !ClientDesignManager.INSTANCE.hasStyle(instance) && instance.is(item);
     }
 
     @Override

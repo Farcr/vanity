@@ -10,10 +10,10 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import tech.thatgravyboat.vanity.api.concept.ConceptArtManager;
+import tech.thatgravyboat.vanity.api.design.DesignManager;
 import tech.thatgravyboat.vanity.common.Vanity;
 import tech.thatgravyboat.vanity.common.block.StylingTableBlock;
-import tech.thatgravyboat.vanity.common.item.ConceptArtHelper;
+import tech.thatgravyboat.vanity.common.item.DesignHelper;
 import tech.thatgravyboat.vanity.common.menu.container.AwareContainer;
 import tech.thatgravyboat.vanity.common.menu.content.StylingMenuContent;
 import tech.thatgravyboat.vanity.common.registries.VanityItems;
@@ -24,14 +24,14 @@ import java.util.*;
 
 public class StylingMenu extends BaseContainerMenu {
 
-    public static final ResourceLocation REMOVE_CONCEPT_ART = new ResourceLocation(Vanity.MOD_ID, "remove_concept_art");
+    public static final ResourceLocation REMOVE_DESIGN = new ResourceLocation(Vanity.MOD_ID, "remove_design");
 
-    private final List<ResourceLocation> conceptArt;
+    private final List<ResourceLocation> designs;
     private final Map<ResourceLocation, List<String>> styles = new LinkedHashMap<>();
-    private final ConceptArtManager manager;
+    private final DesignManager manager;
 
     private final Container input = new AwareContainer(1, () -> {
-        this.updateConceptArt();
+        this.updateDesign();
         this.slotsChanged(this.input);
     });
 
@@ -44,27 +44,27 @@ public class StylingMenu extends BaseContainerMenu {
         this(
             i, inventory,
             content.map(StylingMenuContent.access(inventory.player)).orElse(ContainerLevelAccess.NULL),
-            ConceptArtManager.get(true),
+            DesignManager.get(true),
             content.map(StylingMenuContent::unlockables).orElse(new ArrayList<>())
         );
     }
 
-    public StylingMenu(int i, Inventory inventory, ContainerLevelAccess access, ConceptArtManager manager, List<ResourceLocation> conceptArt) {
+    public StylingMenu(int i, Inventory inventory, ContainerLevelAccess access, DesignManager manager, List<ResourceLocation> designs) {
         super(i, VanityMenuTypes.STYLING.get(), inventory, access);
 
-        this.conceptArt = conceptArt;
+        this.designs = designs;
         this.manager = manager;
 
         this.addSlot(new Slot(this.input, 0, 80, 50) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return !stack.is(VanityItems.CONCEPT_ART.get());
+                return !stack.is(VanityItems.DESIGN.get());
             }
 
             @Override
             public void onTake(Player player, ItemStack itemStack) {
                 super.onTake(player, itemStack);
-                StylingMenu.this.updateConceptArt();
+                StylingMenu.this.updateDesign();
             }
         });
         this.addSlot(new Slot(this.result, 0, 80, 98) {
@@ -79,33 +79,33 @@ public class StylingMenu extends BaseContainerMenu {
 
                 StylingMenu.this.input.removeItem(0, 1);
                 StylingMenu.this.result.removeItem(0, 1);
-                StylingMenu.this.updateConceptArt();
+                StylingMenu.this.updateDesign();
 
                 super.onTake(player, stack);
             }
         });
     }
 
-    private void updateConceptArt() {
+    private void updateDesign() {
         var previous = this.styles.hashCode();
         this.styles.clear();
 
         ItemStack input = this.input.getItem(0);
         if (!input.isEmpty()) {
-            ResourceLocation inputArt = ConceptArtHelper.getArtId(input);
-            String inputStyle = ConceptArtHelper.getStyle(input);
+            ResourceLocation inputDesign = DesignHelper.getDesign(input);
+            String inputStyle = DesignHelper.getStyle(input);
 
-            if (inputArt != null) {
-                this.styles.put(REMOVE_CONCEPT_ART, List.of(""));
+            if (inputDesign != null) {
+                this.styles.put(REMOVE_DESIGN, List.of(""));
             }
 
-            this.conceptArt.forEach(id -> this.manager.getConceptArt(id)
-                .map(art -> art.getStylesForItem(input))
+            this.designs.forEach(id -> this.manager.getDesign(id)
+                .map(design -> design.getStylesForItem(input))
                 .ifPresent(styles -> this.styles.put(id, new ArrayList<>(styles)))
             );
 
-            if (inputArt != null && this.styles.containsKey(inputArt)) {
-                this.styles.get(inputArt).remove(inputStyle);
+            if (inputDesign != null && this.styles.containsKey(inputDesign)) {
+                this.styles.get(inputDesign).remove(inputStyle);
             }
         }
 
@@ -120,13 +120,13 @@ public class StylingMenu extends BaseContainerMenu {
         this.access.execute((arg2, arg3) -> this.clearContainer(player, this.input));
     }
 
-    public void select(ResourceLocation concept, @Nullable String style) {
+    public void select(ResourceLocation design, @Nullable String style) {
         ItemStack input = this.input.getItem(0);
         if (input.isEmpty()) return;
-        if (!this.styles.containsKey(concept) || !this.styles.get(concept).contains(style)) return;
+        if (!this.styles.containsKey(design) || !this.styles.get(design).contains(style)) return;
         ItemStack stack = input.copyWithCount(1);
-        style = REMOVE_CONCEPT_ART.equals(concept) ? null : style;
-        ConceptArtHelper.setItemConceptArtVariant(stack, concept, style);
+        style = REMOVE_DESIGN.equals(design) ? null : style;
+        DesignHelper.setDesignAndStyle(stack, design, style);
         this.result.setItem(0, stack);
     }
 

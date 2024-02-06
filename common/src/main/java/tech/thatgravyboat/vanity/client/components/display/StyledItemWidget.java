@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import tech.thatgravyboat.vanity.api.style.AssetType;
 import tech.thatgravyboat.vanity.api.style.Style;
 import tech.thatgravyboat.vanity.client.components.base.BaseAbstractWidget;
-import tech.thatgravyboat.vanity.client.concept.ClientConceptArtManager;
+import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
 import tech.thatgravyboat.vanity.common.Vanity;
 
 public class StyledItemWidget extends BaseAbstractWidget {
@@ -33,11 +33,9 @@ public class StyledItemWidget extends BaseAbstractWidget {
 
         if (this.display == null) return;
 
-//        graphics.enableScissor(getX(), getY(), getX() + getWidth(), getY() + getHeight());
-
+        graphics.enableScissor(getX(), getY(), getX() + getWidth(), getY() + getHeight());
         this.display.render(graphics, getX(), getY(), getWidth(), getHeight(), getRotation());
-
-//        graphics.disableScissor();
+        graphics.disableScissor();
     }
 
     @Override
@@ -70,7 +68,7 @@ public class StyledItemWidget extends BaseAbstractWidget {
     }
 
     public void select(ItemStack stack) {
-        Style style = ClientConceptArtManager.INSTANCE.getItemConceptArtVariant(stack);
+        Style style = ClientDesignManager.INSTANCE.getStyleFromItem(stack);
         if (style == null) {
             this.display = null;
         } else if (style.hasAsset(AssetType.ARMOR)) {

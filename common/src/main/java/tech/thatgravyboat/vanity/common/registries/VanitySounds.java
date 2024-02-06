@@ -14,5 +14,5 @@ public class VanitySounds {
     public static final ResourcefulRegistry<SoundEvent> SOUNDS = ResourcefulRegistries.create(BuiltInRegistries.SOUND_EVENT, Vanity.MOD_ID);
 
     public static final Supplier<SoundEvent> TAKE_RESULT_STYLING_TABLE = SOUNDS.register("ui.styling_table.take_result", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Vanity.MOD_ID, "ui.styling_table.take_result")));
-    public static final Supplier<SoundEvent> OPEN_CONCEPT_ART = SOUNDS.register("item.concept_art.open", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Vanity.MOD_ID, "item.concept_art.open")));
+    public static final Supplier<SoundEvent> OPEN_DESIGN = SOUNDS.register("item.design.open", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Vanity.MOD_ID, "item.design.open")));
 }

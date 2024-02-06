@@ -11,7 +11,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import tech.thatgravyboat.vanity.client.components.base.BaseParentWidget;
 import tech.thatgravyboat.vanity.common.Vanity;
-import tech.thatgravyboat.vanity.common.item.ConceptArtHelper;
+import tech.thatgravyboat.vanity.common.item.DesignHelper;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -36,25 +36,25 @@ public class StylesListWidget extends BaseParentWidget {
         super(64, 73);
     }
 
-    public void addAll(Map<ResourceLocation, List<String>> styles, ItemStack input) {
-        if (styles.hashCode() == this.oldHash) return;
+    public void addAll(Map<ResourceLocation, List<String>> designs, ItemStack input) {
+        if (designs.hashCode() == this.oldHash) return;
         this.scroll = 0;
-        this.oldHash = styles.hashCode();
+        this.oldHash = designs.hashCode();
 
         clear();
         List<Pair<ResourceLocation, String>> pairs = new ArrayList<>();
-        styles.forEach((art, variants) -> variants.forEach(variant -> pairs.add(Pair.of(art, variant))));
+        designs.forEach((design, styles) -> styles.forEach(style -> pairs.add(Pair.of(design, style))));
         pairs.sort(SORTER);
         pairs.forEach(pair -> addRenderableWidget(new StyleButton(pair.getFirst(), pair.getSecond(), input)));
         setupButtons();
     }
 
     public void select(ItemStack stack) {
-        ResourceLocation art = ConceptArtHelper.getArtId(stack);
-        String style = ConceptArtHelper.getStyle(stack);
+        ResourceLocation design = DesignHelper.getDesign(stack);
+        String style = DesignHelper.getStyle(stack);
         for (AbstractWidget child : this.children) {
             if (child instanceof StyleButton styleButton) {
-                styleButton.select(art, style);
+                styleButton.select(design, style);
             }
         }
     }

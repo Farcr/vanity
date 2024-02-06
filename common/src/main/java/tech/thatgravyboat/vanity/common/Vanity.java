@@ -3,7 +3,7 @@ package tech.thatgravyboat.vanity.common;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
-import tech.thatgravyboat.vanity.common.handler.concept.ServerConceptArtManager;
+import tech.thatgravyboat.vanity.common.handler.design.ServerDesignManager;
 import tech.thatgravyboat.vanity.common.handler.trades.VillagerTradeManager;
 import tech.thatgravyboat.vanity.common.network.NetworkHandler;
 import tech.thatgravyboat.vanity.common.registries.*;
@@ -32,7 +32,7 @@ public class Vanity {
     }
 
     public static void onRegisterReloadListeners(BiConsumer<ResourceLocation, PreparableReloadListener> registry) {
-        registry.accept(new ResourceLocation(Vanity.MOD_ID, "concept_art_manager"), ServerConceptArtManager.INSTANCE);
+        registry.accept(new ResourceLocation(Vanity.MOD_ID, "design_manager"), ServerDesignManager.INSTANCE);
         registry.accept(new ResourceLocation(Vanity.MOD_ID, "villager_trades"), VillagerTradeManager.INSTANCE);
     }
 }

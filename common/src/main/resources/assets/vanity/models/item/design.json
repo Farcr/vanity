@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "vanity:item/concept_art"
+    "layer0": "vanity:item/design"
   }
 }

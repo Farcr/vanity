@@ -1,6 +1,6 @@
 package tech.thatgravyboat.vanity.mixins.common;
 
-import tech.thatgravyboat.vanity.common.handler.concept.ServerConceptArtManager;
+import tech.thatgravyboat.vanity.common.handler.design.ServerDesignManager;
 import tech.thatgravyboat.vanity.common.network.NetworkHandler;
 import net.minecraft.network.Connection;
 import net.minecraft.server.level.ServerPlayer;
@@ -22,6 +22,6 @@ public class PlayerListMixin {
         )
     )
     private void vanity$onPlayerConnect(Connection connection, ServerPlayer serverPlayer, CallbackInfo ci) {
-        NetworkHandler.CHANNEL.sendToPlayer(ServerConceptArtManager.INSTANCE.createPacket(), serverPlayer);
+        NetworkHandler.CHANNEL.sendToPlayer(ServerDesignManager.INSTANCE.createPacket(), serverPlayer);
     }
 }

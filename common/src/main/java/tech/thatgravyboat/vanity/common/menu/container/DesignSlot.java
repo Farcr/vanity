@@ -5,14 +5,14 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import tech.thatgravyboat.vanity.common.registries.VanityItems;
 
-public class ConceptArtSlot extends Slot {
+public class DesignSlot extends Slot {
 
-    public ConceptArtSlot(Container container, int id, int x, int y) {
+    public DesignSlot(Container container, int id, int x, int y) {
         super(container, id, x, y);
     }
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-        return stack.is(VanityItems.CONCEPT_ART.get());
+        return stack.is(VanityItems.DESIGN.get());
     }
 }

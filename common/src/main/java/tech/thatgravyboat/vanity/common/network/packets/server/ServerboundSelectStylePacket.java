@@ -12,7 +12,7 @@ import tech.thatgravyboat.vanity.common.menu.StylingMenu;
 
 import java.util.function.Consumer;
 
-public record ServerboundSelectStylePacket(ResourceLocation concept, @Nullable String style) implements Packet<ServerboundSelectStylePacket> {
+public record ServerboundSelectStylePacket(ResourceLocation design, @Nullable String style) implements Packet<ServerboundSelectStylePacket> {
 
     public static final ServerboundPacketType<ServerboundSelectStylePacket> TYPE = new Type();
 
@@ -37,7 +37,7 @@ public record ServerboundSelectStylePacket(ResourceLocation concept, @Nullable S
 
         @Override
         public void encode(ServerboundSelectStylePacket message, FriendlyByteBuf buffer) {
-            buffer.writeResourceLocation(message.concept());
+            buffer.writeResourceLocation(message.design());
             buffer.writeNullable(message.style(), FriendlyByteBuf::writeUtf);
         }
 
@@ -50,7 +50,7 @@ public record ServerboundSelectStylePacket(ResourceLocation concept, @Nullable S
         public Consumer<Player> handle(ServerboundSelectStylePacket message) {
             return (player) -> {
                 if (player.containerMenu instanceof StylingMenu stylingMenu) {
-                    stylingMenu.select(message.concept(), message.style());
+                    stylingMenu.select(message.design(), message.style());
                 }
             };
         }

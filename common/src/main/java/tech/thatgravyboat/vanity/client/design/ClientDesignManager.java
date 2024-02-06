@@ -1,10 +1,10 @@
-package tech.thatgravyboat.vanity.client.concept;
+package tech.thatgravyboat.vanity.client.design;
 
 import org.jetbrains.annotations.Nullable;
 import tech.thatgravyboat.vanity.api.style.AssetType;
 import tech.thatgravyboat.vanity.api.style.Style;
-import tech.thatgravyboat.vanity.common.network.packets.client.ClientboundConceptArtSyncPacket;
-import tech.thatgravyboat.vanity.common.handler.concept.ConceptArtManagerImpl;
+import tech.thatgravyboat.vanity.common.handler.design.DesignManagerImpl;
+import tech.thatgravyboat.vanity.common.network.packets.client.ClientboundSyncDesignsPacket;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -12,32 +12,33 @@ import net.minecraft.world.item.ItemStack;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ClientConceptArtManager extends ConceptArtManagerImpl {
+public class ClientDesignManager extends DesignManagerImpl {
 
-    public static final ClientConceptArtManager INSTANCE = new ClientConceptArtManager();
+    public static final ClientDesignManager INSTANCE = new ClientDesignManager();
+    public static final String PATH = "vanity/designs";
     private static final Map<ResourceLocation, ModelResourceLocation> MODEL_LOCATION_CACHE = new HashMap<>();
 
     public static ModelResourceLocation getModelLocation(ResourceLocation location) {
-        return MODEL_LOCATION_CACHE.computeIfAbsent(location, loc -> new ModelResourceLocation(new ResourceLocation(location.getNamespace(), "vanity_concept_art/" + location.getPath()), "inventory"));
+        return MODEL_LOCATION_CACHE.computeIfAbsent(location, loc -> new ModelResourceLocation(new ResourceLocation(location.getNamespace(), PATH + "/" + location.getPath()), "inventory"));
     }
 
-    public void readPacket(ClientboundConceptArtSyncPacket packet) {
-        ClientConceptArtManager.MODEL_LOCATION_CACHE.clear();
+    public void readPacket(ClientboundSyncDesignsPacket packet) {
+        ClientDesignManager.MODEL_LOCATION_CACHE.clear();
         this.clear();
-        this.conceptArt.putAll(packet.conceptArt());
+        this.designs.putAll(packet.designs());
         this.setupDefaults();
     }
 
     @Nullable
     public ResourceLocation getTexture(ItemStack stack, AssetType type) {
-        Style style = this.getItemConceptArtVariant(stack);
+        Style style = this.getStyleFromItem(stack);
         if (style == null) return null;
         return style.asset(type);
     }
 
     @Nullable
     public ModelResourceLocation getModel(ItemStack stack, AssetType type, AssetType... additionalTypes) {
-        Style style = this.getItemConceptArtVariant(stack);
+        Style style = this.getStyleFromItem(stack);
         if (style == null) return null;
         ResourceLocation model = style.asset(type);
         if (model == null) {
@@ -49,6 +50,6 @@ public class ClientConceptArtManager extends ConceptArtManagerImpl {
         if (model == null) {
             model = style.model();
         }
-        return ClientConceptArtManager.getModelLocation(model);
+        return ClientDesignManager.getModelLocation(model);
     }
 }

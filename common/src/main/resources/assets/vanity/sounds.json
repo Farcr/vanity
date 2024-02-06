@@ -7,12 +7,12 @@
     ],
     "subtitle": "subtitles.ui.vanity.styling_table.take_result"
   },
-  "item.concept_art.open": {
+  "item.design.open": {
     "sounds": [
       "ui/cartography_table/drawmap1",
       "ui/cartography_table/drawmap2",
       "ui/cartography_table/drawmap3"
     ],
-    "subtitle": "subtitles.item.vanity.concept_art.open"
+    "subtitle": "subtitles.item.vanity.design.open"
   }
 }
