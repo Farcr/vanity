@@ -26,9 +26,9 @@ public class Vanity {
         ModProfessions.POIS.init();
         ModProfessions.PROFESSIONS.init();
 
-        ModCreativeModeTabs.init();
-
         NetworkHandler.init();
+        ModCreativeModeTabs.init();
+        ModGameRules.init();
     }
 
     public static void onRegisterReloadListeners(BiConsumer<ResourceLocation, PreparableReloadListener> registry) {

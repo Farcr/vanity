@@ -14,5 +14,7 @@
   "subtitles.ui.vanity.styling_table.take_result": "Styling Table Used",
   "subtitles.item.vanity.design.open": "Design Opened",
 
-  "text.vanity.design.fail": "You already have this design"
+  "text.vanity.design.fail": "You already have this design",
+
+  "gamerule.vanityUnlockableDesigns": "Unlockable Designs"
 }

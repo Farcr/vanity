@@ -2,6 +2,7 @@ package tech.thatgravyboat.vanity.common.network;
 
 import com.teamresourceful.resourcefullib.common.network.NetworkChannel;
 import tech.thatgravyboat.vanity.common.Vanity;
+import tech.thatgravyboat.vanity.common.network.packets.client.ClientboundSyncConfigPacket;
 import tech.thatgravyboat.vanity.common.network.packets.client.ClientboundSyncDesignsPacket;
 import tech.thatgravyboat.vanity.common.network.packets.client.ClientboundSyncEntityItemPacket;
 import tech.thatgravyboat.vanity.common.network.packets.server.ServerboundOpenTabPacket;
@@ -16,6 +17,7 @@ public class NetworkHandler {
     public static void init() {
         CHANNEL.register(ClientboundSyncDesignsPacket.TYPE);
         CHANNEL.register(ClientboundSyncEntityItemPacket.TYPE);
+        CHANNEL.register(ClientboundSyncConfigPacket.TYPE);
 
         CHANNEL.register(ServerboundSelectStylePacket.TYPE);
         CHANNEL.register(ServerboundOpenTabPacket.TYPE);
