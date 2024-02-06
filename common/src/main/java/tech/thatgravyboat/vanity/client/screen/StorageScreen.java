@@ -66,6 +66,6 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
         this.renderBackground(graphics);
         graphics.blit(BACKGROUND, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
 
-        graphics.renderFakeItem(VanityItems.CONCEPT_ART.get().getDefaultInstance(), this.leftPos + 79, this.topPos + 45);
+        graphics.renderFakeItem(VanityItems.CONCEPT_ART.get().getDefaultInstance(), this.leftPos + 80, this.topPos + 45);
     }
 }
