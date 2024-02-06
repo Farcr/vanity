@@ -1,8 +1,8 @@
 package tech.thatgravyboat.vanity.common.network.packets.client;
 
-import com.teamresourceful.resourcefullib.common.networking.base.Packet;
-import com.teamresourceful.resourcefullib.common.networking.base.PacketContext;
-import com.teamresourceful.resourcefullib.common.networking.base.PacketHandler;
+import com.teamresourceful.resourcefullib.common.network.Packet;
+import com.teamresourceful.resourcefullib.common.network.base.ClientboundPacketType;
+import com.teamresourceful.resourcefullib.common.network.base.PacketType;
 import tech.thatgravyboat.vanity.api.concept.ConceptArt;
 import tech.thatgravyboat.vanity.client.concept.ClientConceptArtManager;
 import tech.thatgravyboat.vanity.common.Vanity;
@@ -15,24 +15,30 @@ import java.util.Map;
 
 public record ClientboundConceptArtSyncPacket(Map<ResourceLocation, ConceptArt> conceptArt) implements Packet<ClientboundConceptArtSyncPacket> {
 
-    public static final ResourceLocation ID = new ResourceLocation(Vanity.MOD_ID, "concept_art_sync");
-    public static final PacketHandler<ClientboundConceptArtSyncPacket> HANDLER = new Handler();
+    public static final ClientboundPacketType<ClientboundConceptArtSyncPacket> TYPE = new Type();
 
     public ClientboundConceptArtSyncPacket(ConceptArtManagerImpl manager) {
         this(manager.getAllConceptArt());
     }
 
     @Override
-    public ResourceLocation getID() {
-        return ID;
+    public PacketType<ClientboundConceptArtSyncPacket> type() {
+        return TYPE;
     }
 
-    @Override
-    public PacketHandler<ClientboundConceptArtSyncPacket> getHandler() {
-        return HANDLER;
-    }
+    private static class Type implements ClientboundPacketType<ClientboundConceptArtSyncPacket> {
 
-    private static class Handler implements PacketHandler<ClientboundConceptArtSyncPacket> {
+        public static final ResourceLocation ID = new ResourceLocation(Vanity.MOD_ID, "concept_art_sync");
+
+        @Override
+        public Class<ClientboundConceptArtSyncPacket> type() {
+            return ClientboundConceptArtSyncPacket.class;
+        }
+
+        @Override
+        public ResourceLocation id() {
+            return ID;
+        }
 
         @Override
         public void encode(ClientboundConceptArtSyncPacket message, FriendlyByteBuf buffer) {
@@ -54,8 +60,8 @@ public record ClientboundConceptArtSyncPacket(Map<ResourceLocation, ConceptArt> 
         }
 
         @Override
-        public PacketContext handle(ClientboundConceptArtSyncPacket message) {
-            return (player, level) -> ClientConceptArtManager.INSTANCE.readPacket(message);
+        public Runnable handle(ClientboundConceptArtSyncPacket message) {
+            return () -> ClientConceptArtManager.INSTANCE.readPacket(message);
         }
     }
 }

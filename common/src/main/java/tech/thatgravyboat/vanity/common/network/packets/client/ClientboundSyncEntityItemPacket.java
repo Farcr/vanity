@@ -1,31 +1,39 @@
 package tech.thatgravyboat.vanity.common.network.packets.client;
 
-import com.teamresourceful.resourcefullib.common.networking.base.Packet;
-import com.teamresourceful.resourcefullib.common.networking.base.PacketContext;
-import com.teamresourceful.resourcefullib.common.networking.base.PacketHandler;
-import tech.thatgravyboat.vanity.common.entities.EntityItemHolder;
-import tech.thatgravyboat.vanity.common.Vanity;
+import com.teamresourceful.resourcefullib.common.network.Packet;
+import com.teamresourceful.resourcefullib.common.network.base.ClientboundPacketType;
+import com.teamresourceful.resourcefullib.common.network.base.PacketType;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import tech.thatgravyboat.vanity.common.Vanity;
+import tech.thatgravyboat.vanity.common.entities.EntityItemHolder;
 
 public record ClientboundSyncEntityItemPacket(int entityId, ItemStack stack) implements Packet<ClientboundSyncEntityItemPacket> {
 
-    public static final ResourceLocation ID = new ResourceLocation(Vanity.MOD_ID, "sync_entity_item");
-    public static final PacketHandler<ClientboundSyncEntityItemPacket> HANDLER = new Handler();
+    public static final ClientboundPacketType<ClientboundSyncEntityItemPacket> TYPE = new Type();
 
     @Override
-    public ResourceLocation getID() {
-        return ID;
+    public PacketType<ClientboundSyncEntityItemPacket> type() {
+        return TYPE;
     }
 
-    @Override
-    public PacketHandler<ClientboundSyncEntityItemPacket> getHandler() {
-        return HANDLER;
-    }
+    private static class Type implements ClientboundPacketType<ClientboundSyncEntityItemPacket> {
 
-    private static class Handler implements PacketHandler<ClientboundSyncEntityItemPacket> {
+        public static final ResourceLocation ID = new ResourceLocation(Vanity.MOD_ID, "sync_entity_item");
+
+        @Override
+        public Class<ClientboundSyncEntityItemPacket> type() {
+            return ClientboundSyncEntityItemPacket.class;
+        }
+
+        @Override
+        public ResourceLocation id() {
+            return ID;
+        }
 
         @Override
         public void encode(ClientboundSyncEntityItemPacket message, FriendlyByteBuf buffer) {
@@ -39,8 +47,10 @@ public record ClientboundSyncEntityItemPacket(int entityId, ItemStack stack) imp
         }
 
         @Override
-        public PacketContext handle(ClientboundSyncEntityItemPacket message) {
-            return (player, level) -> {
+        public Runnable handle(ClientboundSyncEntityItemPacket message) {
+            return () -> {
+                Level level = Minecraft.getInstance().level;
+                if (level == null) return;
                 Entity entity = level.getEntity(message.entityId());
                 if (entity instanceof EntityItemHolder holder) {
                     holder.vanity$setItem(message.stack());

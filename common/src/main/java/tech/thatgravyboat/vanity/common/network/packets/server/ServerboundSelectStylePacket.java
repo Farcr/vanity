@@ -1,30 +1,39 @@
 package tech.thatgravyboat.vanity.common.network.packets.server;
 
-import com.teamresourceful.resourcefullib.common.networking.base.Packet;
-import com.teamresourceful.resourcefullib.common.networking.base.PacketContext;
-import com.teamresourceful.resourcefullib.common.networking.base.PacketHandler;
+import com.teamresourceful.resourcefullib.common.network.Packet;
+import com.teamresourceful.resourcefullib.common.network.base.PacketType;
+import com.teamresourceful.resourcefullib.common.network.base.ServerboundPacketType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 import tech.thatgravyboat.vanity.common.Vanity;
 import tech.thatgravyboat.vanity.common.menu.StylingMenu;
 
+import java.util.function.Consumer;
+
 public record ServerboundSelectStylePacket(ResourceLocation concept, @Nullable String style) implements Packet<ServerboundSelectStylePacket> {
 
-    public static final ResourceLocation ID = new ResourceLocation(Vanity.MOD_ID, "select_style");
-    public static final PacketHandler<ServerboundSelectStylePacket> HANDLER = new Handler();
+    public static final ServerboundPacketType<ServerboundSelectStylePacket> TYPE = new Type();
 
     @Override
-    public ResourceLocation getID() {
-        return ID;
+    public PacketType<ServerboundSelectStylePacket> type() {
+        return TYPE;
     }
 
-    @Override
-    public PacketHandler<ServerboundSelectStylePacket> getHandler() {
-        return HANDLER;
-    }
+    private static class Type implements ServerboundPacketType<ServerboundSelectStylePacket> {
 
-    private static class Handler implements PacketHandler<ServerboundSelectStylePacket> {
+        public static final ResourceLocation ID = new ResourceLocation(Vanity.MOD_ID, "select_style");
+
+        @Override
+        public Class<ServerboundSelectStylePacket> type() {
+            return ServerboundSelectStylePacket.class;
+        }
+
+        @Override
+        public ResourceLocation id() {
+            return ID;
+        }
 
         @Override
         public void encode(ServerboundSelectStylePacket message, FriendlyByteBuf buffer) {
@@ -38,8 +47,8 @@ public record ServerboundSelectStylePacket(ResourceLocation concept, @Nullable S
         }
 
         @Override
-        public PacketContext handle(ServerboundSelectStylePacket message) {
-            return (player, level) -> {
+        public Consumer<Player> handle(ServerboundSelectStylePacket message) {
+            return (player) -> {
                 if (player.containerMenu instanceof StylingMenu stylingMenu) {
                     stylingMenu.select(message.concept(), message.style());
                 }
