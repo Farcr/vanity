@@ -1,0 +1,15 @@
+{
+    "concept_art_model": "vanity_dungeons_pack:dungeons_concept_art",
+    "type": "default",
+    "styles": {
+        "test": [
+            {
+                "item": "minecraft:golden_chestplate",
+                "assets": {
+                    "default": "vanity_dungeons_pack:highland_axe",
+                    "armor": "minecraft:textures/models/armor/chainmail_layer_1.png"
+                }
+            }
+        ]
+    }
+}
