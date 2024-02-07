@@ -1,4 +1,4 @@
-package tech.thatgravyboat.vanity.core.fabric.mixin;
+package tech.thatgravyboat.vanity.fabric.mixin;
 
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.ai.village.poi.PoiType;

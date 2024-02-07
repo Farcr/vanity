@@ -1,4 +1,4 @@
-package tech.thatgravyboat.vanity.core.fabric;
+package tech.thatgravyboat.vanity.fabric;
 
 import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import tech.thatgravyboat.vanity.common.Vanity;
 import tech.thatgravyboat.vanity.common.registries.ModCreativeModeTabs;
-import tech.thatgravyboat.vanity.core.fabric.mixin.PoiTypesAccessor;
+import tech.thatgravyboat.vanity.fabric.mixin.PoiTypesAccessor;
 import tech.thatgravyboat.vanity.common.registries.ModProfessions;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;

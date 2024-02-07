@@ -1,4 +1,4 @@
-package tech.thatgravyboat.vanity.core.forge;
+package tech.thatgravyboat.vanity.forge;
 
 import tech.thatgravyboat.vanity.common.Vanity;
 import tech.thatgravyboat.vanity.client.VanityClient;

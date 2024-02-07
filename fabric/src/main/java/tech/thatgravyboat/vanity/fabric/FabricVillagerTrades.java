@@ -1,4 +1,4 @@
-package tech.thatgravyboat.vanity.core.fabric;
+package tech.thatgravyboat.vanity.fabric;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;

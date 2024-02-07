@@ -13,18 +13,17 @@
     "RyanHCode"
   ],
   "contact": {
-    "homepage": "https://www.moonflower.gg/",
-    "issues": "https://github.com/MoonflowerTeam/${archives_base_name}/issues",
-    "sources": "https://github.com/MoonflowerTeam/${archives_base_name}/"
+    "issues": "https://github.com/Farcr/Vanity/issues",
+    "sources": "https://github.com/Farcr/Vanity/"
   },
-  "license": "GPLv3",
+  "license": "MIT/ARR",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "tech.thatgravyboat.vanity.core.fabric.VanityFabric"
+      "tech.thatgravyboat.vanity.fabric.VanityFabric"
     ],
     "client": [
-      "tech.thatgravyboat.vanity.core.fabric.VanityFabricClient"
+      "tech.thatgravyboat.vanity.fabric.VanityFabricClient"
     ],
     "jei_mod_plugin": [
         "tech.thatgravyboat.vanity.common.compat.jei.VanityJeiPlugin"

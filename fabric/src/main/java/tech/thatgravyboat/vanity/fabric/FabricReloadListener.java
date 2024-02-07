@@ -1,4 +1,4 @@
-package tech.thatgravyboat.vanity.core.fabric;
+package tech.thatgravyboat.vanity.fabric;
 
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.resources.ResourceLocation;

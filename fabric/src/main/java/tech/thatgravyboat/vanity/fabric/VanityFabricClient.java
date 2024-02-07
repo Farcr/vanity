@@ -1,4 +1,4 @@
-package tech.thatgravyboat.vanity.core.fabric;
+package tech.thatgravyboat.vanity.fabric;
 
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.renderer.RenderType;
