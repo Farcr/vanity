@@ -1,5 +1,6 @@
 package tech.thatgravyboat.vanity.client.components.display;
 
+import com.teamresourceful.resourcefullib.client.utils.ScreenUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -11,6 +12,7 @@ import tech.thatgravyboat.vanity.api.style.Style;
 import tech.thatgravyboat.vanity.client.components.base.BaseAbstractWidget;
 import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
 import tech.thatgravyboat.vanity.common.Vanity;
+import tech.thatgravyboat.vanity.common.util.ComponentConstants;
 
 public class StyledItemWidget extends BaseAbstractWidget {
 
@@ -28,8 +30,12 @@ public class StyledItemWidget extends BaseAbstractWidget {
 
     @Override
     protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        ResourceLocation texture = isHoveringButton(mouseX, mouseY) ? HOVERED : NORMAL;
-        graphics.blit(texture, getX() + 1, getY() + getHeight() - 6, 0, 0, 5, 5, 5, 5);
+        if (!this.isAutoRotating) {
+            boolean buttonHovered = isHoveringButton(mouseX, mouseY);
+            ResourceLocation texture = buttonHovered ? HOVERED : NORMAL;
+            graphics.blit(texture, getX() + 1, getY() + getHeight() - 6, 0, 0, 5, 5, 5, 5);
+            if (buttonHovered) ScreenUtils.setTooltip(ComponentConstants.AUTO_ROTATE);
+        }
 
         if (this.display == null) return;
 
@@ -48,7 +54,7 @@ public class StyledItemWidget extends BaseAbstractWidget {
 
     @Override
     public void onClick(double mouseX, double mouseY) {
-        if (isHoveringButton(mouseX, mouseY)) {
+        if (isHoveringButton(mouseX, mouseY) && !this.isAutoRotating) {
             Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
             this.isAutoRotating = true;
         }

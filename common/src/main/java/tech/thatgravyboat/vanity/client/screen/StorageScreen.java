@@ -65,7 +65,10 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
     protected void renderBg(GuiGraphics graphics, float f, int i, int j) {
         this.renderBackground(graphics);
         graphics.blit(BACKGROUND, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
-
         graphics.renderFakeItem(ModItems.DESIGN.get().getDefaultInstance(), this.leftPos + 80, this.topPos + 45);
+
+        if (this.isHovering(80, 45, 16, 16, i, j)) {
+            setTooltipForNextRenderPass(ComponentConstants.STORAGE_TOOLTIP);
+        }
     }
 }
