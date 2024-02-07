@@ -25,6 +25,9 @@
     ],
     "client": [
       "tech.thatgravyboat.vanity.core.fabric.VanityFabricClient"
+    ],
+    "jei_mod_plugin": [
+        "tech.thatgravyboat.vanity.common.compat.jei.VanityJeiPlugin"
     ]
   },
   "mixins": [

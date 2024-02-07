@@ -20,6 +20,18 @@ public class PlayerListMixin {
     @Shadow @Final private MinecraftServer server;
 
     @Inject(
+            method = "placeNewPlayer",
+            at = @At(
+                    target = "Lnet/minecraft/server/MinecraftServer;getRecipeManager()Lnet/minecraft/world/item/crafting/RecipeManager;",
+                    value = "INVOKE",
+                    shift = At.Shift.BEFORE
+            )
+    )
+    private void vanity$onBeforeSendRecipes(Connection connection, ServerPlayer serverPlayer, CallbackInfo ci) {
+        NetworkHandler.CHANNEL.sendToPlayer(ServerDesignManager.INSTANCE.createPacket(), serverPlayer);
+    }
+
+    @Inject(
         method = "placeNewPlayer",
         at = @At(
             target = "Lnet/minecraft/server/players/PlayerList;sendPlayerPermissionLevel(Lnet/minecraft/server/level/ServerPlayer;)V",
@@ -28,7 +40,6 @@ public class PlayerListMixin {
         )
     )
     private void vanity$onPlayerConnect(Connection connection, ServerPlayer serverPlayer, CallbackInfo ci) {
-        NetworkHandler.CHANNEL.sendToPlayer(ServerDesignManager.INSTANCE.createPacket(), serverPlayer);
         NetworkHandler.CHANNEL.sendToPlayer(new ClientboundSyncConfigPacket(this.server), serverPlayer);
     }
 }

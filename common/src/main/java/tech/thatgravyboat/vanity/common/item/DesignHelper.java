@@ -8,6 +8,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
+import tech.thatgravyboat.vanity.common.registries.ModItems;
 
 public class DesignHelper {
 
@@ -54,6 +55,13 @@ public class DesignHelper {
 
         CompoundTag tag = stack.getOrCreateTagElement(DESIGN_TAG);
         tag.putString(ID_TAG, id.toString());
+    }
+
+    public static ItemStack createDesignItem(ResourceLocation id) {
+        ItemStack stack = new ItemStack(ModItems.DESIGN.get());
+        CompoundTag tag = stack.getOrCreateTagElement(DESIGN_TAG);
+        tag.putString(ID_TAG, id.toString());
+        return stack;
     }
 
     public static void setDesignAndStyle(ItemStack stack, @Nullable ResourceLocation id, @Nullable String style) {

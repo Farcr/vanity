@@ -11,4 +11,8 @@ public class ComponentConstants {
     public static final Component CONTAINER_TITLE = Component.translatable("container.vanity.styling_table");
     public static final Component DESIGN_OPEN_FAILURE = Component.translatable("text.vanity.design.fail")
             .withStyle(ChatFormatting.RED);
+
+    public static final Component JEI_TITLE = Component.translatable("jei.vanity.designs");
+    public static final Component JEI_ALWAYS_AVAILABLE = Component.translatable("jei.vanity.designs.always_available")
+            .withStyle(ChatFormatting.GREEN);
 }

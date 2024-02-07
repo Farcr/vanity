@@ -16,5 +16,8 @@
 
   "text.vanity.design.fail": "You already have this design",
 
-  "gamerule.vanityUnlockableDesigns": "Unlockable Designs"
+  "gamerule.vanityUnlockableDesigns": "Unlockable Designs",
+
+  "jei.vanity.designs": "Designs",
+  "jei.vanity.designs.always_available": "Always Available"
 }

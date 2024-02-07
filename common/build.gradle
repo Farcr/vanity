@@ -16,6 +16,7 @@ dependencies {
     modApi "com.teamresourceful.resourcefullib:resourcefullib-common-1.20.1:${rootProject.rlib_version}"
 
     modApi "tech.thatgravyboat:commonats:1.0"
+    modApi "mezz.jei:jei-1.20.1-common-api:${rootProject.jei_version}"
 
     implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixinextras_version}"))
 }
