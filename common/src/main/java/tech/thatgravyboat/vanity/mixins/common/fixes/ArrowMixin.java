@@ -1,6 +1,6 @@
 package tech.thatgravyboat.vanity.mixins.common.fixes;
 
-import tech.thatgravyboat.vanity.common.entities.EntityItemHolder;
+import tech.thatgravyboat.vanity.common.util.EntityItemHolder;
 import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;

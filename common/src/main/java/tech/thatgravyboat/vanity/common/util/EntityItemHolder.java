@@ -1,4 +1,4 @@
-package tech.thatgravyboat.vanity.common.entities;
+package tech.thatgravyboat.vanity.common.util;
 
 import net.minecraft.world.item.ItemStack;
 

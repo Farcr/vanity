@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import tech.thatgravyboat.vanity.api.style.AssetType;
 import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
 import tech.thatgravyboat.vanity.client.rendering.RenderingManager;
-import tech.thatgravyboat.vanity.common.entities.EntityItemHolder;
+import tech.thatgravyboat.vanity.common.util.EntityItemHolder;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;

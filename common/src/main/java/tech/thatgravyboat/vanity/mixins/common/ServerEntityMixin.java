@@ -1,6 +1,6 @@
 package tech.thatgravyboat.vanity.mixins.common;
 
-import tech.thatgravyboat.vanity.common.entities.EntityItemHolder;
+import tech.thatgravyboat.vanity.common.util.EntityItemHolder;
 import tech.thatgravyboat.vanity.common.network.packets.client.ClientboundSyncEntityItemPacket;
 import tech.thatgravyboat.vanity.common.network.NetworkHandler;
 import net.minecraft.server.level.ServerEntity;
