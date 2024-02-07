@@ -50,13 +50,8 @@ public class ModTrades {
         @Override
         public MerchantOffer getOffer(Entity entity, RandomSource random) {
             ItemStack emeralds = new ItemStack(Items.EMERALD, EMERALD_COST + (random.nextInt(16)));
-
             ResourceLocation design = this.designs.get(random.nextInt(this.designs.size()));
-
-            ItemStack item = new ItemStack(ModItems.DESIGN.get());
-            DesignHelper.setDesign(item, design);
-
-            return new MerchantOffer(emeralds, item, USES, XP_GAIN, PRICE_MULTIPLIER);
+            return new MerchantOffer(emeralds, DesignHelper.createDesignItem(design), USES, XP_GAIN, PRICE_MULTIPLIER);
         }
     }
 }

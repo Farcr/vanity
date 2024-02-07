@@ -5,7 +5,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import tech.thatgravyboat.vanity.api.design.DesignManager;
@@ -31,13 +30,7 @@ public class ModCreativeModeTabs {
                     designs.add(entry.getKey());
                 }
 
-                return designs
-                        .stream()
-                        .map(location -> {
-                            ItemStack stack = new ItemStack(ModItems.DESIGN.get());
-                            DesignHelper.setDesign(stack, location);
-                            return stack;
-                        });
+                return designs.stream().map(DesignHelper::createDesignItem);
             }).build();
     }
 

@@ -46,17 +46,6 @@ public class DesignHelper {
         return tag.getString(STYLE_TAG);
     }
 
-    public static void setDesign(ItemStack stack, @Nullable ResourceLocation id) {
-        if (stack.isEmpty()) return;
-        if (id == null) {
-            stack.removeTagKey(DESIGN_TAG);
-            return;
-        }
-
-        CompoundTag tag = stack.getOrCreateTagElement(DESIGN_TAG);
-        tag.putString(ID_TAG, id.toString());
-    }
-
     public static ItemStack createDesignItem(ResourceLocation id) {
         ItemStack stack = new ItemStack(ModItems.DESIGN.get());
         CompoundTag tag = stack.getOrCreateTagElement(DESIGN_TAG);
