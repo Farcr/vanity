@@ -2,7 +2,6 @@ package tech.thatgravyboat.vanity.common.handler.trades;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.teamresourceful.resourcefullib.common.codecs.recipes.ItemStackCodec;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantFloat;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -10,15 +9,14 @@ import net.minecraft.util.valueproviders.FloatProvider;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.trading.MerchantOffer;
 import org.jetbrains.annotations.Nullable;
 
 public record VillagerTrade(
         int tier,
-        ItemStack first,
-        ItemStack second,
-        ItemStack result,
+        TradeStack first,
+        TradeStack second,
+        TradeStack result,
         IntProvider maxUses,
         IntProvider xp,
         FloatProvider priceMultiplier,
@@ -27,9 +25,9 @@ public record VillagerTrade(
 
     public static final Codec<VillagerTrade> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.INT.optionalFieldOf("tier", 1).forGetter(VillagerTrade::tier),
-            ItemStackCodec.CODEC.fieldOf("first").forGetter(VillagerTrade::first),
-            ItemStackCodec.CODEC.optionalFieldOf("second", ItemStack.EMPTY).forGetter(VillagerTrade::second),
-            ItemStackCodec.CODEC.fieldOf("result").forGetter(VillagerTrade::result),
+            TradeStack.CODEC.fieldOf("first").forGetter(VillagerTrade::first),
+            TradeStack.CODEC.optionalFieldOf("second", TradeStack.EMPTY).forGetter(VillagerTrade::second),
+            TradeStack.CODEC.fieldOf("result").forGetter(VillagerTrade::result),
             IntProvider.POSITIVE_CODEC.fieldOf("maxUses").forGetter(VillagerTrade::maxUses),
             IntProvider.POSITIVE_CODEC.optionalFieldOf("xp", ConstantInt.of(1)).forGetter(VillagerTrade::xp),
             FloatProvider.codec(0.1f, 5f).optionalFieldOf("priceMultiplier", ConstantFloat.ZERO).forGetter(VillagerTrade::priceMultiplier),
@@ -44,7 +42,14 @@ public record VillagerTrade(
             int maxUses = this.maxUses.sample(random);
             int xp = this.xp.sample(random);
             float priceMultiplier = this.priceMultiplier.sample(random);
-            return new MerchantOffer(this.first, this.second, this.result, maxUses, xp, priceMultiplier);
+            return new MerchantOffer(
+                    this.first.create(random),
+                    this.second.create(random),
+                    this.result.create(random),
+                    maxUses,
+                    xp,
+                    priceMultiplier
+            );
         }
         return null;
     }
