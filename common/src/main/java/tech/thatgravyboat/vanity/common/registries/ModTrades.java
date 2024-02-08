@@ -29,8 +29,11 @@ public class ModTrades {
         }
 
         int basicTrades = Math.min(maxTier, designs.size());
-        for (int i = 0; i < basicTrades && !designs.isEmpty(); i++) {
-            adder.accept(minTier + i, new DesignListing(designs));
+        for (int i = minTier; i < basicTrades && !designs.isEmpty(); i++) {
+            adder.accept(i, new DesignListing(designs));
+            if (i > 3) {
+                adder.accept(i, new DesignListing(designs));
+            }
         }
 
         for (int i = minTier; i <= maxTier; i++) {
