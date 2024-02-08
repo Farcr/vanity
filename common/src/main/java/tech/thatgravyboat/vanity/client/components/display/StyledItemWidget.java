@@ -6,6 +6,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.HorseArmorItem;
 import net.minecraft.world.item.ItemStack;
 import tech.thatgravyboat.vanity.api.style.AssetTypes;
 import tech.thatgravyboat.vanity.api.style.Style;
@@ -78,7 +79,11 @@ public class StyledItemWidget extends BaseAbstractWidget {
         if (style == null) {
             this.display = null;
         } else if (style.hasAsset(AssetTypes.ARMOR)) {
-            this.display = new ArmorDisplay();
+            if (stack.getItem() instanceof HorseArmorItem) {
+                this.display = new HorseArmorDisplay();
+            } else {
+                this.display = new ArmorDisplay();
+            }
         } else {
             this.display = new ItemDisplay();
         }

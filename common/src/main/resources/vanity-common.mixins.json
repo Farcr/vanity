@@ -4,6 +4,7 @@
     "compatibilityLevel": "JAVA_17",
     "minVersion": "0.8",
     "mixins": [
+        "common.AbstractHorseAccessor",
         "common.PlayerListMixin",
         "common.ServerEntityMixin",
         "common.fixes.ArrowMixin",
@@ -12,6 +13,7 @@
     "client": [
         "client.ItemRendererMixin",
         "client.ItemStackMixin",
+        "client.armor.HorseArmorLayerMixin",
         "client.fixes.ArrowRendererMixin",
         "client.fixes.ThrownTridentRendererMixin",
         "client.rendering.GuiGraphicsMixin",
