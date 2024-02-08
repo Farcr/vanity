@@ -7,7 +7,7 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ItemStack;
-import tech.thatgravyboat.vanity.api.style.AssetType;
+import tech.thatgravyboat.vanity.api.style.AssetTypes;
 import tech.thatgravyboat.vanity.api.style.Style;
 import tech.thatgravyboat.vanity.client.components.base.BaseAbstractWidget;
 import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
@@ -77,7 +77,7 @@ public class StyledItemWidget extends BaseAbstractWidget {
         Style style = ClientDesignManager.INSTANCE.getStyleFromItem(stack);
         if (style == null) {
             this.display = null;
-        } else if (style.hasAsset(AssetType.ARMOR)) {
+        } else if (style.hasAsset(AssetTypes.ARMOR)) {
             this.display = new ArmorDisplay();
         } else {
             this.display = new ItemDisplay();

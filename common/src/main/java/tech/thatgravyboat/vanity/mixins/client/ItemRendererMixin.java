@@ -29,6 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import tech.thatgravyboat.vanity.api.design.Design;
 import tech.thatgravyboat.vanity.api.design.DesignManager;
 import tech.thatgravyboat.vanity.api.style.AssetType;
+import tech.thatgravyboat.vanity.api.style.AssetTypes;
 import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
 import tech.thatgravyboat.vanity.client.rendering.RenderingManager;
 import tech.thatgravyboat.vanity.common.registries.ModItems;
@@ -71,7 +72,7 @@ public class ItemRendererMixin implements RenderingManager {
         }
 
         return Optionull.mapOrDefault(
-            ClientDesignManager.INSTANCE.getModel(stack, this.vanity$assetType, RenderingManager.IS_IN_GUI.get() ? null : AssetType.HAND),
+            ClientDesignManager.INSTANCE.getModel(stack, this.vanity$assetType, RenderingManager.IS_IN_GUI.get() ? null : AssetTypes.HAND),
             this.itemModelShaper.getModelManager()::getModel,
             original
         );
@@ -104,7 +105,7 @@ public class ItemRendererMixin implements RenderingManager {
         }
 
         if (model == null) {
-            model = ClientDesignManager.INSTANCE.getModel(stack, this.vanity$assetType, AssetType.HAND);
+            model = ClientDesignManager.INSTANCE.getModel(stack, this.vanity$assetType, AssetTypes.HAND);
         }
 
         return Optionull.mapOrDefault(

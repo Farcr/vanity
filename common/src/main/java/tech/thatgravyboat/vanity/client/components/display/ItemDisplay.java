@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Matrix4f;
-import tech.thatgravyboat.vanity.api.style.AssetType;
+import tech.thatgravyboat.vanity.api.style.AssetTypes;
 import tech.thatgravyboat.vanity.api.style.Style;
 import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
 import tech.thatgravyboat.vanity.client.rendering.RenderingManager;
@@ -55,7 +55,7 @@ public class ItemDisplay implements Display {
     @Override
     public void setValue(ItemStack stack, Style style) {
         this.stack = stack;
-        ResourceLocation model = style.asset(AssetType.HAND);
+        ResourceLocation model = style.asset(AssetTypes.HAND);
         if (model == null) {
             this.model = ClientDesignManager.getModelLocation(style.model());
             this.type = Type.GUI;

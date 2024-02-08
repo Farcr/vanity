@@ -2,10 +2,6 @@ package tech.thatgravyboat.vanity.mixins.client.fixes;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import tech.thatgravyboat.vanity.api.style.AssetType;
-import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
-import tech.thatgravyboat.vanity.client.rendering.RenderingManager;
-import tech.thatgravyboat.vanity.common.util.EntityItemHolder;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -20,6 +16,10 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import tech.thatgravyboat.vanity.api.style.AssetTypes;
+import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
+import tech.thatgravyboat.vanity.client.rendering.RenderingManager;
+import tech.thatgravyboat.vanity.common.util.EntityItemHolder;
 
 @Mixin(ArrowRenderer.class)
 public class ArrowRendererMixin {
@@ -51,7 +51,7 @@ public class ArrowRendererMixin {
                 stack.mulPose(Axis.ZP.rotationDegrees(-Mth.sin(s * 3.0F) * s));
             }
 
-            manager.vanity$setModelType(AssetType.PROJECTILE);
+            manager.vanity$setModelType(AssetTypes.PROJECTILE);
             this.vanity$itemRenderer.renderStatic(item, ItemDisplayContext.NONE, i, OverlayTexture.NO_OVERLAY, stack, source, arrow.level(), arrow.getId());
             manager.vanity$setModelType(null);
             stack.popPose();

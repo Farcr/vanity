@@ -1,19 +1,6 @@
 package tech.thatgravyboat.vanity.api.style;
 
-public enum AssetType {
-    DEFAULT,
-    HAND,
-    PROJECTILE,
-    ARMOR
-    ;
+public sealed interface AssetType permits AssetTypes.InternalType {
 
-    private final String id;
-
-    AssetType() {
-        this.id = this.name().toLowerCase();
-    }
-
-    public String id() {
-        return this.id;
-    }
+    String id();
 }
