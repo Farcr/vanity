@@ -28,8 +28,8 @@ public class ModTrades {
             designs.add(entry.getKey());
         }
 
-        int basicTrades = Math.min(maxTier, designs.size() + 1);
-        for (int i = 1; i < basicTrades && !designs.isEmpty(); i++) {
+        int basicTrades = Math.min(maxTier, designs.size());
+        for (int i = 0; i < basicTrades && !designs.isEmpty(); i++) {
             adder.accept(minTier + i, new DesignListing(designs));
         }
 
