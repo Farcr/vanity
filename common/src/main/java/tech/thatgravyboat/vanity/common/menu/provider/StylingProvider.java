@@ -40,7 +40,7 @@ public class StylingProvider extends BaseProvider<StylingMenuContent> {
         return new StylingMenuContent(this.entity.getBlockPos(), getDesignsForPlayer(player));
     }
 
-    private List<ResourceLocation> getDesignsForPlayer(Player player) {
+    public List<ResourceLocation> getDesignsForPlayer(Player player) {
         List<ResourceLocation> designs = new ArrayList<>(UnlockableSaveHandler.getUnlockables(player.level(), player.getUUID()));
         for (ItemStack item : this.entity.items()) {
             ResourceLocation id = DesignHelper.getDesign(item);

@@ -1,0 +1,13 @@
+{
+    "type": "default",
+    "styles": {
+        "default": [
+            {
+                "item": "minecraft:stick",
+                "assets": {
+                    "default": "test:default"
+                }
+            }
+        ]
+    }
+}

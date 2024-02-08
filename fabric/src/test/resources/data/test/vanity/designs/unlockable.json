@@ -1,0 +1,13 @@
+{
+    "type": "item",
+    "styles": {
+        "unlockable": [
+            {
+                "item": "minecraft:stick",
+                "assets": {
+                    "default": "test:unlockable"
+                }
+            }
+        ]
+    }
+}

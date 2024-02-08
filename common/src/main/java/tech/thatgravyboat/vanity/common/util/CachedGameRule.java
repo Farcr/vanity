@@ -39,4 +39,8 @@ public class CachedGameRule<T extends GameRules.Value<T>, V> {
     public void setValue(V value) {
         this.value = value;
     }
+
+    public GameRules.Key<T> key() {
+        return key;
+    }
 }

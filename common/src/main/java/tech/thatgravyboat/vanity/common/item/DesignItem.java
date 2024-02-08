@@ -9,7 +9,6 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import tech.thatgravyboat.vanity.common.handler.unlockables.UnlockableSaveHandler;
@@ -43,8 +42,9 @@ public class DesignItem extends Item {
                 }
                 return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
             }
+            return InteractionResultHolder.fail(stack);
         }
-        return super.use(level, player, hand);
+        return InteractionResultHolder.pass(player.getItemInHand(hand));
     }
 
     @Override

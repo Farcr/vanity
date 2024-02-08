@@ -1,0 +1,15 @@
+{
+    "tier": 1,
+    "first": {
+        "id": "minecraft:stick",
+        "count": 43
+    },
+    "result": {
+        "id": "minecraft:stone",
+        "count": 69
+    },
+    "maxUses": 1,
+    "xp": 1,
+    "priceMultiplier": 0.3,
+    "chance": 1
+}
