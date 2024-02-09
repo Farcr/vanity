@@ -1,40 +1,49 @@
 {
-  "schemaVersion": 1,
-  "id": "vanity",
-  "version": "${mod_version}",
-  "name": "Vanity",
-  "description": "",
-  "icon": "vanity.icon.png",
-  "authors": [
-    "Moonflower"
-  ],
-  "contributors": [
-    "Jackson",
-    "RyanHCode"
-  ],
-  "contact": {
-    "issues": "https://github.com/Farcr/Vanity/issues",
-    "sources": "https://github.com/Farcr/Vanity/"
-  },
-  "license": "MIT/ARR",
-  "environment": "*",
-  "entrypoints": {
-    "main": [
-      "tech.thatgravyboat.vanity.fabric.VanityFabric"
+    "schemaVersion": 1,
+    "id": "vanity",
+    "version": "${mod_version}",
+    "name": "Vanity",
+    "description": "Apply any look you want to your items, and make your own Vanity Packs to share with the world.",
+    "icon": "vanity.icon.png",
+    "authors": [
+        "Farcr",
+        "ThatGravyBoat"
     ],
-    "client": [
-      "tech.thatgravyboat.vanity.fabric.VanityFabricClient"
+    "contributors": [
+        "Jackson",
+        "Ocelot"
     ],
-    "jei_mod_plugin": [
-        "tech.thatgravyboat.vanity.common.compat.jei.VanityJeiPlugin"
-    ]
-  },
-  "mixins": [
-    "vanity-common.mixins.json",
-    "vanity-fabric.mixins.json"
-  ],
-  "depends": {
-    "fabric": "*",
-    "minecraft": "~${minecraft_version}"
-  }
+    "contact": {
+        "issues": "https://github.com/Farcr/Vanity/issues",
+        "sources": "https://github.com/Farcr/Vanity/"
+    },
+    "license": "MIT",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "tech.thatgravyboat.vanity.fabric.VanityFabric"
+        ],
+        "client": [
+            "tech.thatgravyboat.vanity.fabric.VanityFabricClient"
+        ],
+        "jei_mod_plugin": [
+            "tech.thatgravyboat.vanity.common.compat.jei.VanityJeiPlugin"
+        ]
+    },
+    "mixins": [
+        "vanity-common.mixins.json",
+        "vanity-fabric.mixins.json"
+    ],
+    "depends": {
+        "fabric": "*",
+        "minecraft": "~${minecraft_version}"
+    },
+    "custom": {
+        "modmenu": {
+            "links": {
+                "modmenu.modrinth": "https://modrinth.com/project/vanity-core",
+                "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/vanity-core"
+            }
+        }
+    }
 }

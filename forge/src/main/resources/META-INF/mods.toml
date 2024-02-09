@@ -1,16 +1,16 @@
 modLoader = "javafml"
 loaderVersion = "[${forge_major_version},)"
 issueTrackerURL = "https://github.com/Farcr/Vanity/issues"
-license = "MIT/ARR"
+license = "MIT"
 
 [[mods]]
     modId = "vanity"
     version = "${mod_version}"
     displayName = "Vanity"
-    description = ""
-    logoFile = "vanity.logo.png"
-    authors = "Moonflower"
-    credits = "Jackson, Farcr, Ocelot"
+    description = "Apply any look you want to your items, and make your own Vanity Packs to share with the world."
+    authors = "Farcr, ThatGravyBoat"
+    credits = "Jackson, Ocelot"
+    displayURL = "https://modrinth.com/project/vanity-core"
 
 [modproperties.vanity]
     catalogueImageIcon="vanity.icon.png"
