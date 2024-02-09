@@ -1,0 +1,29 @@
+{
+    "model": "example:design",
+    "type": "item",
+    "styles": {
+        "default": [
+            {
+                "tag": "minecraft:swords",
+                "assets": {
+                    "default": "example:sword",
+                    "hand": "example:hand"
+                }
+            },
+            {
+                "item": "minecraft:arrow",
+                "assets": {
+                    "default": "example:arrow",
+                    "projectile": "example:arrow_projectile"
+                }
+            },
+            {
+                "item": "minecraft:golden_chestplate",
+                "assets": {
+                    "default": "example:chestplate",
+                    "armor": "example:textures/armor/armor.png"
+                }
+            }
+        ]
+    }
+}
