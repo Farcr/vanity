@@ -1,0 +1,24 @@
+{
+    "tier": 2,
+    "first": "minecraft:emerald",
+    "result": {
+        "id": "minecraft:blue_dye",
+        "count": {
+            "type": "minecraft:uniform",
+            "value": {
+                "min_inclusive": 3,
+                "max_inclusive": 15
+            }
+        }
+    },
+    "maxUses": {
+        "type": "minecraft:uniform",
+        "value": {
+            "min_inclusive": 2,
+            "max_inclusive": 6
+        }
+    },
+    "xp": 10,
+    "priceMultiplier": 0.1,
+    "chance": 1
+}
