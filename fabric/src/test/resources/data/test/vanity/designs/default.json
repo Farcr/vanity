@@ -5,7 +5,7 @@
             {
                 "item": "minecraft:stick",
                 "assets": {
-                    "default": "test:default"
+                    "default": "minecraft:diamond"
                 }
             }
         ]
