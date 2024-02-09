@@ -5,10 +5,6 @@ import com.google.gson.JsonElement;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
-import tech.thatgravyboat.vanity.api.design.Design;
-import tech.thatgravyboat.vanity.common.network.NetworkHandler;
-import tech.thatgravyboat.vanity.common.network.packets.client.ClientboundSyncDesignsPacket;
-import tech.thatgravyboat.vanity.common.Vanity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -16,6 +12,12 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
+import tech.thatgravyboat.vanity.api.condtional.Conditions;
+import tech.thatgravyboat.vanity.api.condtional.conditions.Condition;
+import tech.thatgravyboat.vanity.api.design.Design;
+import tech.thatgravyboat.vanity.common.Vanity;
+import tech.thatgravyboat.vanity.common.network.NetworkHandler;
+import tech.thatgravyboat.vanity.common.network.packets.client.ClientboundSyncDesignsPacket;
 
 import java.io.IOException;
 import java.util.Map;
@@ -52,12 +54,27 @@ public class ServerDesignManager extends DesignManagerImpl implements Preparable
             ServerDesignManager.this.clear();
             for (Map.Entry<ResourceLocation, JsonElement> entry : elements.entrySet()) {
                 try {
-                    if (ServerDesignManager.this.designs.containsKey(entry.getKey()))
+                    if (ServerDesignManager.this.designs.containsKey(entry.getKey())) {
                         throw new IllegalStateException("Duplicate design: " + entry.getKey());
+                    }
+
+                    boolean hasConditions = entry.getValue().getAsJsonObject().has("condition");
+                    if (hasConditions) {
+                        Condition condition = Conditions.CODEC.parse(
+                            JsonOps.INSTANCE,
+                            entry.getValue().getAsJsonObject().get("condition")
+                        ).getOrThrow(false, LOGGER::error);
+
+                        if (!condition.test()) {
+                            continue;
+                        }
+                    }
+
 
                     DataResult<Design> result = Design.CODEC.parse(JsonOps.INSTANCE, entry.getValue());
-                    if (result.error().isPresent() || result.result().isEmpty())
+                    if (result.error().isPresent() || result.result().isEmpty()) {
                         throw new IOException(result.error().get().message() + " " + entry.getValue());
+                    }
 
                     ServerDesignManager.this.designs.put(entry.getKey(), result.result().get());
                 } catch (IOException e) {

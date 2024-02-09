@@ -15,10 +15,11 @@ import java.util.Map;
 public class ClientDesignManager extends DesignManagerImpl {
 
     public static final ClientDesignManager INSTANCE = new ClientDesignManager();
+    public static final String PATH = "vanity";
     private static final Map<ResourceLocation, ModelResourceLocation> MODEL_LOCATION_CACHE = new HashMap<>();
 
     public static ModelResourceLocation getModelLocation(ResourceLocation location) {
-        return MODEL_LOCATION_CACHE.computeIfAbsent(location, loc -> new ModelResourceLocation(location, "inventory"));
+        return MODEL_LOCATION_CACHE.computeIfAbsent(location, loc -> new ModelResourceLocation(new ResourceLocation(location.getNamespace(), PATH + "/" + location.getPath()), "inventory"));
     }
 
     public void readPacket(ClientboundSyncDesignsPacket packet) {
