@@ -1,5 +1,6 @@
 package tech.thatgravyboat.vanity.common.compat.jei.categories;
 
+import com.google.common.collect.Streams;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -18,13 +19,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import tech.thatgravyboat.vanity.api.style.Style;
 import tech.thatgravyboat.vanity.common.Vanity;
 import tech.thatgravyboat.vanity.common.item.DesignHelper;
 import tech.thatgravyboat.vanity.common.registries.ModItems;
 import tech.thatgravyboat.vanity.common.util.ComponentConstants;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DesignCategory implements IRecipeCategory<DesignCategoryRecipe> {
@@ -83,29 +82,21 @@ public class DesignCategory implements IRecipeCategory<DesignCategoryRecipe> {
                     tooltips.add(ComponentConstants.JEI_ALWAYS_AVAILABLE);
                 });
 
-        Style style = recipe.style();
+        List<ItemStack> items = recipe.style().item().map(
+                tag -> Streams.stream(registry.getTagOrEmpty(tag))
+                        .filter(Holder::isBound)
+                        .map(Holder::value)
+                        .map(ItemStack::new)
+                        .toList(),
+                item -> List.of(new ItemStack(item))
+        );
 
-        List<Item> items = new ArrayList<>();
-        style.item()
-                .ifLeft(tag -> {
-                    for (Holder<Item> holder : registry.getTagOrEmpty(tag)) {
-                        if (!holder.isBound()) continue;
-                        items.add(holder.value());
-                    }
-                })
-                .ifRight(items::add);
-
-        builder.addSlot(RecipeIngredientRole.INPUT, 54, 6)
-                .addItemStacks(items.stream().map(ItemStack::new).toList());
-
-        List<ItemStack> stacks = new ArrayList<>();
-        for (Item item : items) {
-            ItemStack stack = new ItemStack(item);
-            DesignHelper.setDesignAndStyle(stack, recipe.id(), recipe.styleId());
-            stacks.add(stack);
-        }
-
+        builder.addSlot(RecipeIngredientRole.INPUT, 54, 6).addItemStacks(items);
         builder.addSlot(RecipeIngredientRole.OUTPUT, 108, 6)
-                .addItemStacks(stacks);
+                .addItemStacks(
+                        items.stream().map(ItemStack::copy)
+                                .peek(stack -> DesignHelper.setDesignAndStyle(stack, recipe.id(), recipe.styleId()))
+                                .toList()
+                );
     }
 }

@@ -8,6 +8,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
+import tech.thatgravyboat.vanity.api.design.DesignManager;
 import tech.thatgravyboat.vanity.common.block.StylingTableBlockEntity;
 import tech.thatgravyboat.vanity.common.handler.design.ServerDesignManager;
 import tech.thatgravyboat.vanity.common.handler.unlockables.UnlockableSaveHandler;
@@ -47,7 +48,7 @@ public class StylingProvider extends BaseProvider<StylingMenuContent> {
             if (id == null) continue;
             designs.add(id);
         }
-        designs.addAll(ServerDesignManager.INSTANCE.getDefaultDesigns().keySet());
+        designs.addAll(DesignManager.server().getDefaultDesigns().keySet());
         return designs;
     }
 }

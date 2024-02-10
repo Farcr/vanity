@@ -8,10 +8,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.HorseArmorItem;
 import net.minecraft.world.item.ItemStack;
+import tech.thatgravyboat.vanity.api.design.DesignManager;
 import tech.thatgravyboat.vanity.api.style.AssetTypes;
 import tech.thatgravyboat.vanity.api.style.Style;
 import tech.thatgravyboat.vanity.client.components.base.BaseAbstractWidget;
-import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
 import tech.thatgravyboat.vanity.common.Vanity;
 import tech.thatgravyboat.vanity.common.util.ComponentConstants;
 
@@ -75,7 +75,7 @@ public class StyledItemWidget extends BaseAbstractWidget {
     }
 
     public void select(ItemStack stack) {
-        Style style = ClientDesignManager.INSTANCE.getStyleFromItem(stack);
+        Style style = DesignManager.client().getStyleFromItem(stack);
         if (style == null) {
             this.display = null;
         } else if (style.hasAsset(AssetTypes.ARMOR)) {
