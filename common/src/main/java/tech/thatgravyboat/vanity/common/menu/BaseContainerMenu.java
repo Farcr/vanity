@@ -55,7 +55,7 @@ public abstract class BaseContainerMenu extends AbstractContainerMenu {
                 slot.setChanged();
             }
 
-            slot.onTake(player, stack);
+            slot.onTake(player, result);
 
             return result;
         }
