@@ -1,0 +1,91 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://raw.githubusercontent.com/Farcr/vanity/1.20.x/schemas/design.schema.json",
+    "definitions": {
+        "resourceLocation": {
+            "type": "string",
+            "pattern": "^[a-z0-9_.-]+:[a-z0-9/._-]+$",
+            "description": "The location of the resource."
+        },
+        "designType": {
+            "type": "string",
+            "enum": [
+                "item",
+                "sellable",
+                "default",
+                "hidden"
+            ],
+            "description": "The type that the design is."
+        }
+    },
+    "properties": {
+        "model": {
+            "type": "string",
+            "pattern": "^[a-z0-9_.-]+:[a-z0-9/._-]+$",
+            "description": "The model of the design itself."
+        },
+        "type": {
+            "$ref": "#/definitions/designType"
+        },
+        "styles": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "assets": {
+                            "type": "object",
+                            "properties": {
+                                "default": {
+                                    "$ref": "#/definitions/resourceLocation"
+                                },
+                                "hand": {
+                                    "$ref": "#/definitions/resourceLocation"
+                                },
+                                "projectile": {
+                                    "$ref": "#/definitions/resourceLocation"
+                                },
+                                "armor": {
+                                    "$ref": "#/definitions/resourceLocation"
+                                }
+                            },
+                            "required": [
+                                "default"
+                            ],
+                            "additionalProperties": {
+                                "$ref": "#/definitions/resourceLocation"
+                            }
+                        }
+                    },
+                    "oneOf": [
+                        {
+                            "properties": {
+                                "tag": {
+                                    "#ref": "#/definitions/resourceLocation"
+                                }
+                            },
+                            "required": [
+                                "tag"
+                            ]
+                        },
+                        {
+                            "properties": {
+                                "item": {
+                                    "#ref": "#/definitions/resourceLocation"
+                                }
+                            },
+                            "required": [
+                                "item"
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "required": [
+        "styles"
+    ],
+    "type": "object"
+}
