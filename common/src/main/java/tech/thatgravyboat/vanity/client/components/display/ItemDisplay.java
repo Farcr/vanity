@@ -57,7 +57,7 @@ public class ItemDisplay implements Display {
         this.stack = stack;
         ResourceLocation model = style.asset(AssetTypes.HAND);
         if (model == null) {
-            this.model = ClientDesignManager.getModelLocation(style.model());
+            this.model = ClientDesignManager.getModelLocation(style.asset(AssetTypes.DEFAULT));
             this.type = Type.GUI;
         } else {
             this.model = ClientDesignManager.getModelLocation(model);

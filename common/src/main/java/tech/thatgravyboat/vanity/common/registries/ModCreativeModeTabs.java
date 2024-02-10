@@ -26,7 +26,7 @@ public class ModCreativeModeTabs {
                 DesignManager manager = DesignManager.get(true);
                 List<ResourceLocation> designs = new ArrayList<>();
                 for (var entry : manager.getAllDesigns().entrySet()) {
-                    if (!entry.getValue().type().hasItem()) continue;
+                    if (entry.getValue().type().hideFromCreativeTab()) continue;
                     designs.add(entry.getKey());
                 }
 

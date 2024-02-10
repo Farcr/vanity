@@ -2,6 +2,7 @@ package tech.thatgravyboat.vanity.client.design;
 
 import org.jetbrains.annotations.Nullable;
 import tech.thatgravyboat.vanity.api.style.AssetType;
+import tech.thatgravyboat.vanity.api.style.AssetTypes;
 import tech.thatgravyboat.vanity.api.style.Style;
 import tech.thatgravyboat.vanity.common.handler.design.DesignManagerImpl;
 import tech.thatgravyboat.vanity.common.network.packets.client.ClientboundSyncDesignsPacket;
@@ -48,7 +49,7 @@ public class ClientDesignManager extends DesignManagerImpl {
             }
         }
         if (model == null) {
-            model = style.model();
+            model = style.asset(AssetTypes.DEFAULT);
         }
         return ClientDesignManager.getModelLocation(model);
     }

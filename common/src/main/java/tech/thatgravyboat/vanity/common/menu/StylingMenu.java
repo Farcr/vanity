@@ -80,7 +80,6 @@ public class StylingMenu extends BaseContainerMenu {
                 int count = stack.getCount();
 
                 StylingMenu.this.input.removeItem(0, count);
-                StylingMenu.this.result.removeItem(0, count);
                 StylingMenu.this.updateDesign();
 
                 super.onTake(player, stack);

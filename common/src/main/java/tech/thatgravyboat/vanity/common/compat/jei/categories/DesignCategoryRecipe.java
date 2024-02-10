@@ -17,7 +17,7 @@ public record DesignCategoryRecipe(
     public static Stream<DesignCategoryRecipe> fromDesign(Map.Entry<ResourceLocation, Design> entry) {
         Design design = entry.getValue();
         ResourceLocation id = entry.getKey();
-        if (!design.type().hasItem() && !design.type().isDefault()) {
+        if (design.type().isHidden()) {
             return Stream.empty();
         }
         return design.styles().entrySet().stream().flatMap(value -> {

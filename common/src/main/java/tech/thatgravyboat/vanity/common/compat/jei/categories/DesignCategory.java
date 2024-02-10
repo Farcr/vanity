@@ -88,7 +88,9 @@ public class DesignCategory implements IRecipeCategory<DesignCategoryRecipe> {
                         .map(Holder::value)
                         .map(ItemStack::new)
                         .toList(),
-                item -> List.of(new ItemStack(item))
+                item -> item.stream()
+                        .map(ItemStack::new)
+                        .toList()
         );
 
         builder.addSlot(RecipeIngredientRole.INPUT, 54, 6).addItemStacks(items);

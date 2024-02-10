@@ -94,6 +94,7 @@ public class DesignTests implements FabricGameTest {
         helper.assertTrue(designs.size() == 3, "Designs has the default, unlockable, and table designs");
         helper.assertTrue(designs.contains(DEFAULT_DESIGN), "Designs does not contain the default design");
         helper.assertTrue(designs.contains(UNLOCKABLE_DESIGN), "Designs does not contain the unlockable design");
+        helper.assertTrue(designs.contains(TEST_DESIGN), "Designs does not contain the table design");
 
         helper.succeed();
     }

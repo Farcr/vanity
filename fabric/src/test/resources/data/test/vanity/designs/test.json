@@ -3,7 +3,10 @@
     "styles": {
         "test": [
             {
-                "item": "minecraft:stick",
+                "item": [
+                    "minecraft:stick",
+                    "minecraft:iron_ingot"
+                ],
                 "assets": {
                     "default": "minecraft:emerald"
                 }

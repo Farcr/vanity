@@ -12,8 +12,12 @@ public enum DesignType {
 
     public static final Codec<DesignType> CODEC = EnumCodec.of(DesignType.class);
 
-    public boolean hasItem() {
-        return this == ITEM || this == SELLABLE;
+    public boolean hideFromCreativeTab() {
+        return this == HIDDEN || this == DEFAULT;
+    }
+
+    public boolean isHidden() {
+        return this == HIDDEN;
     }
 
     public boolean isDefault() {
