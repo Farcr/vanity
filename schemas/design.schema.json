@@ -188,6 +188,19 @@
                             "required": [
                                 "item"
                             ]
+                        },
+                        {
+                            "properties": {
+                                "item": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/resourceLocation"
+                                    }
+                                }
+                            },
+                            "required": [
+                                "item"
+                            ]
                         }
                     ],
                     "additionalProperties": false
