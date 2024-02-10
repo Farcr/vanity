@@ -77,8 +77,10 @@ public class StylingMenu extends BaseContainerMenu {
             public void onTake(Player player, ItemStack stack) {
                 StylingMenu.this.access.execute((level, blockPos) -> level.playSound(null, blockPos, ModSounds.TAKE_RESULT_STYLING_TABLE.get(), SoundSource.BLOCKS, 1.0F, 1.0F));
 
-                StylingMenu.this.input.removeItem(0, 1);
-                StylingMenu.this.result.removeItem(0, 1);
+                int count = stack.getCount();
+
+                StylingMenu.this.input.removeItem(0, count);
+                StylingMenu.this.result.removeItem(0, count);
                 StylingMenu.this.updateDesign();
 
                 super.onTake(player, stack);
@@ -124,7 +126,7 @@ public class StylingMenu extends BaseContainerMenu {
         ItemStack input = this.input.getItem(0);
         if (input.isEmpty()) return;
         if (!this.styles.containsKey(design) || !this.styles.get(design).contains(style)) return;
-        ItemStack stack = input.copyWithCount(1);
+        ItemStack stack = input.copy();
         style = REMOVE_DESIGN.equals(design) ? null : style;
         DesignHelper.setDesignAndStyle(stack, design, style);
         this.result.setItem(0, stack);
