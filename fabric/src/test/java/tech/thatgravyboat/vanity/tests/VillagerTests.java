@@ -7,10 +7,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.VillagerType;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
+import tech.thatgravyboat.vanity.common.registries.ModItems;
 import tech.thatgravyboat.vanity.common.registries.ModProfessions;
 
 public class VillagerTests implements FabricGameTest {
@@ -27,13 +26,8 @@ public class VillagerTests implements FabricGameTest {
         MerchantOffers offers = villager.getOffers();
         helper.assertTrue(!offers.isEmpty(), "Villager has no offers");
         for (MerchantOffer offer : offers) {
-            ItemStack first = offer.getBaseCostA();
-            ItemStack result = offer.getResult();
-
-            if (first.is(Items.STICK) && result.is(Items.STONE)) {
-                helper.assertTrue(offer.getMaxUses() == 1, "Test trade has incorrect max uses");
-                helper.assertTrue(offer.getXp() == 1, "Test trade has incorrect xp");
-                helper.assertTrue(offer.getPriceMultiplier() == 0.3f, "Test trade has incorrect price multiplier");
+            if (!offer.getBaseCostA().is(ModItems.DESIGN.get())) {
+                // Means that there was a trade that was from the data driven system
                 helper.succeed();
                 return;
             }

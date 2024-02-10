@@ -1,0 +1,18 @@
+{
+    "condition": {
+        "type": "mod_loaded",
+        "modid": "does_not_exist"
+    },
+
+    "type": "hidden",
+    "styles": {
+        "default": [
+            {
+                "item": "minecraft:stick",
+                "assets": {
+                    "default": "minecraft:diamond"
+                }
+            }
+        ]
+    }
+}

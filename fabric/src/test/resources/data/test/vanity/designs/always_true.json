@@ -1,0 +1,31 @@
+{
+    "condition": {
+        "type": "mod_loaded",
+        "modid": "resourcefullib"
+    },
+
+    "type": "hidden",
+    "styles": {
+        "failing": [
+            {
+                "condition": {
+                    "type": "mod_loaded",
+                    "modid": "another_not_loaded_mod"
+                },
+
+                "item": "minecraft:stick",
+                "assets": {
+                    "default": "minecraft:diamond"
+                }
+            }
+        ],
+        "passing": [
+            {
+                "item": "minecraft:stick",
+                "assets": {
+                    "default": "minecraft:gold_ingot"
+                }
+            }
+        ]
+    }
+}
