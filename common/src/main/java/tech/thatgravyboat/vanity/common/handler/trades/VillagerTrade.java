@@ -14,6 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 public record VillagerTrade(
         int tier,
+        String group,
         TradeStack first,
         TradeStack second,
         TradeStack result,
@@ -23,8 +24,10 @@ public record VillagerTrade(
         float chance
 ) implements VillagerTrades.ItemListing {
 
+    public static final String VANILLA = "vanilla";
     public static final Codec<VillagerTrade> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.INT.optionalFieldOf("tier", 1).forGetter(VillagerTrade::tier),
+            Codec.STRING.optionalFieldOf("group", VANILLA).forGetter(VillagerTrade::group),
             TradeStack.CODEC.fieldOf("first").forGetter(VillagerTrade::first),
             TradeStack.CODEC.optionalFieldOf("second", TradeStack.EMPTY).forGetter(VillagerTrade::second),
             TradeStack.CODEC.fieldOf("result").forGetter(VillagerTrade::result),
@@ -52,5 +55,9 @@ public record VillagerTrade(
             );
         }
         return null;
+    }
+
+    public boolean isDefaultGroup() {
+        return this.group.equals(VANILLA);
     }
 }

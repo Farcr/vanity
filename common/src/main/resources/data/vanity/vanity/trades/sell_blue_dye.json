@@ -1,5 +1,6 @@
 {
     "tier": 2,
+    "group": "vanity:dyes",
     "first": "minecraft:emerald",
     "result": {
         "id": "minecraft:blue_dye",

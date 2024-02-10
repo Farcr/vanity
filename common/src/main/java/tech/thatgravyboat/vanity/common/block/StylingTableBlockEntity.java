@@ -3,6 +3,7 @@ package tech.thatgravyboat.vanity.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -51,10 +52,7 @@ public class StylingTableBlockEntity extends BlockEntity implements StylingConta
 
     @Override
     public boolean stillValid(Player player) {
-        if (this.level != null && this.level.getBlockEntity(this.getBlockPos()) != this) {
-            return false;
-        }
-        return player.distanceToSqr(this.getBlockPos().getX() + 0.5, this.getBlockPos().getY() + 0.5, this.getBlockPos().getZ() + 0.5) <= 64.0;
+        return Container.stillValidBlockEntity(this, player);
     }
 
     public StylingProvider styling() {

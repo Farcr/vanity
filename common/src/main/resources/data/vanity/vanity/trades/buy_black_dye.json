@@ -1,5 +1,6 @@
 {
     "tier": 1,
+    "group": "vanity:dyes",
     "first": {
         "id": "minecraft:black_dye",
         "count": {
@@ -19,6 +20,6 @@
         }
     },
     "xp": 5,
- "priceMultiplier": 0.1,
+    "priceMultiplier": 0.1,
     "chance": 1
 }

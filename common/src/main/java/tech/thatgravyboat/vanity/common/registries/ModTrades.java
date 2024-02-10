@@ -1,5 +1,6 @@
 package tech.thatgravyboat.vanity.common.registries;
 
+import com.teamresourceful.resourcefullib.common.collections.WeightedCollection;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -11,10 +12,13 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import tech.thatgravyboat.vanity.common.handler.design.ServerDesignManager;
 import tech.thatgravyboat.vanity.common.handler.trades.VillagerTrade;
 import tech.thatgravyboat.vanity.common.handler.trades.VillagerTradeManager;
+import tech.thatgravyboat.vanity.common.handler.trades.WeightedTrade;
 import tech.thatgravyboat.vanity.common.item.DesignHelper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiConsumer;
 
 public class ModTrades {
@@ -28,7 +32,7 @@ public class ModTrades {
             designs.add(entry.getKey());
         }
 
-        int basicTrades = Math.min(maxTier, designs.size());
+        int basicTrades = Math.min(maxTier, designs.size() + 1);
         for (int i = minTier; i < basicTrades && !designs.isEmpty(); i++) {
             adder.accept(i, new DesignListing(designs));
             if (i > 3) {
@@ -37,8 +41,16 @@ public class ModTrades {
         }
 
         for (int i = minTier; i <= maxTier; i++) {
+            Map<String, WeightedCollection<VillagerTrade>> weightedTrades = new HashMap<>();
             for (VillagerTrade trade : VillagerTradeManager.getTrades(i)) {
-                adder.accept(i, trade);
+                if (trade.isDefaultGroup()) {
+                    adder.accept(i, trade);
+                } else {
+                    weightedTrades.computeIfAbsent(trade.group(), s -> new WeightedCollection<>()).add(trade.chance(), trade);
+                }
+            }
+            for (WeightedCollection<VillagerTrade> value : weightedTrades.values()) {
+                adder.accept(i, new WeightedTrade(value));
             }
         }
     }
