@@ -17,9 +17,13 @@ import org.joml.Matrix4f;
 import tech.thatgravyboat.vanity.api.style.AssetTypes;
 import tech.thatgravyboat.vanity.api.style.Style;
 import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
+import tech.thatgravyboat.vanity.client.rendering.ItemTransformsExtension;
 import tech.thatgravyboat.vanity.client.rendering.RenderingManager;
 
 public class ItemDisplay implements Display {
+
+    private static final String DEFAULT_TRANSFORMS = "vanity:default";
+    private static final String HAND_TRANSFORMS = "vanity:hand";
 
     private ItemStack stack;
     private ModelResourceLocation model;
@@ -34,12 +38,14 @@ public class ItemDisplay implements Display {
         BakedModel model = manager.getModel(this.model);
         if (model == manager.getMissingModel()) return;
 
+        ItemTransformsExtension transforms = (ItemTransformsExtension) model.getTransforms();
+
         stack.pushPose();
         stack.translate(x + width * 0.5, y + height * 0.625f, 150);
         stack.mulPoseMatrix((new Matrix4f()).scaling(1.0F, -1.0F, 1.0F));
         stack.scale(32, 32, 32);
 
-        this.type.setupPoseStack(stack, rotation);
+        this.type.setupPoseStack(stack, rotation, transforms);
 
         renderer.render(
                 this.stack,
@@ -69,15 +75,15 @@ public class ItemDisplay implements Display {
         HAND,
         GUI;
 
-        public void setupPoseStack(PoseStack stack, float rotation) {
+        public void setupPoseStack(PoseStack stack, float rotation, ItemTransformsExtension transforms) {
             if (this == HAND) {
                 stack.mulPose(Axis.YN.rotationDegrees(rotation));
-                stack.mulPose(Axis.XP.rotationDegrees(22.5f));
+                transforms.vanity$getTransform(HAND_TRANSFORMS).apply(false, stack);
             } else {
                 stack.scale(1.25f, 1.25f, 1.25f);
                 stack.translate(0, 0.25, 0);
                 stack.mulPose(Axis.YN.rotationDegrees(rotation));
-                stack.mulPose(Axis.ZP.rotationDegrees(90));
+                transforms.vanity$getTransform(DEFAULT_TRANSFORMS).apply(false, stack);
             }
         }
     }

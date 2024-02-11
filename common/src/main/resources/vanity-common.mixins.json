@@ -18,7 +18,10 @@
         "client.fixes.ThrownTridentRendererMixin",
         "client.rendering.GuiGraphicsMixin",
         "client.rendering.ItemEntityRendererMixin",
-        "client.rendering.ItemRendererMixin"
+        "client.rendering.ItemRendererMixin",
+        "client.transforms.BlockModelMixin",
+        "client.transforms.ItemTransformsDeserializerMixin",
+        "client.transforms.ItemTransformsMixin"
     ],
     "injectors": {
         "defaultRequire": 1
