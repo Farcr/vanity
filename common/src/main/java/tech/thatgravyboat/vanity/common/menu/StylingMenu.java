@@ -62,6 +62,12 @@ public class StylingMenu extends BaseContainerMenu {
             }
 
             @Override
+            public void setChanged() {
+                super.setChanged();
+                StylingMenu.this.updateDesign();
+            }
+
+            @Override
             public void onTake(Player player, ItemStack itemStack) {
                 super.onTake(player, itemStack);
                 StylingMenu.this.updateDesign();
