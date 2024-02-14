@@ -30,6 +30,8 @@ public class StylingMenu extends BaseContainerMenu {
     private final Map<ResourceLocation, List<String>> styles = new LinkedHashMap<>();
     private final DesignManager manager;
 
+    private ItemStack lastInput = ItemStack.EMPTY;
+
     private final Container input = new AwareContainer(1, () -> {
         this.updateDesign();
         this.slotsChanged(this.input);
@@ -64,13 +66,14 @@ public class StylingMenu extends BaseContainerMenu {
             @Override
             public void setChanged() {
                 super.setChanged();
-                StylingMenu.this.updateDesign();
+                lastInput = this.getItem();
             }
 
             @Override
             public void onTake(Player player, ItemStack itemStack) {
-                super.onTake(player, itemStack);
                 StylingMenu.this.updateDesign();
+                super.onTake(player, itemStack);
+                lastInput = ItemStack.EMPTY;
             }
         });
         this.addSlot(new Slot(this.result, 0, 80, 98) {
@@ -116,7 +119,7 @@ public class StylingMenu extends BaseContainerMenu {
             }
         }
 
-        if (previous != this.styles.hashCode()) {
+        if (previous != this.styles.hashCode() || !ItemStack.isSameItemSameTags(lastInput, this.input.getItem(0))) {
             this.result.setItem(0, ItemStack.EMPTY);
         }
     }
