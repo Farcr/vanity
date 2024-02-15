@@ -25,6 +25,7 @@ public class StylesListWidget extends BaseParentWidget {
     private static final Comparator<Pair<ResourceLocation, String>> SORTER = Comparator.comparing((Pair<ResourceLocation, String> o) -> o.getFirst()).thenComparing(Pair::getSecond);
 
     private int oldHash = -1;
+    private ItemStack oldStack = ItemStack.EMPTY;
 
     private double scroll = 0;
     private int lastHeight = 0;
@@ -37,7 +38,8 @@ public class StylesListWidget extends BaseParentWidget {
     }
 
     public void addAll(Map<ResourceLocation, List<String>> designs, ItemStack input) {
-        if (designs.hashCode() == this.oldHash) return;
+        if (designs.hashCode() == this.oldHash && ItemStack.isSameItemSameTags(input, this.oldStack)) return;
+        this.oldStack = input;
         this.scroll = 0;
         this.oldHash = designs.hashCode();
 
@@ -54,7 +56,7 @@ public class StylesListWidget extends BaseParentWidget {
         String style = DesignHelper.getStyle(stack);
         for (AbstractWidget child : this.children) {
             if (child instanceof StyleButton styleButton) {
-                styleButton.select(design, style);
+                styleButton.select(design, style, stack.isEmpty());
             }
         }
     }

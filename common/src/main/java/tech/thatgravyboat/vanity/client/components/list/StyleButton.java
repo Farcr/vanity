@@ -17,6 +17,8 @@ import tech.thatgravyboat.vanity.common.network.NetworkHandler;
 import tech.thatgravyboat.vanity.common.network.packets.server.ServerboundSelectStylePacket;
 import tech.thatgravyboat.vanity.common.util.ComponentConstants;
 
+import java.util.Objects;
+
 public class StyleButton extends BaseAbstractWidget {
 
     private static final ResourceLocation NORMAL = new ResourceLocation(Vanity.MOD_ID, "textures/gui/sprites/button/normal.png");
@@ -69,8 +71,10 @@ public class StyleButton extends BaseAbstractWidget {
         NetworkHandler.CHANNEL.sendToServer(packet);
     }
 
-    public void select(@Nullable ResourceLocation design, @Nullable String style) {
-        this.selected = this.design.equals(design) && this.style.equals(style);
+    public void select(@Nullable ResourceLocation design, @Nullable String style, boolean isEmpty) {
+        design = Objects.requireNonNullElse(design, StylingMenu.REMOVE_DESIGN);
+        style = Objects.requireNonNullElse(style, "");
+        this.selected = this.design.equals(design) && this.style.equals(style) && !isEmpty;
     }
 
     public static ResourceLocation texture(boolean hovered, boolean selected) {
