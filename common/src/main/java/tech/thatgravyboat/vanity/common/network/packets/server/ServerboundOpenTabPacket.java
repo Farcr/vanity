@@ -53,7 +53,7 @@ public record ServerboundOpenTabPacket(boolean storage) implements Packet<Server
         @Override
         public Consumer<Player> handle(ServerboundOpenTabPacket message) {
             return (player) -> {
-                if (player.containerMenu instanceof BaseContainerMenu menu && player instanceof ServerPlayer) {
+                if (player.containerMenu instanceof BaseContainerMenu menu && player instanceof ServerPlayer serverPlayer) {
                     BlockPos pos = menu.getBlockPos();
                     if (pos == null) return;
                     BlockEntity entity = player.level().getBlockEntity(pos);
@@ -62,9 +62,9 @@ public record ServerboundOpenTabPacket(boolean storage) implements Packet<Server
                         BlockState state = player.level().getBlockState(pos);
                         boolean canOpen = !state.hasProperty(StylingTableBlock.POWERED) || !state.getValue(StylingTableBlock.POWERED);
                         if (!canOpen) return;
-                        table.storage().openMenu((ServerPlayer) player);
+                        table.storage().openMenu(serverPlayer);
                     } else {
-                        table.styling().openMenu((ServerPlayer) player);
+                        table.styling().openMenu(serverPlayer);
                     }
                 }
             };

@@ -3,14 +3,11 @@ package tech.thatgravyboat.vanity.common.network.packets.client;
 import com.teamresourceful.resourcefullib.common.network.Packet;
 import com.teamresourceful.resourcefullib.common.network.base.ClientboundPacketType;
 import com.teamresourceful.resourcefullib.common.network.base.PacketType;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import tech.thatgravyboat.vanity.client.VanityClientNetwork;
 import tech.thatgravyboat.vanity.common.Vanity;
-import tech.thatgravyboat.vanity.common.util.EntityItemHolder;
 
 public record ClientboundSyncEntityItemPacket(int entityId, ItemStack stack) implements Packet<ClientboundSyncEntityItemPacket> {
 
@@ -48,14 +45,7 @@ public record ClientboundSyncEntityItemPacket(int entityId, ItemStack stack) imp
 
         @Override
         public Runnable handle(ClientboundSyncEntityItemPacket message) {
-            return () -> {
-                Level level = Minecraft.getInstance().level;
-                if (level == null) return;
-                Entity entity = level.getEntity(message.entityId());
-                if (entity instanceof EntityItemHolder holder) {
-                    holder.vanity$setItem(message.stack());
-                }
-            };
+            return () -> VanityClientNetwork.handleSyncEntityItem(message);
         }
     }
 }

@@ -2,6 +2,7 @@ package tech.thatgravyboat.vanity.common.registries;
 
 import com.teamresourceful.resourcefullib.common.collections.WeightedCollection;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -33,10 +34,11 @@ public class ModTrades {
         }
 
         int basicTrades = Math.min(maxTier, designs.size() + 1);
+        int index = 0;
         for (int i = minTier; i < basicTrades && !designs.isEmpty(); i++) {
-            adder.accept(i, new DesignListing(designs));
+            adder.accept(i, new DesignListing(designs, index++));
             if (i > 3) {
-                adder.accept(i, new DesignListing(designs));
+                adder.accept(i, new DesignListing(designs, index++));
             }
         }
 
@@ -55,7 +57,7 @@ public class ModTrades {
         }
     }
 
-    private record DesignListing(List<ResourceLocation> designs) implements VillagerTrades.ItemListing {
+    private record DesignListing(List<ResourceLocation> designs, int offset) implements VillagerTrades.ItemListing {
 
         private static final int USES = 4;
         private static final int EMERALD_COST = 15;
@@ -65,7 +67,8 @@ public class ModTrades {
         @Override
         public MerchantOffer getOffer(Entity entity, RandomSource random) {
             ItemStack emeralds = new ItemStack(Items.EMERALD, EMERALD_COST + (random.nextInt(16)));
-            ResourceLocation design = this.designs.get(random.nextInt(this.designs.size()));
+            int index = Mth.abs(entity.getUUID().hashCode() + this.offset) % this.designs.size();
+            ResourceLocation design = this.designs.get(Mth.clamp(index, 0, this.designs.size() - 1));
             return new MerchantOffer(emeralds, DesignHelper.createDesignItem(design), USES, XP_GAIN, PRICE_MULTIPLIER);
         }
     }

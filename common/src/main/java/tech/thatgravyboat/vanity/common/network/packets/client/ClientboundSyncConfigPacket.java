@@ -6,6 +6,7 @@ import com.teamresourceful.resourcefullib.common.network.base.PacketType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import tech.thatgravyboat.vanity.client.VanityClientNetwork;
 import tech.thatgravyboat.vanity.common.Vanity;
 import tech.thatgravyboat.vanity.common.registries.ModGameRules;
 
@@ -52,7 +53,7 @@ public record ClientboundSyncConfigPacket(
 
         @Override
         public Runnable handle(ClientboundSyncConfigPacket message) {
-            return () -> ModGameRules.UNLOCKABLE_DESIGNS.setValue(message.unlockableDesigns);
+            return () -> VanityClientNetwork.handleSyncConfig(message);
         }
     }
 }

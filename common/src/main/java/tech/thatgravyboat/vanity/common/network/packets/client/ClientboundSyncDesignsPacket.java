@@ -3,13 +3,13 @@ package tech.thatgravyboat.vanity.common.network.packets.client;
 import com.teamresourceful.resourcefullib.common.network.Packet;
 import com.teamresourceful.resourcefullib.common.network.base.ClientboundPacketType;
 import com.teamresourceful.resourcefullib.common.network.base.PacketType;
-import tech.thatgravyboat.vanity.api.design.Design;
-import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
-import tech.thatgravyboat.vanity.common.Vanity;
-import tech.thatgravyboat.vanity.common.handler.design.DesignManagerImpl;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import tech.thatgravyboat.vanity.api.design.Design;
+import tech.thatgravyboat.vanity.client.VanityClientNetwork;
+import tech.thatgravyboat.vanity.common.Vanity;
+import tech.thatgravyboat.vanity.common.handler.design.DesignManagerImpl;
 
 import java.util.Map;
 
@@ -61,7 +61,7 @@ public record ClientboundSyncDesignsPacket(Map<ResourceLocation, Design> designs
 
         @Override
         public Runnable handle(ClientboundSyncDesignsPacket message) {
-            return () -> ClientDesignManager.INSTANCE.readPacket(message);
+            return () -> VanityClientNetwork.handleSyncDesigns(message);
         }
     }
 }
