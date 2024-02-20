@@ -19,6 +19,7 @@
         "client.rendering.GuiGraphicsMixin",
         "client.rendering.ItemEntityRendererMixin",
         "client.rendering.ItemRendererMixin",
+        "client.transforms.BlockModelAccessor",
         "client.transforms.BlockModelMixin",
         "client.transforms.ItemTransformsDeserializerMixin",
         "client.transforms.ItemTransformsMixin"
