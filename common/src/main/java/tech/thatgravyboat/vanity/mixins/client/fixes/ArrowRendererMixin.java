@@ -38,7 +38,8 @@ public class ArrowRendererMixin {
             cancellable = true
     )
     private void vanity$renderArrow(AbstractArrow arrow, float f, float g, PoseStack stack, MultiBufferSource source, int i, CallbackInfo ci) {
-        ItemStack item = ((EntityItemHolder) arrow).vanity$getItem();
+        if (!(arrow instanceof EntityItemHolder holder)) return;
+        ItemStack item = holder.vanity$getItem();
         boolean hasVanity = ClientDesignManager.INSTANCE.hasStyle(item);
         if (hasVanity && this.vanity$itemRenderer != null) {
             RenderingManager manager = (RenderingManager) this.vanity$itemRenderer;
