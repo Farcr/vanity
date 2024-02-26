@@ -11,14 +11,16 @@ import tech.thatgravyboat.vanity.common.Vanity;
 import tech.thatgravyboat.vanity.common.registries.ModGameRules;
 
 public record ClientboundSyncConfigPacket(
-        boolean unlockableDesigns
+        boolean unlockableDesigns,
+        boolean lockDesignStorage
 ) implements Packet<ClientboundSyncConfigPacket> {
 
     public static final ClientboundPacketType<ClientboundSyncConfigPacket> TYPE = new Type();
 
     public ClientboundSyncConfigPacket(MinecraftServer server) {
         this(
-            ModGameRules.UNLOCKABLE_DESIGNS.getValue(server, false)
+            ModGameRules.UNLOCKABLE_DESIGNS.getValue(server, false),
+            ModGameRules.LOCK_DESIGN_STORAGE.getValue(server, false)
         );
     }
 
@@ -44,11 +46,12 @@ public record ClientboundSyncConfigPacket(
         @Override
         public void encode(ClientboundSyncConfigPacket message, FriendlyByteBuf buffer) {
             buffer.writeBoolean(message.unlockableDesigns);
+            buffer.writeBoolean(message.lockDesignStorage);
         }
 
         @Override
         public ClientboundSyncConfigPacket decode(FriendlyByteBuf buffer) {
-            return new ClientboundSyncConfigPacket(buffer.readBoolean());
+            return new ClientboundSyncConfigPacket(buffer.readBoolean(), buffer.readBoolean());
         }
 
         @Override

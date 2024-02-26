@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tech.thatgravyboat.vanity.common.registries.ModGameRules;
 
 public class StylingTableBlock extends Block implements EntityBlock {
 
@@ -69,5 +70,13 @@ public class StylingTableBlock extends Block implements EntityBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new StylingTableBlockEntity(pos, state);
+    }
+
+    public static boolean canShowStorage(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        if (ModGameRules.LOCK_DESIGN_STORAGE.getValue(level, level.isClientSide())) {
+            return false;
+        }
+        return !state.hasProperty(POWERED) || !state.getValue(POWERED);
     }
 }

@@ -29,11 +29,15 @@ public class CachedGameRule<T extends GameRules.Value<T>, V> {
     @SuppressWarnings("ConstantValue")
     public V getValue(GameRules gameRules, boolean useCache) {
         if (useCache) {
-            return value;
+            return getCachedValue();
         }
         T gameRule = gameRules.getRule(key);
-        if (gameRule == null) return value;
+        if (gameRule == null) return getCachedValue();
         return mapper.apply(gameRule);
+    }
+
+    public V getCachedValue() {
+        return value;
     }
 
     public void setValue(V value) {

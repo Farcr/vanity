@@ -27,5 +27,6 @@ public class VanityClientNetwork {
 
     public static void handleSyncConfig(ClientboundSyncConfigPacket packet) {
         ModGameRules.UNLOCKABLE_DESIGNS.setValue(packet.unlockableDesigns());
+        ModGameRules.LOCK_DESIGN_STORAGE.setValue(packet.lockDesignStorage());
     }
 }

@@ -17,6 +17,11 @@ public class ModGameRules {
             (server, rule) -> NetworkHandler.CHANNEL.sendToAllPlayers(new ClientboundSyncConfigPacket(server), server)
     );
 
+    public static final CachedGameRule<GameRules.BooleanValue, Boolean> LOCK_DESIGN_STORAGE = createCachedBooleanRule(
+            "vanityLockDesignStorage", GameRules.Category.PLAYER, false,
+            (server, rule) -> NetworkHandler.CHANNEL.sendToAllPlayers(new ClientboundSyncConfigPacket(server), server)
+    );
+
     public static void init() {
         // NO-OP
     }

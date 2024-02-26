@@ -9,7 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import tech.thatgravyboat.vanity.common.Vanity;
 import tech.thatgravyboat.vanity.common.block.StylingTableBlock;
 import tech.thatgravyboat.vanity.common.block.StylingTableBlockEntity;
@@ -59,9 +58,7 @@ public record ServerboundOpenTabPacket(boolean storage) implements Packet<Server
                     BlockEntity entity = player.level().getBlockEntity(pos);
                     if (!(entity instanceof StylingTableBlockEntity table)) return;
                     if (message.storage()) {
-                        BlockState state = player.level().getBlockState(pos);
-                        boolean canOpen = !state.hasProperty(StylingTableBlock.POWERED) || !state.getValue(StylingTableBlock.POWERED);
-                        if (!canOpen) return;
+                        if (!StylingTableBlock.canShowStorage(player.level(), pos)) return;
                         table.storage().openMenu(serverPlayer);
                     } else {
                         table.styling().openMenu(serverPlayer);

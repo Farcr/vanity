@@ -26,6 +26,7 @@ public class StylingScreen extends AbstractContainerScreen<StylingMenu> implemen
 
     private StylesListWidget list;
     private StyledItemWidget display;
+    private boolean showingStorage;
 
     public StylingScreen(StylingMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -47,7 +48,9 @@ public class StylingScreen extends AbstractContainerScreen<StylingMenu> implemen
             0, 0
         );
 
-        if (getMenu().canShowStorage()) {
+        this.showingStorage = getMenu().canShowStorage();
+
+        if (this.showingStorage) {
             buttons.addChild(
                 StylingTabButton.create(Items.CHEST, ComponentConstants.DESIGN_TAB, () ->
                     NetworkHandler.CHANNEL.sendToServer(new ServerboundOpenTabPacket(true))
@@ -86,6 +89,7 @@ public class StylingScreen extends AbstractContainerScreen<StylingMenu> implemen
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         this.renderBackground(graphics);
         graphics.blit(BACKGROUND, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+        if (!this.showingStorage) return;
         graphics.blit(BACKGROUND, this.leftPos + 42, this.topPos, 176, 54, 26, 28);
     }
 

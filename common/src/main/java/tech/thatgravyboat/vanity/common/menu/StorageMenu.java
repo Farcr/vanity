@@ -5,7 +5,6 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.level.block.state.BlockState;
 import tech.thatgravyboat.vanity.common.block.StylingTableBlock;
 import tech.thatgravyboat.vanity.common.block.StylingTableBlockEntity;
 import tech.thatgravyboat.vanity.common.menu.container.DesignSlot;
@@ -37,10 +36,7 @@ public class StorageMenu extends BaseContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         if (super.stillValid(player)) {
-            return this.access.evaluate((level, pos) -> {
-                BlockState state = level.getBlockState(pos);
-                return !state.hasProperty(StylingTableBlock.POWERED) || !state.getValue(StylingTableBlock.POWERED);
-            }, true);
+            return this.access.evaluate(StylingTableBlock::canShowStorage, !ModGameRules.LOCK_DESIGN_STORAGE.getCachedValue());
         }
         return false;
     }

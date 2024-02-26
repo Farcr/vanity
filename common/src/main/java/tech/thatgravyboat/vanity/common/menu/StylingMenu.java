@@ -8,7 +8,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import tech.thatgravyboat.vanity.api.design.DesignManager;
 import tech.thatgravyboat.vanity.common.Vanity;
@@ -16,6 +15,7 @@ import tech.thatgravyboat.vanity.common.block.StylingTableBlock;
 import tech.thatgravyboat.vanity.common.item.DesignHelper;
 import tech.thatgravyboat.vanity.common.menu.container.AwareContainer;
 import tech.thatgravyboat.vanity.common.menu.content.StylingMenuContent;
+import tech.thatgravyboat.vanity.common.registries.ModGameRules;
 import tech.thatgravyboat.vanity.common.registries.ModItems;
 import tech.thatgravyboat.vanity.common.registries.ModMenuTypes;
 import tech.thatgravyboat.vanity.common.registries.ModSounds;
@@ -153,9 +153,6 @@ public class StylingMenu extends BaseContainerMenu {
     }
 
     public boolean canShowStorage() {
-        return this.access.evaluate((level, pos) -> {
-            BlockState state = level.getBlockState(pos);
-            return !state.hasProperty(StylingTableBlock.POWERED) || !state.getValue(StylingTableBlock.POWERED);
-        }, true);
+        return this.access.evaluate(StylingTableBlock::canShowStorage, !ModGameRules.LOCK_DESIGN_STORAGE.getCachedValue());
     }
 }
