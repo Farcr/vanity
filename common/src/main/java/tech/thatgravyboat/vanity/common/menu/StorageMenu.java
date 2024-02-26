@@ -10,6 +10,7 @@ import tech.thatgravyboat.vanity.common.block.StylingTableBlock;
 import tech.thatgravyboat.vanity.common.block.StylingTableBlockEntity;
 import tech.thatgravyboat.vanity.common.menu.container.DesignSlot;
 import tech.thatgravyboat.vanity.common.menu.content.StorageMenuContent;
+import tech.thatgravyboat.vanity.common.registries.ModGameRules;
 import tech.thatgravyboat.vanity.common.registries.ModMenuTypes;
 
 import java.util.Optional;
@@ -27,8 +28,8 @@ public class StorageMenu extends BaseContainerMenu {
         checkContainerSize(container, StylingTableBlockEntity.SIZE);
 
         for (int y = 0; y < 3; ++y) {
-            for (int x = 0; x < 9; ++x) {
-                this.addSlot(new DesignSlot(container, x + y * 9, 17 + x * 18, 67 + y * 18));
+            for (int x = 0; x < 8; ++x) {
+                this.addSlot(new DesignSlot(container, x + y * 8, 17 + x * 18, 67 + y * 18));
             }
         }
     }

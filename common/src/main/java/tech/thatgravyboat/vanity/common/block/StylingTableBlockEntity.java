@@ -16,7 +16,7 @@ import tech.thatgravyboat.vanity.common.registries.ModBlocks;
 
 public class StylingTableBlockEntity extends BlockEntity implements StylingContainer {
 
-    public static final int SIZE = 27;
+    public static final int SIZE = 24;
 
     private final StylingProvider styling;
     private final StorageProvider storage;
