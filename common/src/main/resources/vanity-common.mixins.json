@@ -13,6 +13,7 @@
     "client": [
         "client.ItemRendererMixin",
         "client.ItemStackMixin",
+        "client.armor.ElytraLayerMixin",
         "client.armor.HorseArmorLayerMixin",
         "client.fixes.ArrowRendererMixin",
         "client.fixes.ThrownTridentRendererMixin",
@@ -26,5 +27,5 @@
     ],
     "injectors": {
         "defaultRequire": 1
-  }
+    }
 }
