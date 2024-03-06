@@ -74,4 +74,12 @@ public class HumanoidArmorLayerMixin<T extends LivingEntity, M extends HumanoidM
             original.call(instance, stack, source, i, armorItem, model, bl, f, g, h, string);
         }
     }
+
+    @WrapOperation(method = "renderArmorPiece", constant = @Constant(classValue = DyeableLeatherItem.class, ordinal = 0))
+    private boolean vanity$isDyeableLeather(Object obj, Operation<Boolean> original, @Share("vanity$texture") LocalRef<ResourceLocation> texture) {
+        if (texture.get() != null) {
+            return false;
+        }
+        return original.call(obj);
+    }
 }
