@@ -49,14 +49,10 @@ public class DesignItem extends Item {
 
     @Override
     public @NotNull Component getName(ItemStack stack) {
-        Component itemName = super.getName(stack);
         ResourceLocation design = DesignHelper.getDesign(stack);
         if (design != null) {
-            return Component.empty()
-                    .append(DesignHelper.getTranslationKey(design, null))
-                    .append(CommonComponents.SPACE)
-                    .append(itemName);
+            return DesignHelper.getTranslationKey(design, null);
         }
-        return itemName;
+        return super.getName(stack);
     }
 }
