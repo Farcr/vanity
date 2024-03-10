@@ -11,6 +11,7 @@ public class AssetTypes {
     public static final AssetType HAND = register("hand");
     public static final AssetType PROJECTILE = register("projectile");
     public static final AssetType ARMOR = register("armor");
+    public static final AssetType GECKOLIB_ARMOR = register("geckolib_armor");
 
     public static AssetType register(String id) {
         return TYPES.computeIfAbsent(id, InternalType::new);

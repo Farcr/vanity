@@ -23,6 +23,13 @@
                     "default": "example:chestplate",
                     "armor": "example:textures/armor/armor.png"
                 }
+            },
+            {
+                "item": "minecraft:iron_chestplate",
+                "assets": {
+                    "default": "example:chestplate",
+                    "geckolib_armor": "example:iron_armor"
+                }
             }
         ]
     }

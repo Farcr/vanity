@@ -78,7 +78,7 @@ public class StyledItemWidget extends BaseAbstractWidget {
         Style style = DesignManager.client().getStyleFromItem(stack);
         if (style == null) {
             this.display = null;
-        } else if (style.hasAsset(AssetTypes.ARMOR)) {
+        } else if (style.hasAsset(AssetTypes.ARMOR) || style.hasAsset(AssetTypes.GECKOLIB_ARMOR)) {
             if (stack.getItem() instanceof HorseArmorItem) {
                 this.display = new HorseArmorDisplay();
             } else {

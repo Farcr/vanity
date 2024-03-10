@@ -1,0 +1,97 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.steve",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "bone1",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "bone3",
+					"parent": "bone1",
+					"pivot": [1.9, 12, 0]
+				},
+				{
+					"name": "armorRightBoot",
+					"parent": "bone3",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-3.9, 0, -2], "size": [4, 12, 4], "inflate": 0.275, "uv": [48, 48], "mirror": true}
+					]
+				},
+				{
+					"name": "armorRightLeg",
+					"parent": "bone3",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-4.5, 4.5, -2.5], "size": [5, 8, 5], "inflate": -0.2, "uv": [44, 0]}
+					]
+				},
+				{
+					"name": "bone2",
+					"parent": "bone1",
+					"pivot": [-1.9, 12, 0]
+				},
+				{
+					"name": "armorLeftLeg",
+					"parent": "bone2",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-0.5, 4.5, -2.5], "size": [5, 8, 5], "inflate": -0.2, "uv": [44, 0], "mirror": true}
+					]
+				},
+				{
+					"name": "armorLeftBoot",
+					"parent": "bone2",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-0.1, 0, -2], "size": [4, 12, 4], "inflate": 0.275, "uv": [48, 48]}
+					]
+				},
+				{
+					"name": "armorLeftArm",
+					"parent": "bone1",
+					"pivot": [5, 22, 0],
+					"cubes": [
+						{"origin": [4, 18.5, -2.5], "size": [5, 6, 5], "inflate": 0.1, "uv": [0, 47], "mirror": true}
+					]
+				},
+				{
+					"name": "armorRightArm",
+					"parent": "bone1",
+					"pivot": [-5, 22, 0],
+					"cubes": [
+						{"origin": [-9, 18.5, -2.5], "size": [5, 6, 5], "inflate": 0.1, "uv": [0, 47]}
+					]
+				},
+				{
+					"name": "armorBody",
+					"parent": "bone1",
+					"pivot": [0, 24, 0],
+					"cubes": [
+						{"origin": [-4, 12, -2], "size": [8, 12, 4], "inflate": 0.35, "uv": [40, 13]},
+						{"origin": [-4.5, 10.5, -2.5], "size": [9, 14, 5], "inflate": -0.1, "uv": [0, 28]}
+					]
+				},
+				{
+					"name": "armorHead",
+					"parent": "bone1",
+					"pivot": [0, 24, 0],
+					"cubes": [
+						{"origin": [-4, 23.5, -4], "size": [8, 9, 8], "inflate": 0.6, "uv": [0, 0]},
+						{"origin": [-4.5, 28.6, -4.5], "size": [9, 2, 9], "inflate": 0.4, "uv": [0, 17]}
+					]
+				}
+			]
+		}
+	]
+}

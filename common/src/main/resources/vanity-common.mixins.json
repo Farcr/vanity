@@ -3,6 +3,7 @@
     "package": "tech.thatgravyboat.vanity.mixins",
     "compatibilityLevel": "JAVA_17",
     "minVersion": "0.8",
+    "plugin": "tech.thatgravyboat.vanity.mixins.VanityMixinPlugin",
     "mixins": [
         "common.AbstractHorseAccessor",
         "common.PlayerListMixin",
@@ -13,8 +14,10 @@
     "client": [
         "client.ItemRendererMixin",
         "client.ItemStackMixin",
+        "client.armor.AgeableListModelAccessor",
         "client.armor.ElytraLayerMixin",
         "client.armor.HorseArmorLayerMixin",
+        "client.armor.LevelRenderAccessor",
         "client.fixes.ArrowRendererMixin",
         "client.fixes.ThrownTridentRendererMixin",
         "client.rendering.GuiGraphicsMixin",
@@ -23,7 +26,8 @@
         "client.transforms.BlockModelAccessor",
         "client.transforms.BlockModelMixin",
         "client.transforms.ItemTransformsDeserializerMixin",
-        "client.transforms.ItemTransformsMixin"
+        "client.transforms.ItemTransformsMixin",
+        "compat.geckolib.HumanoidArmorLayerMixin"
     ],
     "injectors": {
         "defaultRequire": 1

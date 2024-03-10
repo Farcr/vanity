@@ -38,6 +38,17 @@ public class ClientDesignManager extends DesignManagerImpl {
     }
 
     @Nullable
+    public ResourceLocation getAsset(ItemStack stack, AssetType type) {
+        Style style = this.getStyleFromItem(stack);
+        if (style == null) return null;
+        return style.asset(type);
+    }
+
+    public boolean hasAsset(ItemStack stack, AssetType type) {
+        return this.getTexture(stack, type) != null;
+    }
+
+    @Nullable
     public ModelResourceLocation getModel(ItemStack stack, AssetType type, AssetType... additionalTypes) {
         Style style = this.getStyleFromItem(stack);
         if (style == null) return null;
