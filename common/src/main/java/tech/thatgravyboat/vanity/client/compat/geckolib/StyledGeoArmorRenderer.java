@@ -92,7 +92,7 @@ public class StyledGeoArmorRenderer extends HumanoidModel<LivingEntity> implemen
         scaleModelForRender(this.scaleWidth, this.scaleHeight, stack, style, model, isReRender, partialTick, packedLight, packedOverlay);
 
         if (!(this.currentEntity instanceof GeoAnimatable)) {
-            applyBoneVisibilityBySlot(this.currentSlot);
+            setAllVisible(true);
         }
     }
 
@@ -183,29 +183,6 @@ public class StyledGeoArmorRenderer extends HumanoidModel<LivingEntity> implemen
         this.riding = baseModel.riding;
         this.rightArmPose = baseModel.rightArmPose;
         this.leftArmPose = baseModel.leftArmPose;
-    }
-
-    protected void applyBoneVisibilityBySlot(EquipmentSlot currentSlot) {
-        setAllVisible(false);
-
-        switch (currentSlot) {
-            case HEAD -> setBoneVisible(this.head, true);
-            case CHEST -> {
-                setBoneVisible(this.body, true);
-                setBoneVisible(this.rightArm, true);
-                setBoneVisible(this.leftArm, true);
-            }
-            case LEGS -> {
-                setBoneVisible(this.rightLeg, true);
-                setBoneVisible(this.leftLeg, true);
-            }
-            case FEET -> {
-                setBoneVisible(this.rightBoot, true);
-                setBoneVisible(this.leftBoot, true);
-            }
-            default -> {
-            }
-        }
     }
 
     protected void applyBaseTransformations(HumanoidModel<?> baseModel) {
