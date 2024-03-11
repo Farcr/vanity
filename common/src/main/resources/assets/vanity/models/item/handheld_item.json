@@ -2,7 +2,7 @@
     "parent": "minecraft:item/handheld",
     "display": {
         "vanity:default": {
-			"rotation": [0, 0, -90],
+			"rotation": [0, 0, 90],
 			"translation": [0, 0, 0],
 			"scale": [1, 1, 1]
         },
