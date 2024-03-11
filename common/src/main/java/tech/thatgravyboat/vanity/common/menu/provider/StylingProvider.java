@@ -7,6 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tech.thatgravyboat.vanity.api.design.DesignManager;
 import tech.thatgravyboat.vanity.common.block.StylingTableBlockEntity;
@@ -27,7 +28,7 @@ public class StylingProvider extends BaseProvider<StylingMenuContent> {
 
     @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
+    public AbstractContainerMenu createMenu(int i, @NotNull Inventory inventory, @NotNull Player player) {
         if (this.entity.getLevel() == null) return null;
         return new StylingMenu(
                 i, inventory,

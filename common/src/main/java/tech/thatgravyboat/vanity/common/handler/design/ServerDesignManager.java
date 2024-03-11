@@ -35,8 +35,8 @@ public class ServerDesignManager extends DesignManagerImpl implements Preparable
     }
 
     @Override
-    public @NotNull CompletableFuture<Void> reload(PreparationBarrier preparationBarrier, ResourceManager resourceManager, ProfilerFiller preparationsProfiler, ProfilerFiller reloadProfiler, Executor backgroundExecutor, Executor gameExecutor) {
-        return this.resourceLoader.reload(preparationBarrier, resourceManager, preparationsProfiler, reloadProfiler, backgroundExecutor, gameExecutor).thenRun(() -> {
+    public @NotNull CompletableFuture<Void> reload(@NotNull PreparationBarrier barrier, @NotNull ResourceManager manager, @NotNull ProfilerFiller preparationsProfiler, @NotNull ProfilerFiller reloadProfiler, @NotNull Executor backgroundExecutor, @NotNull Executor gameExecutor) {
+        return this.resourceLoader.reload(barrier, manager, preparationsProfiler, reloadProfiler, backgroundExecutor, gameExecutor).thenRun(() -> {
             if (Vanity.server != null) {
                 NetworkHandler.CHANNEL.sendToAllPlayers(createPacket(), Vanity.server);
             }
@@ -50,7 +50,7 @@ public class ServerDesignManager extends DesignManagerImpl implements Preparable
         }
 
         @Override
-        protected void apply(Map<ResourceLocation, JsonElement> elements, ResourceManager resourceManager, ProfilerFiller profiler) {
+        protected void apply(Map<ResourceLocation, JsonElement> elements, @NotNull ResourceManager resourceManager, @NotNull ProfilerFiller profiler) {
             ServerDesignManager.this.clear();
             for (Map.Entry<ResourceLocation, JsonElement> entry : elements.entrySet()) {
                 try {

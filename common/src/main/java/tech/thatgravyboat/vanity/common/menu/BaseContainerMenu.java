@@ -31,7 +31,7 @@ public abstract class BaseContainerMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public @NotNull ItemStack quickMoveStack(Player player, int i) {
+    public @NotNull ItemStack quickMoveStack(@NotNull Player player, int i) {
         Slot slot = getSlot(i);
         if (slot.hasItem()) {
             ItemStack stack = slot.getItem();
@@ -63,7 +63,7 @@ public abstract class BaseContainerMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public boolean stillValid(Player player) {
+    public boolean stillValid(@NotNull Player player) {
         return this.access.evaluate(
                 (level, pos) -> {
                     if (level.getBlockEntity(pos) == null) return false;

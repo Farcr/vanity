@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import tech.thatgravyboat.vanity.common.menu.container.StylingContainer;
 import tech.thatgravyboat.vanity.common.menu.provider.StorageProvider;
 import tech.thatgravyboat.vanity.common.menu.provider.StylingProvider;
@@ -33,14 +34,14 @@ public class StylingTableBlockEntity extends BlockEntity implements StylingConta
     }
 
     @Override
-    public void load(CompoundTag tag) {
+    public void load(@NotNull CompoundTag tag) {
         super.load(tag);
         this.items = NonNullList.withSize(Math.max(this.getContainerSize(), SIZE), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, this.items);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag) {
+    protected void saveAdditional(@NotNull CompoundTag tag) {
         super.saveAdditional(tag);
         ContainerHelper.saveAllItems(tag, this.items);
     }
@@ -51,7 +52,7 @@ public class StylingTableBlockEntity extends BlockEntity implements StylingConta
     }
 
     @Override
-    public boolean stillValid(Player player) {
+    public boolean stillValid(@NotNull Player player) {
         return Container.stillValidBlockEntity(this, player);
     }
 

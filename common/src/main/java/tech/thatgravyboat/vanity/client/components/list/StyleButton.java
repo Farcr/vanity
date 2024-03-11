@@ -8,6 +8,7 @@ import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tech.thatgravyboat.vanity.client.components.base.BaseAbstractWidget;
 import tech.thatgravyboat.vanity.common.Vanity;
@@ -50,7 +51,7 @@ public class StyleButton extends BaseAbstractWidget {
     }
 
     @Override
-    protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    protected void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         ResourceLocation texture = texture(this.isHovered(), selected);
         graphics.blit(
             texture,

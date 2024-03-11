@@ -26,9 +26,9 @@ public class Vanity {
 
         ModProfessions.POIS.init();
         ModProfessions.PROFESSIONS.init();
+        ModCreativeModeTabs.TABS.init();
 
         NetworkHandler.init();
-        ModCreativeModeTabs.init();
         ModGameRules.init();
         Conditions.init();
     }

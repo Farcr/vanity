@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.HorseArmorItem;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import tech.thatgravyboat.vanity.api.design.DesignManager;
 import tech.thatgravyboat.vanity.api.style.AssetTypes;
 import tech.thatgravyboat.vanity.api.style.Style;
@@ -30,7 +31,7 @@ public class StyledItemWidget extends BaseAbstractWidget {
     }
 
     @Override
-    protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    protected void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         if (!this.isAutoRotating) {
             boolean buttonHovered = isHoveringButton(mouseX, mouseY);
             ResourceLocation texture = buttonHovered ? HOVERED : NORMAL;

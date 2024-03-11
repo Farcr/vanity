@@ -47,7 +47,7 @@ public class HumanoidArmorLayerMixin<T extends LivingEntity, A extends HumanoidM
 
     @SuppressWarnings({"MixinAnnotationTarget", "UnresolvedMixinReference", "unchecked"})
     @Inject(method = "getArmorModelHook", remap = false, at = @At("HEAD"), cancellable = true)
-    @PlatformOnly("forge")
+    @PlatformOnly("neoforge")
     private void vanity$changeModel(T livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, A model, CallbackInfoReturnable<A> cir) {
         if (ClientDesignManager.INSTANCE.hasAsset(itemStack, AssetTypes.GECKOLIB_ARMOR)) {
             StyledArmorGeoAnimatable animatable = StyledArmorGeoAnimatable.get(itemStack);

@@ -1,0 +1,30 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+issueTrackerURL = "https://github.com/Farcr/Vanity/issues"
+license = "MIT"
+
+[[mods]]
+    modId = "vanity"
+    version = "${version}"
+    displayName = "Vanity"
+    description = "Apply any look you want to your items, and make your own Vanity Packs to share with the world."
+    authors = "Farcr, ThatGravyBoat"
+    credits = "Jackson, Ocelot"
+    displayURL = "https://modrinth.com/project/vanity-core"
+
+[modproperties.vanity]
+    catalogueImageIcon="vanity.icon.png"
+
+[[dependencies.vanity]]
+    modId = "neoforge"
+    type="required"
+    versionRange = "[20.4,)"
+    ordering = "AFTER"
+    side = "BOTH"
+
+[[dependencies.vanity]]
+    modId = "minecraft"
+    type="required"
+    versionRange = "[1.20.4,)"
+    ordering = "AFTER"
+    side = "BOTH"

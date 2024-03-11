@@ -1,9 +1,11 @@
 package tech.thatgravyboat.vanity.common.network.packets.client;
 
+import com.teamresourceful.bytecodecs.base.ByteCodec;
+import com.teamresourceful.bytecodecs.base.object.ObjectByteCodec;
 import com.teamresourceful.resourcefullib.common.network.Packet;
 import com.teamresourceful.resourcefullib.common.network.base.ClientboundPacketType;
 import com.teamresourceful.resourcefullib.common.network.base.PacketType;
-import net.minecraft.network.FriendlyByteBuf;
+import com.teamresourceful.resourcefullib.common.network.defaults.CodecPacketType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import tech.thatgravyboat.vanity.client.VanityClientNetwork;
@@ -29,29 +31,18 @@ public record ClientboundSyncConfigPacket(
         return TYPE;
     }
 
-    private static class Type implements ClientboundPacketType<ClientboundSyncConfigPacket> {
+    private static class Type extends CodecPacketType<ClientboundSyncConfigPacket> implements ClientboundPacketType<ClientboundSyncConfigPacket> {
 
-        public static final ResourceLocation ID = new ResourceLocation(Vanity.MOD_ID, "sync_config");
-
-        @Override
-        public Class<ClientboundSyncConfigPacket> type() {
-            return ClientboundSyncConfigPacket.class;
-        }
-
-        @Override
-        public ResourceLocation id() {
-            return ID;
-        }
-
-        @Override
-        public void encode(ClientboundSyncConfigPacket message, FriendlyByteBuf buffer) {
-            buffer.writeBoolean(message.unlockableDesigns);
-            buffer.writeBoolean(message.lockDesignStorage);
-        }
-
-        @Override
-        public ClientboundSyncConfigPacket decode(FriendlyByteBuf buffer) {
-            return new ClientboundSyncConfigPacket(buffer.readBoolean(), buffer.readBoolean());
+        public Type() {
+            super(
+                    ClientboundSyncConfigPacket.class,
+                new ResourceLocation(Vanity.MOD_ID, "sync_config"),
+                ObjectByteCodec.create(
+                    ByteCodec.BOOLEAN.fieldOf(ClientboundSyncConfigPacket::unlockableDesigns),
+                    ByteCodec.BOOLEAN.fieldOf(ClientboundSyncConfigPacket::lockDesignStorage),
+                    ClientboundSyncConfigPacket::new
+                )
+            );
         }
 
         @Override

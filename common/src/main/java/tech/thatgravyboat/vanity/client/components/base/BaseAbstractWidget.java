@@ -3,8 +3,6 @@ package tech.thatgravyboat.vanity.client.components.base;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
-import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.CommonComponents;
 import org.jetbrains.annotations.NotNull;
@@ -16,20 +14,15 @@ public abstract class BaseAbstractWidget extends AbstractWidget {
     }
 
     @Override
-    protected abstract void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick);
+    protected abstract void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick);
 
     @Override
-    protected void updateWidgetNarration(NarrationElementOutput output) {
+    protected void updateWidgetNarration(@NotNull NarrationElementOutput output) {
 
     }
 
     @Override
-    protected @NotNull ClientTooltipPositioner createTooltipPositioner() {
-        return DefaultTooltipPositioner.INSTANCE;
-    }
-
-    @Override
-    public void playDownSound(SoundManager handler) {
+    public void playDownSound(@NotNull SoundManager handler) {
 
     }
 }

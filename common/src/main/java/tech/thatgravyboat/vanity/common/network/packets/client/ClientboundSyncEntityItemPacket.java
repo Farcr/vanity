@@ -1,9 +1,12 @@
 package tech.thatgravyboat.vanity.common.network.packets.client;
 
+import com.teamresourceful.bytecodecs.base.ByteCodec;
+import com.teamresourceful.bytecodecs.base.object.ObjectByteCodec;
+import com.teamresourceful.resourcefullib.common.bytecodecs.ExtraByteCodecs;
 import com.teamresourceful.resourcefullib.common.network.Packet;
 import com.teamresourceful.resourcefullib.common.network.base.ClientboundPacketType;
 import com.teamresourceful.resourcefullib.common.network.base.PacketType;
-import net.minecraft.network.FriendlyByteBuf;
+import com.teamresourceful.resourcefullib.common.network.defaults.CodecPacketType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import tech.thatgravyboat.vanity.client.VanityClientNetwork;
@@ -18,29 +21,18 @@ public record ClientboundSyncEntityItemPacket(int entityId, ItemStack stack) imp
         return TYPE;
     }
 
-    private static class Type implements ClientboundPacketType<ClientboundSyncEntityItemPacket> {
+    private static class Type extends CodecPacketType<ClientboundSyncEntityItemPacket> implements ClientboundPacketType<ClientboundSyncEntityItemPacket> {
 
-        public static final ResourceLocation ID = new ResourceLocation(Vanity.MOD_ID, "sync_entity_item");
-
-        @Override
-        public Class<ClientboundSyncEntityItemPacket> type() {
-            return ClientboundSyncEntityItemPacket.class;
-        }
-
-        @Override
-        public ResourceLocation id() {
-            return ID;
-        }
-
-        @Override
-        public void encode(ClientboundSyncEntityItemPacket message, FriendlyByteBuf buffer) {
-            buffer.writeInt(message.entityId());
-            buffer.writeItem(message.stack());
-        }
-
-        @Override
-        public ClientboundSyncEntityItemPacket decode(FriendlyByteBuf buffer) {
-            return new ClientboundSyncEntityItemPacket(buffer.readInt(), buffer.readItem());
+        public Type() {
+            super(
+                ClientboundSyncEntityItemPacket.class,
+                new ResourceLocation(Vanity.MOD_ID, "sync_entity_item"),
+                ObjectByteCodec.create(
+                        ByteCodec.VAR_INT.fieldOf(ClientboundSyncEntityItemPacket::entityId),
+                        ExtraByteCodecs.ITEM_STACK.fieldOf(ClientboundSyncEntityItemPacket::stack),
+                        ClientboundSyncEntityItemPacket::new
+                )
+            );
         }
 
         @Override

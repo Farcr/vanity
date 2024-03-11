@@ -15,13 +15,14 @@ import java.util.*;
 public class UnlockableSaveHandler extends SaveHandler {
 
     private static final Logger LOGGER = LogUtils.getLogger();
-    private static final String FILE_NAME = "vanity_unlockables";
     private static final UnlockableSaveHandler CLIENT = new UnlockableSaveHandler();
+    private static final HandlerType<UnlockableSaveHandler> TYPE = HandlerType.create(CLIENT, UnlockableSaveHandler::new);
+    private static final String FILE_NAME = "vanity_unlockables";
 
     private final Map<UUID, List<ResourceLocation>> unlockables = new HashMap<>();
 
     public static UnlockableSaveHandler get(Level level) {
-        return SaveHandler.read(level, CLIENT, UnlockableSaveHandler::new, FILE_NAME);
+        return SaveHandler.read(level, TYPE, FILE_NAME);
     }
 
     public static boolean addUnlockable(Level level, UUID uuid, ResourceLocation id) {

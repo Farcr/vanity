@@ -8,8 +8,7 @@
         "common.AbstractHorseAccessor",
         "common.PlayerListMixin",
         "common.ServerEntityMixin",
-        "common.fixes.ArrowMixin",
-        "common.fixes.ThrownTridentMixin"
+        "common.fixes.AbstractArrowMixin"
     ],
     "client": [
         "client.ItemRendererMixin",

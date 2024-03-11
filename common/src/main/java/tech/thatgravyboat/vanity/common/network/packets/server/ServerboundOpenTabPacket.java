@@ -1,10 +1,11 @@
 package tech.thatgravyboat.vanity.common.network.packets.server;
 
+import com.teamresourceful.bytecodecs.base.ByteCodec;
 import com.teamresourceful.resourcefullib.common.network.Packet;
 import com.teamresourceful.resourcefullib.common.network.base.PacketType;
 import com.teamresourceful.resourcefullib.common.network.base.ServerboundPacketType;
+import com.teamresourceful.resourcefullib.common.network.defaults.CodecPacketType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -25,28 +26,14 @@ public record ServerboundOpenTabPacket(boolean storage) implements Packet<Server
         return TYPE;
     }
 
-    private static class Type implements ServerboundPacketType<ServerboundOpenTabPacket> {
+    private static class Type extends CodecPacketType<ServerboundOpenTabPacket> implements ServerboundPacketType<ServerboundOpenTabPacket> {
 
-        public static final ResourceLocation ID = new ResourceLocation(Vanity.MOD_ID, "open_tab");
-
-        @Override
-        public Class<ServerboundOpenTabPacket> type() {
-            return ServerboundOpenTabPacket.class;
-        }
-
-        @Override
-        public ResourceLocation id() {
-            return ID;
-        }
-
-        @Override
-        public void encode(ServerboundOpenTabPacket message, FriendlyByteBuf buffer) {
-            buffer.writeBoolean(message.storage());
-        }
-
-        @Override
-        public ServerboundOpenTabPacket decode(FriendlyByteBuf buffer) {
-            return new ServerboundOpenTabPacket(buffer.readBoolean());
+        public Type() {
+            super(
+                ServerboundOpenTabPacket.class,
+                new ResourceLocation(Vanity.MOD_ID, "open_tab"),
+                ByteCodec.BOOLEAN.map(ServerboundOpenTabPacket::new, ServerboundOpenTabPacket::storage)
+            );
         }
 
         @Override

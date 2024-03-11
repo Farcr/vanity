@@ -10,6 +10,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import org.jetbrains.annotations.NotNull;
 import tech.thatgravyboat.vanity.client.components.display.StyledItemWidget;
 import tech.thatgravyboat.vanity.client.components.StylingTabButton;
 import tech.thatgravyboat.vanity.client.components.list.StylesListWidget;
@@ -74,7 +75,7 @@ public class StylingScreen extends AbstractContainerScreen<StylingMenu> implemen
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         super.render(graphics, mouseX, mouseY, partialTick);
         this.renderTooltip(graphics, mouseX, mouseY);
     }
@@ -87,14 +88,13 @@ public class StylingScreen extends AbstractContainerScreen<StylingMenu> implemen
 
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
-        this.renderBackground(graphics);
         graphics.blit(BACKGROUND, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
         if (!this.showingStorage) return;
         graphics.blit(BACKGROUND, this.leftPos + 42, this.topPos, 176, 54, 26, 28);
     }
 
     @Override
-    public void slotChanged(AbstractContainerMenu menu, int i, ItemStack itemStack) {
+    public void slotChanged(@NotNull AbstractContainerMenu menu, int i, @NotNull ItemStack itemStack) {
         if (this.list != null) {
             this.list.addAll(this.menu.styles(), this.menu.getInput());
             this.list.select(this.menu.getResult());
@@ -105,7 +105,7 @@ public class StylingScreen extends AbstractContainerScreen<StylingMenu> implemen
     }
 
     @Override
-    public void dataChanged(AbstractContainerMenu menu, int i, int j) {}
+    public void dataChanged(@NotNull AbstractContainerMenu menu, int i, int j) {}
 
     @Override
     public boolean mouseDragged(double d, double e, int i, double f, double g) {

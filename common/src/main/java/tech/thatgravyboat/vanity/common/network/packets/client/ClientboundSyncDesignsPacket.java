@@ -54,7 +54,7 @@ public record ClientboundSyncDesignsPacket(Map<ResourceLocation, Design> designs
             return new ClientboundSyncDesignsPacket(
                 buffer.readMap(
                     FriendlyByteBuf::readResourceLocation,
-                    buf -> buf.readWithCodec(NbtOps.INSTANCE, Design.CODEC)
+                    buf -> buf.readWithCodecTrusted(NbtOps.INSTANCE, Design.CODEC)
                 )
             );
         }

@@ -73,13 +73,13 @@ public class DesignCategory implements IRecipeCategory<DesignCategoryRecipe> {
     }
 
     @Override
-    public void draw(DesignCategoryRecipe recipe, IRecipeSlotsView view, GuiGraphics graphics, double mouseX, double mouseY) {
+    public void draw(DesignCategoryRecipe recipe, @NotNull IRecipeSlotsView view, @NotNull GuiGraphics graphics, double mouseX, double mouseY) {
         if (!recipe.alwaysAvailable()) return;
         this.emptySlot.draw(graphics, 6, 6);
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, DesignCategoryRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull DesignCategoryRecipe recipe, @NotNull IFocusGroup focuses) {
         if (Minecraft.getInstance().getConnection() == null) return;
         RegistryAccess access = Minecraft.getInstance().getConnection().registryAccess();
         Registry<Item> registry = access.registry(Registries.ITEM).orElse(null);

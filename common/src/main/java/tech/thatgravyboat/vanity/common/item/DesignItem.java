@@ -1,6 +1,5 @@
 package tech.thatgravyboat.vanity.common.item;
 
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
@@ -23,7 +22,7 @@ public class DesignItem extends Item {
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
         if (ModGameRules.UNLOCKABLE_DESIGNS.getValue(level, level.isClientSide())) {
             ItemStack stack = player.getItemInHand(hand);
             ResourceLocation design = DesignHelper.getDesign(stack);
@@ -48,7 +47,7 @@ public class DesignItem extends Item {
     }
 
     @Override
-    public @NotNull Component getName(ItemStack stack) {
+    public @NotNull Component getName(@NotNull ItemStack stack) {
         ResourceLocation design = DesignHelper.getDesign(stack);
         if (design != null) {
             return DesignHelper.getTranslationKey(design, null);

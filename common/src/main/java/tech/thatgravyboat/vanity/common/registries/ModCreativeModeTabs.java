@@ -1,6 +1,10 @@
 package tech.thatgravyboat.vanity.common.registries;
 
-import com.teamresourceful.resourcefullib.common.item.tabs.ResourcefulCreativeTab;
+import com.teamresourceful.resourcefullib.common.item.tabs.ResourcefulCreativeModeTab;
+import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
+import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistries;
+import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -18,21 +22,22 @@ import java.util.function.BiConsumer;
 public class ModCreativeModeTabs {
 
     private static final ResourceKey<CreativeModeTab> FUNCTIONAL_BLOCKS = ResourceKey.create(Registries.CREATIVE_MODE_TAB, new ResourceLocation("functional_blocks"));
+    public static final ResourcefulRegistry<CreativeModeTab> TABS = ResourcefulRegistries.create(BuiltInRegistries.CREATIVE_MODE_TAB, Vanity.MOD_ID);
 
-    public static void init() {
-        new ResourcefulCreativeTab(new ResourceLocation(Vanity.MOD_ID, "designs"))
-            .setItemIcon(ModBlocks.STYLING_TABLE)
-            .addContent(() -> {
-                DesignManager manager = DesignManager.get(true);
-                List<ResourceLocation> designs = new ArrayList<>();
-                for (var entry : manager.getAllDesigns().entrySet()) {
-                    if (entry.getValue().type().hideFromCreativeTab()) continue;
-                    designs.add(entry.getKey());
-                }
+    public static final RegistryEntry<CreativeModeTab> DESIGN_TAB = TABS.register("designs",
+            () -> new ResourcefulCreativeModeTab(new ResourceLocation(Vanity.MOD_ID, "designs"))
+                    .setItemIcon(ModBlocks.STYLING_TABLE)
+                    .addContent(() -> {
+                        DesignManager manager = DesignManager.get(true);
+                        List<ResourceLocation> designs = new ArrayList<>();
+                        for (var entry : manager.getAllDesigns().entrySet()) {
+                            if (entry.getValue().type().hideFromCreativeTab()) continue;
+                            designs.add(entry.getKey());
+                        }
 
-                return designs.stream().map(DesignHelper::createDesignItem);
-            }).build();
-    }
+                        return designs.stream().map(DesignHelper::createDesignItem);
+                    }).build()
+    );
 
     /**
      * Adds the value after the value specified in the first parameter of the bi-consumer

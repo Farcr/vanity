@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tech.thatgravyboat.vanity.api.design.DesignManager;
 import tech.thatgravyboat.vanity.common.Vanity;
@@ -59,7 +60,7 @@ public class StylingMenu extends BaseContainerMenu {
 
         this.addSlot(new Slot(this.input, 0, 80, 50) {
             @Override
-            public boolean mayPlace(ItemStack stack) {
+            public boolean mayPlace(@NotNull ItemStack stack) {
                 return !stack.is(ModItems.DESIGN.get());
             }
 
@@ -70,7 +71,7 @@ public class StylingMenu extends BaseContainerMenu {
             }
 
             @Override
-            public void onTake(Player player, ItemStack itemStack) {
+            public void onTake(@NotNull Player player, @NotNull ItemStack itemStack) {
                 StylingMenu.this.updateDesign();
                 super.onTake(player, itemStack);
                 lastInput = ItemStack.EMPTY;
@@ -78,12 +79,12 @@ public class StylingMenu extends BaseContainerMenu {
         });
         this.addSlot(new Slot(this.result, 0, 80, 98) {
             @Override
-            public boolean mayPlace(ItemStack stack) {
+            public boolean mayPlace(@NotNull ItemStack stack) {
                 return false;
             }
 
             @Override
-            public void onTake(Player player, ItemStack stack) {
+            public void onTake(@NotNull Player player, @NotNull ItemStack stack) {
                 StylingMenu.this.access.execute((level, blockPos) -> level.playSound(null, blockPos, ModSounds.TAKE_RESULT_STYLING_TABLE.get(), SoundSource.BLOCKS, 1.0F, 1.0F));
 
                 int count = stack.getCount();
@@ -125,7 +126,7 @@ public class StylingMenu extends BaseContainerMenu {
     }
 
     @Override
-    public void removed(Player player) {
+    public void removed(@NotNull Player player) {
         super.removed(player);
         this.access.execute((arg2, arg3) -> this.clearContainer(player, this.input));
     }

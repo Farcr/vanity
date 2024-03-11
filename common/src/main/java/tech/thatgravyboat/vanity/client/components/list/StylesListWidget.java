@@ -9,6 +9,7 @@ import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import tech.thatgravyboat.vanity.client.components.base.BaseParentWidget;
 import tech.thatgravyboat.vanity.common.Vanity;
 import tech.thatgravyboat.vanity.common.item.DesignHelper;
@@ -62,7 +63,7 @@ public class StylesListWidget extends BaseParentWidget {
     }
 
     @Override
-    protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+    protected void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
         graphics.enableScissor(getX() + OFFSET, getY() + OFFSET, getX() + 56, getY() + 71);
         if (this.layout != null) this.layout.setPosition(this.getX() + OFFSET, this.getY() + OFFSET - (int) scroll);
         mouseX = this.isHovered() ? mouseX : -1;
@@ -102,7 +103,7 @@ public class StylesListWidget extends BaseParentWidget {
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double scrollY) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
         this.scroll = Mth.clamp(this.scroll - scrollY * 9, 0, Math.max(0, this.lastHeight - this.height));
         return true;
     }

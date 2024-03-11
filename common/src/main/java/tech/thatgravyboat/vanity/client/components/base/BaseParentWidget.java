@@ -39,7 +39,7 @@ public abstract class BaseParentWidget extends BaseAbstractWidget implements Con
 
 
     @Override
-    protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+    protected void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
         for (Renderable renderable : this.children) {
             renderable.render(graphics, mouseX, mouseY, partialTicks);
         }

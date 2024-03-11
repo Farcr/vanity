@@ -15,17 +15,17 @@ public interface StylingContainer extends WorldlyContainer {
     NonNullList<ItemStack> items();
 
     @Override
-    default int @NotNull [] getSlotsForFace(Direction direction) {
+    default int @NotNull [] getSlotsForFace(@NotNull Direction direction) {
         return EMPTY;
     }
 
     @Override
-    default boolean canPlaceItemThroughFace(int i, ItemStack itemStack, @Nullable Direction direction) {
+    default boolean canPlaceItemThroughFace(int i, @NotNull ItemStack itemStack, @Nullable Direction direction) {
         return false;
     }
 
     @Override
-    default boolean canTakeItemThroughFace(int i, ItemStack itemStack, Direction direction) {
+    default boolean canTakeItemThroughFace(int i, @NotNull ItemStack itemStack, @NotNull Direction direction) {
         return false;
     }
 
@@ -61,7 +61,7 @@ public interface StylingContainer extends WorldlyContainer {
     }
 
     @Override
-    default void setItem(int slot, ItemStack stack) {
+    default void setItem(int slot, @NotNull ItemStack stack) {
         this.items().set(slot, stack);
     }
 

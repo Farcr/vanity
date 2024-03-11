@@ -19,6 +19,6 @@ public class ModBlocks {
     public static final ResourcefulRegistry<Block> BLOCKS = ResourcefulRegistries.create(BuiltInRegistries.BLOCK, Vanity.MOD_ID);
     public static final ResourcefulRegistry<BlockEntityType<?>> BLOCK_ENTITIES = ResourcefulRegistries.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, Vanity.MOD_ID);
 
-    public static final Supplier<Block> STYLING_TABLE = BLOCKS.register("styling_table", () -> new StylingTableBlock(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE).strength(2.5F).sound(SoundType.WOOD).noOcclusion()));
+    public static final Supplier<Block> STYLING_TABLE = BLOCKS.register("styling_table", () -> new StylingTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CRAFTING_TABLE).strength(2.5F).sound(SoundType.WOOD).noOcclusion()));
     public static final Supplier<BlockEntityType<StylingTableBlockEntity>> STYLING_TABLE_BE = BLOCK_ENTITIES.register("styling_table", () -> BlockEntityType.Builder.of(StylingTableBlockEntity::new, STYLING_TABLE.get()).build(null));
 }

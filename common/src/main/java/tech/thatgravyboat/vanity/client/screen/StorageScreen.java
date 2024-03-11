@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Items;
+import org.jetbrains.annotations.NotNull;
 import tech.thatgravyboat.vanity.client.components.StylingTabButton;
 import tech.thatgravyboat.vanity.common.Vanity;
 import tech.thatgravyboat.vanity.common.menu.StorageMenu;
@@ -50,7 +51,7 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         super.render(graphics, mouseX, mouseY, partialTick);
         this.renderTooltip(graphics, mouseX, mouseY);
     }
@@ -62,8 +63,7 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
     }
 
     @Override
-    protected void renderBg(GuiGraphics graphics, float f, int i, int j) {
-        this.renderBackground(graphics);
+    protected void renderBg(@NotNull GuiGraphics graphics, float f, int i, int j) {
         graphics.blit(BACKGROUND, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
         graphics.renderFakeItem(ModItems.DESIGN.get().getDefaultInstance(), this.leftPos + 80, this.topPos + 45);
 

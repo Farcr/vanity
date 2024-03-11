@@ -42,14 +42,14 @@ public class StylingTableBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block block, BlockPos blockPos2, boolean bl) {
+    public void neighborChanged(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos, @NotNull Block block, @NotNull BlockPos blockPos2, boolean bl) {
         if (!level.isClientSide() && blockState.getValue(POWERED) != level.hasNeighborSignal(blockPos)) {
             level.setBlock(blockPos, blockState.cycle(POWERED), Block.UPDATE_CLIENTS);
         }
     }
 
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
             if (level.getBlockEntity(pos) instanceof StylingTableBlockEntity table && level instanceof ServerLevel) {
                 Containers.dropContents(level, pos, table);
@@ -59,7 +59,7 @@ public class StylingTableBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public @NotNull InteractionResult use(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof StylingTableBlockEntity table) {
             table.styling().openMenu((ServerPlayer) player);
         }
@@ -68,7 +68,7 @@ public class StylingTableBlock extends Block implements EntityBlock {
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return new StylingTableBlockEntity(pos, state);
     }
 

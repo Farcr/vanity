@@ -1,6 +1,7 @@
 package tech.thatgravyboat.vanity.mixins.common;
 
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.CommonListenerCookie;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Shadow;
 import tech.thatgravyboat.vanity.common.handler.design.ServerDesignManager;
@@ -27,8 +28,8 @@ public class PlayerListMixin {
                     shift = At.Shift.BEFORE
             )
     )
-    private void vanity$onBeforeSendRecipes(Connection connection, ServerPlayer serverPlayer, CallbackInfo ci) {
-        NetworkHandler.CHANNEL.sendToPlayer(ServerDesignManager.INSTANCE.createPacket(), serverPlayer);
+    private void vanity$onBeforeSendRecipes(Connection connection, ServerPlayer player, CommonListenerCookie cookie, CallbackInfo ci) {
+        NetworkHandler.CHANNEL.sendToPlayer(ServerDesignManager.INSTANCE.createPacket(), player);
     }
 
     @Inject(
@@ -39,7 +40,7 @@ public class PlayerListMixin {
             shift = At.Shift.AFTER
         )
     )
-    private void vanity$onPlayerConnect(Connection connection, ServerPlayer serverPlayer, CallbackInfo ci) {
-        NetworkHandler.CHANNEL.sendToPlayer(new ClientboundSyncConfigPacket(this.server), serverPlayer);
+    private void vanity$onPlayerConnect(Connection connection, ServerPlayer player, CommonListenerCookie cookie, CallbackInfo ci) {
+        NetworkHandler.CHANNEL.sendToPlayer(new ClientboundSyncConfigPacket(this.server), player);
     }
 }

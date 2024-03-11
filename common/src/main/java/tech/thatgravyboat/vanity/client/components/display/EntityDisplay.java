@@ -7,6 +7,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import tech.thatgravyboat.vanity.api.style.Style;
 
 public abstract class EntityDisplay implements Display {
@@ -21,9 +22,10 @@ public abstract class EntityDisplay implements Display {
 
         InventoryScreen.renderEntityInInventory(
                 graphics,
-                x + width / 2,
+                x + width / 2f,
                 y + height - 10,
                 25,
+                new Vector3f(),
                 angle,
                 null,
                 this.entity
