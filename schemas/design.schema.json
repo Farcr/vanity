@@ -158,6 +158,9 @@
                                 },
                                 "armor": {
                                     "$ref": "#/definitions/resourceLocation"
+                                },
+                                "geckolib_armor": {
+                                    "$ref": "#/definitions/resourceLocation"
                                 }
                             },
                             "required": [
