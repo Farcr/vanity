@@ -15,6 +15,11 @@ license = "MIT"
 [modproperties.vanity]
     catalogueImageIcon="vanity.icon.png"
 
+[[mixins]]
+    config="vanity-common.mixins.json"
+[[mixins]]
+    config="vanity-neo.mixins.json"
+
 [[dependencies.vanity]]
     modId = "neoforge"
     type="required"
