@@ -19,4 +19,9 @@ public abstract class BaseProvider<T extends MenuContent<T>> implements ContentM
     public @NotNull Component getDisplayName() {
         return ComponentConstants.CONTAINER_TITLE;
     }
+
+    @Override
+    public boolean resetMouseOnOpen() {
+        return false;
+    }
 }
