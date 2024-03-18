@@ -1,0 +1,27 @@
+{
+  "block.vanity.styling_table": "Bancada de estilização",
+  "container.vanity.styling_table": "Bancada de estilização",
+
+  "screen.vanity.styling_table.styling": "Estilizar itens",
+  "screen.vanity.styling_table.design": "Armazenamento de modelos",
+  "screen.vanity.styling_table.original": "Remover estilo",
+  "screen.vanity.styling_table.auto_rotate": "Girar automaticamente",
+  "screen.vanity.styling_table.storage.tooltip": "Armazenamento só aceita modelos",
+
+  "entity.minecraft.villager.stylist": "Estilista",
+  "entity.minecraft.villager.vanity.stylist": "Estilista",
+
+  "item.vanity.design": "Modelo",
+  "itemGroup.vanity.designs": "Vanity: Modelos",
+
+  "subtitles.ui.vanity.styling_table.take_result": "Bancada de estilização usada",
+  "subtitles.item.vanity.design.open": "Modelo aberto",
+
+  "text.vanity.design.fail": "Você já tem este modelo",
+
+  "gamerule.vanityUnlockableDesigns": "Modelos desbloqueáveis",
+  "gamerule.vanityLockDesignStorage": "Bloquear armazenamento de modelos",
+
+  "jei.vanity.designs": "Modelos",
+  "jei.vanity.designs.always_available": "Sempre disponíveis"
+}
