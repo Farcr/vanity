@@ -1,0 +1,27 @@
+{
+  "block.vanity.styling_table": "Mesa de personalización",
+  "container.vanity.styling_table": "Mesa de personalización",
+
+  "screen.vanity.styling_table.styling": "Personalizar objetos",
+  "screen.vanity.styling_table.design": "Almacenamiento de diseños",
+  "screen.vanity.styling_table.original": "Quitar personalización",
+  "screen.vanity.styling_table.auto_rotate": "Rotar automáticamente",
+  "screen.vanity.styling_table.storage.tooltip": "El almacén solo acepta diseños",
+
+  "entity.minecraft.villager.stylist": "Personalizador",
+  "entity.minecraft.villager.vanity.stylist": "Personalizador",
+
+  "item.vanity.design": "Diseño",
+  "itemGroup.vanity.designs": "Vanity: Diseños",
+
+  "subtitles.ui.vanity.styling_table.take_result": "Mesa de personalización usada",
+  "subtitles.item.vanity.design.open": "Diseño abierto",
+
+  "text.vanity.design.fail": "Ya tienes este diseño",
+
+  "gamerule.vanityUnlockableDesigns": "Diseños no-desbloqueables",
+  "gamerule.vanityLockDesignStorage": "Bloquear almacenamiento de diseños",
+
+  "jei.vanity.designs": "Diseños",
+  "jei.vanity.designs.always_available": "Siempre disponible"
+}
