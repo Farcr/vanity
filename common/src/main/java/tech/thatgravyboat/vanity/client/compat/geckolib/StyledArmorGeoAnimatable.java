@@ -17,6 +17,7 @@ import software.bernie.geckolib.model.DefaultedItemGeoModel;
 import software.bernie.geckolib.util.RenderUtil;
 import tech.thatgravyboat.vanity.api.style.AssetTypes;
 import tech.thatgravyboat.vanity.client.design.ClientDesignManager;
+import tech.thatgravyboat.vanity.common.Vanity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -69,11 +70,27 @@ public final class StyledArmorGeoAnimatable implements SingletonGeoAnimatable {
 
     public HumanoidModel<LivingEntity> getModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<LivingEntity> original) {
         if(this.renderer == null) {
-            this.renderer = new StyledGeoArmorRenderer(new DefaultedItemGeoModel<>(id));
+            this.renderer = new StyledGeoArmorRenderer(new ItemGeoModel(id));
         }
 
         this.renderer.prepForRender(livingEntity, itemStack, equipmentSlot, original);
 
         return this.renderer;
+    }
+
+    private static class ItemGeoModel extends DefaultedItemGeoModel<StyledArmorGeoAnimatable> {
+
+        private static final ResourceLocation[] FALLBACKS = new ResourceLocation[] {
+                Vanity.id("animations/empty.animation.json")
+        };
+
+        public ItemGeoModel(ResourceLocation id) {
+            super(id);
+        }
+
+        @Override
+        public ResourceLocation[] getAnimationResourceFallbacks(StyledArmorGeoAnimatable animatable) {
+            return FALLBACKS;
+        }
     }
 }
