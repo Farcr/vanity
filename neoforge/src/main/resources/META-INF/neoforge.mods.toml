@@ -1,7 +1,7 @@
 modLoader = "javafml"
 loaderVersion = "[1,)"
 issueTrackerURL = "https://github.com/Farcr/Vanity/issues"
-license = "MIT"
+license = "https://github.com/Farcr/vanity/blob/8740a407830c38eea84a955854691e909cc71bd7/LICENSE"
 
 [[mods]]
     modId = "vanity"
