@@ -12,6 +12,12 @@ public class DesignSlot extends Slot {
     }
 
     @Override
+    public int getMaxStackSize()
+    {
+        return 1;
+    }
+
+    @Override
     public boolean mayPlace(ItemStack stack) {
         return stack.has(ModDataComponents.DESIGN.get());
     }
