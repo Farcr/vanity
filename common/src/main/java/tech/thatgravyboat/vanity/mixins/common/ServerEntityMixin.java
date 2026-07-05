@@ -27,7 +27,7 @@ public class ServerEntityMixin {
         )
     )
     private void vantity$addPairing(ServerPlayer serverPlayer, CallbackInfo ci) {
-        if (this.entity instanceof EntityItemHolder holder) {
+        if (this.entity instanceof EntityItemHolder holder && holder.vanity$getItem() != null && !holder.vanity$getItem().isEmpty()) {
             ClientboundSyncEntityItemPacket packet = new ClientboundSyncEntityItemPacket(this.entity.getId(), holder.vanity$getItem());
             NetworkHandler.CHANNEL.sendToPlayer(packet, serverPlayer);
         }
